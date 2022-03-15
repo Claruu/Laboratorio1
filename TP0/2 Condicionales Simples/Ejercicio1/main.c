@@ -8,7 +8,7 @@ int main()
 
     float promedio = 0, notaIngresada = 1, sumaNotas = 0;
     int cantNotas = 0;
-
+    system("color 0a");
     printf("Programa para calcular promedios.\n");
 
     do
@@ -22,7 +22,14 @@ int main()
             sumaNotas += notaIngresada;
         }
 
-    } while (notaIngresada != 0 && cantNotas < 3);
+    } while (notaIngresada > 0 && cantNotas < 3);
+
+    if (cantNotas <= 0)
+    {
+        printf("No se han ingresado notas.\n");
+        system("pause");
+        return 1;
+    }
 
     promedio = (float)(sumaNotas / cantNotas);
     printf("\nSu promedio es de: %.2f ", promedio);

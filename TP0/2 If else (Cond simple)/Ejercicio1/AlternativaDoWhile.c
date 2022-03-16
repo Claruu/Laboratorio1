@@ -8,26 +8,34 @@ int main()
 
     float promedio = 0, notaIngresada = 1, sumaNotas = 0;
     int cantNotas = 0;
-    system("color 0a");
     printf("Programa para calcular promedios.\n");
-
+    system("color 0b");
+    printf("\nPara calcular el promedio, ingrese algun numero negativo. \n Ausente = 0 (cuenta en el promedio)\n");
     do
     {
-        printf("\nPara calcular el promedio, ingrese 0. \n Ingrese la nota %d: ", cantNotas + 1);
+        printf("\n Ingrese la nota %d: ", cantNotas + 1);
         scanf("\n%f", &notaIngresada);
 
-        if (notaIngresada > 0)
+        do
+            if (notaIngresada > 10)
+            {
+                printf("\n  Incorrecto. Por favor ingrese un numero del 0 al 10. \n");
+                printf("\n Ingrese la nota %d: ", cantNotas + 1);
+                scanf("\n %f", &notaIngresada);
+            }
+        while (notaIngresada > 10 || notaIngresada < 0);
+
+        if (notaIngresada >= 0)
         {
             cantNotas++;
             sumaNotas += notaIngresada;
         }
 
-    } while (notaIngresada > 0 && cantNotas < 3);
+    } while (notaIngresada >= 0 && cantNotas < 3);
 
     if (cantNotas <= 0)
     {
         printf("No se han ingresado notas.\n");
-        system("pause");
         return 1;
     }
 

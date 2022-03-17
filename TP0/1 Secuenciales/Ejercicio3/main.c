@@ -20,7 +20,7 @@ int main()
     porMujeres = (float)((mujeres / totalAlumnos) * 100);
 
     printf("En su clase, el porcentaje de mujeres es de: %.2f \n", porMujeres);
-    printf("En su clase, el porcentaje de hombres es de: %.2f \n", porHombres);
+    printf("Por lo cual, el porcentaje de hombres es de: %.2f \n", porHombres);
 
     system("pause");
     return 0;

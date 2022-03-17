@@ -19,17 +19,15 @@ int main()
 
     promedio = sumaNumero / 3;
 
-    printf("Su promedio es de %.2f", promedio);
-
     if (promedio >= 7)
     {
         printf("\nAlumno, ya que su promedio es de %.2f:", promedio);
-        printf("\nUsted aprueba la materia :> \n");
+        printf("\nUsted aprueba la materia :D \n");
     }
     else
     {
         printf("\nAlumno, ya que su promedio es de %.2f:", promedio);
-        printf("\nUsted reprueba la materia >: \n");
+        printf("\nUsted reprueba la materia :c \n");
     }
 
     system("pause");

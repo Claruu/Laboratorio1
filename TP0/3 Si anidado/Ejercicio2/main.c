@@ -4,6 +4,11 @@
 
 int main()
 {
+    int numeroUno=0, numeroDos=0, numeroTres=0;
+    
     printf("Hello world!\n");
+    
+
+    system("pause");
     return 0;
 }

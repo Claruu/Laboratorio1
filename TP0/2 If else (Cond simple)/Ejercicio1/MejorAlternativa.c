@@ -8,8 +8,9 @@ int main()
 
     float promedio = 0, notaIngresada = 1, sumaNotas = 0;
     int cantNotas = 0;
-    printf("Programa para calcular promedios.\n");
-    printf("\nPara calcular el promedio, ingrese algun numero negativo. \n Ausente = 0 (cuenta en el promedio)\n");
+    printf("\t Programa para calcular promedios.\t\n");
+    printf("\n En este programa, aceptamos 3 notas. \n \t NO se permite el ingreso de notas ");
+    printf("negativas.\t \n Ausente = 0 (cuenta en el promedio) \t \n");
     do
     {
         printf("\n Ingrese la nota %d: ", cantNotas + 1);

@@ -11,6 +11,7 @@ int main()
     pagaExtra = 400;
     horasExtra = 0;
     limiteHoras = 40;
+    salarioBase = horasTrabajadas * pagaBase;
     salarioExtra = (limiteHoras * 300);
 
     printf("\nPor favor, ingrese las horas que trabajo esta semana:\n");
@@ -24,7 +25,6 @@ int main()
     }
     else
     {
-        salarioBase = limiteHoras * pagaBase;
         salarioBase = (horasTrabajadas - limiteHoras) * pagaExtra;
         salarioFinal = (salarioBase + salarioExtra);
         printf("\nEsta semana, ya que trabajaste %.2f", horasTrabajadas);

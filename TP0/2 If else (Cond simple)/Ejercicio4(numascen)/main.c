@@ -5,7 +5,7 @@ int main()
 {
     int numerouno, numerodos;
 
-    printf("      Por favor ingrese dos numeros diferentes:       \n");
+    printf("\tPor favor ingrese dos numeros diferentes:       \n");
     scanf("%i", &numerouno);
     scanf("%i", &numerodos);
 

@@ -4,16 +4,16 @@
 int main()
 {
     float nota = 0, promedio = 0, indice = 0, sumaNota = 0;
-    printf("Por favor ingrese calificaciones\n");
-    while (indice < 3)
+    printf("\tSistema de calculo de promedios. \n      Se promedia entre 7 calificaciones.\t");
+    while (indice < 7)
     {
         indice++;
-        printf("Ingrese calificacion");
+        printf("\nIngrese una calificacion, por favor: ");
         scanf("%f", &nota);
         sumaNota += nota;
     }
     promedio = sumaNota / indice;
-    printf("promedio: %.2f \n", promedio);
+    printf("Su promedio es de: %.2f \n", promedio);
 
     system("pause");
     return 0;

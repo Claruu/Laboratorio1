@@ -4,6 +4,19 @@
 
 int main()
 {
-    printf("Hello world!\n");
+    int numero = 0, contador = 0;
+
+    while (contador < 10)
+    {
+        contador++;
+        printf("Ingrese el numero #%d:\n", contador);
+        scanf("%d", &numero);
+
+        if (numero > 0)
+        {
+            printf("\nNumero positivo!:%d \n", numero);
+        }
+    }
+
     return 0;
 }

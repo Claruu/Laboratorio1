@@ -13,6 +13,8 @@ int main()
     printf("\n2 - Resta");
     printf("\n3 - Multiplicacion");
     printf("\n4 - Division\n");
+    printf("5 - Cuadrado del primer numero\n");
+    printf("6 - Cuadrado del segundo numero\n");
     printf("\nPor favor seleccione que operacion desea realizar: ");
     scanf("%d", &opcion);
 
@@ -30,11 +32,17 @@ int main()
     case 4:
         resultado = numeroUno / numeroDos;
         break;
+    case 5:
+        resultado = numeroUno * numeroUno;
+        break;
+    case 6:
+        resultado = numeroDos * numeroDos;
+        break;
     default:
         printf("\t \tOpcion invalida.\t\n");
         break;
     }
-    while (opcion < 5)
+    if (opcion < 7)
     {
         printf("\nEl resultado es: %d \n", resultado);
     }
@@ -43,20 +51,3 @@ int main()
 
     return 0;
 }
-//
-
-//     if (numeroUno != numeroDos && numeroUno > numeroDos)
-//     {
-//         resultado = numeroUno - numeroDos;
-//         printf("\t %d - %d = %d \n", numeroUno, numeroDos, resultado);
-//     }
-//     else if (numeroUno == numeroDos)
-//     {
-//         resultado = numeroUno * numeroDos;
-//         printf("\t %d * %d = %d \n", numeroUno, numeroDos, resultado);
-//     }
-//     else
-//     {
-//         resultado = (numeroDos + numeroUno);
-//         printf("\t %d + %d = %d \n", numeroDos, numeroUno, resultado);
-//     }

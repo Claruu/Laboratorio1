@@ -1,50 +1,55 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include ".\pila.c"
-// 1. Cargar desde el teclado una pila DADA con 5 elementos.
-// Pasar los tres primeros elementos que se encuentren en el tope a la pila AUX1
-// y los restantes a la pila AUX2, ambas pilas inicializadas.
+// 9. Comparar la cantidad de elementos de las pilas A y B. Mostrar por pantalla el resultado.
+
 int main()
 {
     // declaro pilas
-    Pila dada, aux1, aux2;
+    Pila pilaA, pilaB;
+    int user = 0;
     // inicializo pilas
-    inicpila(&dada);
-    inicpila(&aux1);
-    inicpila(&aux2);
+    inicpila(&pilaA);
+    inicpila(&pilaB);
 
-    // apilo valores -SI O SI- es así
-    apilar(&dada, 5);
-    apilar(&dada, 4);
-    apilar(&dada, 3);
-    apilar(&dada, 2);
-    apilar(&dada, 1);
+    printf("\tPrograma de comparacion de valores entre pilas.\t");
 
-    // muestro los valores de la pila DADA
-    printf("Al principio, la pila dada es asi: \n");
-    mostrar(&dada);
+    printf("\nPara pasar a ingresar elementos en la pila B, ingrese 0\n Ingrese elementos Pila A:\n");
+    do
+    {
+        scanf("%d", &user);
+        if (user != 0)
+        {
+            apilar(&pilaA, user);
+        }
 
-    // paso de dada a aux1 3 valores
-    apilar(&aux1, desapilar(&dada));
-    apilar(&aux1, desapilar(&dada));
-    apilar(&aux1, desapilar(&dada));
-    printf("Luego de desapilar 3 valores, DADA se ve asi: \n");
-    mostrar(&dada);
+    } while (user != 0);
 
-    printf("Ahora, aux1 se ve asi: \n");
-    mostrar(&aux1);
+    printf("\n Ingrese elementos Pila B, para finalizar la carga ingrese 0");
+    do
+    {
+        scanf("%d", &user);
+        if (user != 0)
+        {
+            apilar(&pilaB, user);
+        }
 
-    apilar(&aux2, desapilar(&dada));
-    apilar(&aux2, desapilar(&dada));
+    } while (user != 0);
 
-    printf("La pila dada se convirtio en una pila vacia, no tiene valores, se ve asi: \n");
-    mostrar(&dada);
+    while (!pilavacia(&pilaA) && !pilavacia(&pilaB))
+    {
+        desapilar(&pilaA);
+        desapilar(&pilaB);
+    }
 
-    printf("La pila AUX1 se ve asi al finalizar el programa: \n");
-    mostrar(&aux1);
-
-    printf("La pila AUX2 se ve asi al finalizar el programa: \n");
-    mostrar(&aux2);
+    if (pilavacia(&pilaA) && pilavacia(&pilaB))
+    {
+        printf("Tienen la misma cantidad de elementos :D\n");
+    }
+    else
+    {
+        printf("Una pila tiene mas elementos que la otra.\n");
+    }
 
     system("pause");
     return 0;

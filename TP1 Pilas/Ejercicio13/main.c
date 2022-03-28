@@ -5,6 +5,41 @@
 
 int main()
 {
+    Pila limite, dada, mayores, menores;
+    int user = 0;
+    char continuar;
+    continuar = 's';
+    inicpila(&limite);
+    inicpila(&dada);
+    inicpila(&mayores);
+    inicpila(&menores);
+
+    printf("\tIngrese valores para la pila LIMITE\t\n");
+    do
+    {
+        scanf("%d", &user);
+        apilar(&limite, user);
+        fflush(stdin);
+        printf("\nDesea seguir ingresando valores? PILA LIMITE\n");
+        scanf("%c", &continuar);
+        fflush(stdin);
+    } while (continuar == 's' || continuar == 'S');
+
+    printf("\n\tIngrese valores para la pila DADA\t\n");
+    do
+    {
+        scanf("%d", &user);
+        apilar(&dada, user);
+        fflush(stdin);
+        printf("\nDesea seguir ingresando valores? PILA LIMITE\n");
+        scanf("%c", &continuar);
+        fflush(stdin);
+    } while (continuar == 's' || continuar == 'S');
+
+    printf("PILA LIMITE\n");
+    mostrar(&limite);
+    printf("PILA DADA\n");
+    mostrar(&dada);
 
     system("pause");
     return 0;

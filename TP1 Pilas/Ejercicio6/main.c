@@ -6,13 +6,13 @@
 int main()
 {
     // declaro pilas
-    Pila dada, aux1;
+    Pila dada, aux;
 
     int user = 0, tope = 0;
 
     // inicializo pilas
     inicpila(&dada);
-    inicpila(&aux1);
+    inicpila(&aux);
 
     printf("Ingrese los valores para la pila DADA.\n");
     printf("Al ingresar el numero 0, finaliza la carga de valores.\n");
@@ -33,14 +33,14 @@ int main()
 
     while (!pilavacia(&dada))
     {
-        apilar(&aux1, desapilar(&dada));
+        apilar(&aux, desapilar(&dada));
     }
 
     apilar(&dada, tope);
 
-    while (!pilavacia(&aux1))
+    while (!pilavacia(&aux))
     {
-        apilar(&dada, desapilar(&aux1));
+        apilar(&dada, desapilar(&aux));
     }
 
     printf("\n Al pasar el tope de tu pila DADA a la base, se ve asi:\n");

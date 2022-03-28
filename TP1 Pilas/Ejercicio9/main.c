@@ -7,7 +7,7 @@ int main()
 {
     // declaro pilas
     Pila pilaA, pilaB;
-    int user = 0;
+    int user = 0, valor = 0;
     // inicializo pilas
     inicpila(&pilaA);
     inicpila(&pilaB);
@@ -38,17 +38,17 @@ int main()
 
     while (!pilavacia(&pilaA) && !pilavacia(&pilaB))
     {
-        desapilar(&pilaA);
-        desapilar(&pilaB);
+        valor = desapilar(&pilaA);
+        valor = desapilar(&pilaB);
     }
 
-    if (pilavacia(&pilaA) && pilavacia(&pilaB))
+    if (pilavacia(&pilaA) ^ /*(xor)*/ pilavacia(&pilaB))
     {
-        printf("Tienen la misma cantidad de elementos :D\n");
+        printf("No tienen la misma cantidad de elementos.\n");
     }
     else
     {
-        printf("Una pila tiene mas elementos que la otra.\n");
+        printf("Tienen la misma cantidad de elementos :D\n");
     }
 
     system("pause");

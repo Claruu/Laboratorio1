@@ -1,1 +1,1 @@
-continuar
+desapilar(&limite);

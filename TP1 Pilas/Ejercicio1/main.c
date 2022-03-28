@@ -13,7 +13,7 @@ int main()
     inicpila(&aux1);
     inicpila(&aux2);
 
-    // apilo valores -SI O SI- es así
+    // apilo valores en dada
     apilar(&dada, 5);
     apilar(&dada, 4);
     apilar(&dada, 3);

@@ -15,8 +15,6 @@ int main()
     inicpila(&distintos);
     inicpila(&aux);
 
-    printf("Por favor ingrese los valores para la pila DADA.\n");
-    printf("Al ingresar el numero 0, finaliza la carga de valores.\n");
     do
     {
         printf("\tIngrese un valor para la pila DADA\t\n");

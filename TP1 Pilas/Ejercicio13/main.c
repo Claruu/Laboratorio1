@@ -25,9 +25,9 @@ int main()
         scanf("%c", &continuar);
     } while (continuar == 's' || continuar == 'S');
 
-    printf("\n\tIngrese valores para la pila DADA\t\n");
     do
     {
+        printf("\n\tIngrese valores para la pila DADA\t\n");
         fflush(stdin);
         scanf("%d", &user);
         apilar(&dada, user);

@@ -7,7 +7,8 @@ int main()
 {
     // declaro pilas
     Pila dada, aux;
-
+char continuar;
+    continuar = 's';
     int user = 0, tope = 0;
 
     // inicializo pilas

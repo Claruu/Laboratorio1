@@ -8,6 +8,8 @@ int main()
     // declaro pilas
     Pila dada, distintos, aux;
     int user = 0;
+    char continuar;
+    continuar = 's';
     // inicializo pilas
     inicpila(&dada);
     inicpila(&distintos);

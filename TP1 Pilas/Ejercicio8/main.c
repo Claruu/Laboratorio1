@@ -7,6 +7,8 @@ int main()
     // declaro pilas
     Pila mazo, jugador1, jugador2;
     int user = 0;
+    char continuar;
+    continuar = 's';
     // inicializo pilas
     inicpila(&mazo);
     inicpila(&jugador1);

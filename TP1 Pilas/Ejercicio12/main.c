@@ -7,6 +7,7 @@ int main()
 {
     // declaro e inicializo pilas y variables
     Pila modelo, dada, mAux, dAux;
+
     int user = 0, flag = 0;
     inicpila(&modelo);
     inicpila(&dada);
@@ -14,26 +15,29 @@ int main()
     inicpila(&mAux);
 
     // pido el ingreso de valores para la pila MODELO y DADA
-    printf("Ingrese valores para la pila MODELO\n");
     do
     {
+        printf("\tIngrese un valor para la pila MODELO\t\n");
+        fflush(stdin);
         scanf("%d", &user);
-        if (user != 0) // si el user no ingresa 0, se apila, si ingresa 0, deja de ingresar datos
-        {
-            apilar(&modelo, user);
-        }
+        apilar(&modelo, user);
+        printf("\nDesea seguir ingresando valores? PILA MODELO\n");
+        fflush(stdin);
+        scanf("%c", &continuar);
+    } while (continuar == 's' || continuar == 'S');
 
-    } while (user != 0);
 
-    printf("Ingrese valores para la pila DADA\n");
     do
     {
+        printf("\tIngrese un valor para la pila DADA\t\n");
+        fflush(stdin);
         scanf("%d", &user);
-        if (user != 0)
-        {
-            apilar(&dada, user);
-        }
-    } while (user != 0);
+        apilar(&dada, user);
+        printf("\nDesea seguir ingresando valores? PILA DADA\n");
+        fflush(stdin);
+        scanf("%c", &continuar);
+    } while (continuar == 's' || continuar == 'S');
+
     printf("\nEsta es su pila DADA: \n");
     mostrar(&dada);
 

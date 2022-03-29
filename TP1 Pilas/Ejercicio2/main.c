@@ -6,9 +6,12 @@ int main()
 {
     // Defino pilas, inicializo, defino e inicializo variable user
     Pila origen, destino;
+    char continuar;
+    continuar = 's';
     inicpila(&origen);
     inicpila(&destino);
     int user = 0;
+    
 
     // pido al user que me ingrese los valores necesarios
     printf("Primer valor para la pila ORIGEN: \n");

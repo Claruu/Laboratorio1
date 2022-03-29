@@ -11,18 +11,18 @@ int main()
     inicpila(&origen);
     inicpila(&destino);
     int user = 0;
-    
 
     // pido al user que me ingrese los valores necesarios
-    printf("Primer valor para la pila ORIGEN: \n");
-    scanf("%d", &user);
-    apilar(&origen, user);
-    printf("Segundo valor para la pila ORIGEN: \n");
-    scanf("%d", &user);
-    apilar(&origen, user);
-    printf("Tercer valor para la pila ORIGEN: \n");
-    scanf("%d", &user);
-    apilar(&origen, user);
+    do
+    {
+        printf("\tIngrese un valor para la pila ORIGEN\t\n");
+        fflush(stdin);
+        scanf("%d", &user);
+        apilar(&origen, user);
+        printf("\nDesea seguir ingresando valores? PILA ORIGEN\n");
+        fflush(stdin);
+        scanf("%c", &continuar);
+    } while (continuar == 's' || continuar == 'S');
 
     // le muestro como se ve originalmente su pila
     printf("Entonces, su pila ORIGEN se ve asi originalmente");

@@ -7,7 +7,8 @@ int main()
 {
     // declaro e inicializo pilas y variables
     Pila modelo, dada, mAux, dAux;
-
+    char continuar;
+    continuar = 's';
     int user = 0, flag = 0;
     inicpila(&modelo);
     inicpila(&dada);
@@ -25,7 +26,6 @@ int main()
         fflush(stdin);
         scanf("%c", &continuar);
     } while (continuar == 's' || continuar == 'S');
-
 
     do
     {

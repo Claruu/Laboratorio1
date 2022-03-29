@@ -15,28 +15,27 @@ int main()
     inicpila(&pilaB);
 
     printf("\tPrograma de comparacion de valores entre pilas. V 2.0\t");
-
-    printf("\nPara pasar a ingresar elementos en la pila B, ingrese 0\n Ingrese elementos Pila A:\n");
     do
     {
+        printf("\tIngrese un valor para la pila A\t\n");
+        fflush(stdin);
         scanf("%d", &user);
-        if (user != 0)
-        {
-            apilar(&pilaA, user);
-        }
+        apilar(&pilaA, user);
+        printf("\nDesea seguir ingresando valores? PILA A\n");
+        fflush(stdin);
+        scanf("%c", &continuar);
+    } while (continuar == 's' || continuar == 'S');
 
-    } while (user != 0);
-
-    printf("\n Ingrese elementos Pila B, para finalizar la carga ingrese 0\n");
     do
     {
+        printf("\tIngrese un valor para la pila B\t\n");
+        fflush(stdin);
         scanf("%d", &user);
-        if (user != 0)
-        {
-            apilar(&pilaB, user);
-        }
-
-    } while (user != 0);
+        apilar(&pilaB, user);
+        printf("\nDesea seguir ingresando valores? PILA B\n");
+        fflush(stdin);
+        scanf("%c", &continuar);
+    } while (continuar == 's' || continuar == 'S');
 
     while (!pilavacia(&pilaA) && !pilavacia(&pilaB))
     {

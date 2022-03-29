@@ -14,15 +14,16 @@ int main()
     inicpila(&jugador1);
     inicpila(&jugador2);
 
-    printf("Ingrese los elementos del mazo\n");
     do
     {
+        printf("\tIngrese un valor para la pila MAZO\t\n");
+        fflush(stdin);
         scanf("%d", &user);
-        if (user != 0)
-        {
-            apilar(&mazo, user);
-        }
-    } while (user != 0);
+        apilar(&mazo, user);
+        printf("\nDesea seguir ingresando valores? PILA MAZO\n");
+        fflush(stdin);
+        scanf("%c", &continuar);
+    } while (continuar == 's' || continuar == 'S');
 
     while (!pilavacia(&mazo))
     {

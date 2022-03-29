@@ -8,7 +8,7 @@ int main()
     // declaro pilas
     Pila modelo, dada, dAux, mAux;
     int user = 0, flag = 0;
-     char continuar;
+    char continuar;
     continuar = 's';
     // inicializo pilas
     inicpila(&modelo);
@@ -18,30 +18,30 @@ int main()
 
     printf("\tPrograma de comparacion de valores entre pilas.\t");
 
-    printf("\nPara pasar a ingresar elementos en la DADA, ingrese 0\n Ingrese elementos MODELO:\n");
     do
     {
+        printf("\tIngrese un valor para la pila DADA\t\n");
+        fflush(stdin);
         scanf("%d", &user);
-        if (user != 0)
-        {
-            apilar(&modelo, user);
-        }
-
-    } while (user != 0);
+        apilar(&dada, user);
+        printf("\nDesea seguir ingresando valores? PILA DADA\n");
+        fflush(stdin);
+        scanf("%c", &continuar);
+    } while (continuar == 's' || continuar == 'S');
 
     printf("Esta es su pila MODELO: \n");
     mostrar(&modelo);
 
-    printf("\n Ingrese elementos DADA, para finalizar la carga ingrese 0\n");
     do
     {
+        printf("\tIngrese un valor para la pila MODELO\t\n");
+        fflush(stdin);
         scanf("%d", &user);
-        if (user != 0)
-        {
-            apilar(&dada, user);
-        }
-
-    } while (user != 0);
+        apilar(&modelo, user);
+        printf("\nDesea seguir ingresando valores? PILA MODELO\n");
+        fflush(stdin);
+        scanf("%c", &continuar);
+    } while (continuar == 's' || continuar == 'S');
 
     printf("Esta es su pila DADA: \n");
     mostrar(&dada);

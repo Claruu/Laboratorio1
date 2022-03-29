@@ -17,13 +17,14 @@ int main()
 
     do
     {
+        printf("\tIngrese un valor para la pila ORIGEN\t\n");
+        fflush(stdin);
         scanf("%d", &user);
-        if (user != 0)
-        {
-            apilar(&origen, user);
-        }
-
-    } while (user != 0);
+        apilar(&origen, user);
+        printf("\nDesea seguir ingresando valores? PILA ORIGEN\n");
+        fflush(stdin);
+        scanf("%c", &continuar);
+    } while (continuar == 's' || continuar == 'S');
 
     printf("Primero te muestro la pila ORIGEN");
     mostrar(&origen);

@@ -19,13 +19,14 @@ int main()
     printf("Al ingresar el numero 0, finaliza la carga de valores.\n");
     do
     {
+        printf("\tIngrese un valor para la pila DADA\t\n");
+        fflush(stdin);
         scanf("%d", &user);
-        if (user != 0)
-        {
-            apilar(&dada, user);
-        }
-
-    } while (user != 0);
+        apilar(&dada, user);
+        printf("\nDesea seguir ingresando valores? PILA DADA\n");
+        fflush(stdin);
+        scanf("%c", &continuar);
+    } while (continuar == 's' || continuar == 'S');
 
     // muestro los valores de la pila DADA
     printf("Al principio, tu pila dada es asi: \n");

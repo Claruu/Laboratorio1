@@ -24,36 +24,6 @@ int main()
         fflush(stdin);
         scanf("%c", &continuar);
     } while (continuar == 's' || continuar == 'S');
-    do
-    {
-        printf("\tIngrese un valor para la pila LIMITE\t\n");
-        fflush(stdin);
-        scanf("%d", &user);
-        apilar(&limite, user);
-        printf("\nDesea seguir ingresando valores? PILA LIMITE\n");
-        fflush(stdin);
-        scanf("%c", &continuar);
-    } while (continuar == 's' || continuar == 'S');
-    do
-    {
-        printf("\tIngrese un valor para la pila LIMITE\t\n");
-        fflush(stdin);
-        scanf("%d", &user);
-        apilar(&limite, user);
-        printf("\nDesea seguir ingresando valores? PILA LIMITE\n");
-        fflush(stdin);
-        scanf("%c", &continuar);
-    } while (continuar == 's' || continuar == 'S');
-    do
-    {
-        printf("\tIngrese un valor para la pila LIMITE\t\n");
-        fflush(stdin);
-        scanf("%d", &user);
-        apilar(&limite, user);
-        printf("\nDesea seguir ingresando valores? PILA LIMITE\n");
-        fflush(stdin);
-        scanf("%c", &continuar);
-    } while (continuar == 's' || continuar == 'S');
 
     printf("\n\tIngrese valores para la pila DADA\t\n");
     do

@@ -14,25 +14,25 @@ int main()
     inicpila(&pilaA);
     inicpila(&pilaB);
 
-    printf("\tPrograma de comparacion de valores entre pilas. V 2.0\t");
+    printf("Programa de comparacion de valores entre pilas. V 2.0\n");
     do
     {
-        printf("\tIngrese un valor para la pila A\t\n");
+        printf("Ingrese un valor para la pila A: ");
         fflush(stdin);
         scanf("%d", &user);
         apilar(&pilaA, user);
-        printf("\nDesea seguir ingresando valores? PILA A\n");
+        printf("Desea seguir ingresando valores? PILA A: ");
         fflush(stdin);
         scanf("%c", &continuar);
     } while (continuar == 's' || continuar == 'S');
 
     do
     {
-        printf("\tIngrese un valor para la pila B\t\n");
+        printf("Ingrese un valor para la pila B ");
         fflush(stdin);
         scanf("%d", &user);
         apilar(&pilaB, user);
-        printf("\nDesea seguir ingresando valores? PILA B\n");
+        printf("Desea seguir ingresando valores? PILA B: ");
         fflush(stdin);
         scanf("%c", &continuar);
     } while (continuar == 's' || continuar == 'S');
@@ -56,10 +56,14 @@ int main()
     if (flag == 1)
     {
         printf("Son distintas.\n");
+        mostrar(&pilaA);
+        mostrar(&pilaB);
     }
     else
     {
         printf("Son iguales\n");
+        mostrar(&pilaA);
+        mostrar(&pilaB);
     }
 
     system("pause");

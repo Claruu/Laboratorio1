@@ -1,11 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "..\Librerias\pila.c"
-//
+//Verificar si una pila DADA es capicúa. 
+
 
 int main()
 {
-    // respuesta en teoría
+
     system("pause");
     return 0;
 }

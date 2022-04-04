@@ -54,9 +54,6 @@ int main()
     printf("La pila DADA tiene todos los elementos que sean 8, se ve asi: \n");
     mostrar(&dada);
 
-    printf("La pila DISTINTOS se ve asi al finalizar el programa: \n");
-    mostrar(&distintos);
-
     system("pause");
     return 0;
 }

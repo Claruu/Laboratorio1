@@ -1,1 +1,2 @@
-Pila
+        mostrar(&pilaA);
+        mostrar(&pilaB);

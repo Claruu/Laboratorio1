@@ -9,7 +9,7 @@ int main()
     Pila modelo, dada, mAux, dAux;
     char continuar;
     continuar = 's';
-    int user = 0, flag = 0;
+    int user = 0, flag = 0, basura = 0;
     inicpila(&modelo);
     inicpila(&dada);
     inicpila(&dAux);
@@ -18,22 +18,22 @@ int main()
     // pido el ingreso de valores para la pila MODELO y DADA
     do
     {
-        printf("\tIngrese un valor para la pila MODELO\t\n");
+        printf("Ingrese un valor para la pila MODELO: ");
         fflush(stdin);
         scanf("%d", &user);
         apilar(&modelo, user);
-        printf("\nDesea seguir ingresando valores? PILA MODELO\n");
+        printf("Desea seguir ingresando valores? PILA MODELO: ");
         fflush(stdin);
         scanf("%c", &continuar);
     } while (continuar == 's' || continuar == 'S');
 
     do
     {
-        printf("\tIngrese un valor para la pila DADA\t\n");
+        printf("Ingrese un valor para la pila DADA: ");
         fflush(stdin);
         scanf("%d", &user);
         apilar(&dada, user);
-        printf("\nDesea seguir ingresando valores? PILA DADA\n");
+        printf("Desea seguir ingresando valores? PILA DADA: ");
         fflush(stdin);
         scanf("%c", &continuar);
     } while (continuar == 's' || continuar == 'S');
@@ -41,41 +41,36 @@ int main()
     printf("\nEsta es su pila DADA: \n");
     mostrar(&dada);
 
-    // mientras que modelo NO sea una pila vacia, se ejecuta esto.
     if (!pilavacia(&modelo))
     {
-        while (!pilavacia(&dada)) // mientras que dada NO este vacia, pasa esto
+        while (!pilavacia(&dada))
         {
-            flag = 0; // se inicializa en 0 para el while la flag
+            flag = 0;
             while (!pilavacia(&modelo))
             {
                 // mientras que modelo NO este vacia, se compara si los topes de DADA y MODELO son iguales o no. Para esto, se DESAPILA MODELO, y se APILA en MAUX
                 if (tope(&dada) == tope(&modelo))
                 {
-                    flag = 1; // si son iguales los topes, flag es cierto, es 1
+                    flag = 1;
                     break;
                 }
                 apilar(&mAux, desapilar(&modelo));
             }
 
-            // luego de pasar por el while numero 1, pasamos al 2. Si MAUX no es una pila vacia, se lo apila sus valores en MODELO
             while (!pilavacia(&mAux))
             {
                 apilar(&modelo, desapilar(&mAux));
             }
 
-            // pero si flag = 0 o sea que sus topes NO fueron iguales, se apila en el AUX desapilando de DADA
             if (flag == 0)
             {
                 apilar(&dAux, desapilar(&dada));
             }
-            // SI LOS TOPES SON IGUALES SE DESAPILA DADA
             else
             {
-                desapilar(&dada);
+                basura = desapilar(&dada);
             }
         }
-        // MIENTRAS QUE DAUX NO SEA UNA PILA VACIA SE APILA EN DADA
         while (!pilavacia(&dAux))
         {
             apilar(&dada, desapilar(&dAux));

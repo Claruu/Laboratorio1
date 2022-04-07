@@ -5,24 +5,30 @@
 
 int main()
 {
-    Pila pilaUser;
+    Pila pilaUser, aux;
     inicpila(&pilaUser);
+    inicpila(&aux);
     int user = 0, sumaUser = 0;
     char continuar;
     continuar = 's';
 
     do
     {
-        printf("Ingrese elementos a la pila: ");
-        fflush(stdin);
-        scanf("%d", &user);
+        leer(&pilaUser);
         printf("Desea seguir agregando elementos? ");
         fflush(stdin);
         scanf("%c", &continuar);
-        sumaUser += user;
-        apilar(&pilaUser, user);
     } while (continuar == 's' || continuar == 'S');
 
+    while (!pilavacia(&pilaUser))
+    {
+        sumaUser += tope(&pilaUser);
+        apilar(&aux, desapilar(&pilaUser));
+    }
+    while (!pilavacia(&aux))
+    {
+        apilar(&pilaUser, desapilar(&aux));
+    }
     printf("Tu pila se ve asi: ");
     mostrar(&pilaUser);
     printf("Por lo cual, la suma de tus valores seria de %d.\n", sumaUser);

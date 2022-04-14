@@ -5,20 +5,20 @@
 
 int main()
 {
-    Pila dada, copiaDada, aux, copiaAux;
-    inicpila(&copiaDada);
+    Pila dada, copiaDada, aux, basura;
     inicpila(&dada);
-    inicpila(&copiaAux);
     inicpila(&aux);
+    inicpila(&copiaDada);
+    inicpila(&basura);
     char continuar = 's';
 
     while (continuar == 's' || continuar == 'S')
     {
         leer(&dada);
         printf("Desea continuar? s/n ");
+        apilar(&copiaDada, tope(&dada));
         fflush(stdin);
         scanf("%c", &continuar);
-        apilar(&copiaDada, tope(&dada));
     }
 
     while (!pilavacia(&copiaDada))
@@ -26,32 +26,26 @@ int main()
         apilar(&aux, desapilar(&copiaDada));
     }
 
-    printf("DADA");
+    printf("Tu pila se ve asi:\n");
     mostrar(&dada);
-    printf("copiaDada");
-    mostrar(&copiaDada);
 
-    printf("\nAhora verificaremos si tu pila DADA es capicua \n");
+    printf("\tEs capicua?\n");
 
     while (!pilavacia(&dada) && (!pilavacia(&aux)))
     {
         if (tope(&dada) != tope(&aux))
         {
-            printf("\tTu pila DADA -NO- es capicua\n");
+            printf("\nNo, tu pila DADA -NO- es capicua\n");
             break;
         }
 
-        apilar(&copiaDada, desapilar(&dada));
-        apilar(&copiaAux, desapilar(&aux));
+        apilar(&basura, desapilar(&dada));
+        apilar(&basura, desapilar(&aux));
     }
 
     if (pilavacia(&dada) && pilavacia(&aux))
     {
-        printf("Es capicua :D\n");
-        printf("COPIA-DADA\n");
-        mostrar(&copiaDada);
-        printf("COPIA-AUX\n");
-        mostrar(&copiaAux);
+        printf("\nSi, tu pila DADA -ES- capicua :D\n");
     }
 
     system("pause");

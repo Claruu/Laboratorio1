@@ -21,7 +21,12 @@ void transferirMismoOrden(Pila *, Pila *, Pila *);
 int buscarMenor(Pila *, Pila *, int);
 
 // 5. Hacer una función que pase los elementos de una pila a otra, de manera que se genere una nueva pila ordenada. Usar la función del ejercicio 4. (Ordenamiento por selección)
-void ordenarPila(Pila *, Pila *);
+void ordenarPorSeleccion(Pila *, Pila *);
+
+// 6. Hacer una función que inserta en una pila ordenada un nuevo elemento, conservando el orden de ésta.
+void insertarEnOrdenada(Pila *);
+
+// 7. Hacer una función que pase los elementos de una pila a otra, de manera que se genere una nueva pila ordenada. Usar la función del ejercicio 6.  (Ordenamiento por inserción)
 
 int main()
 {
@@ -33,7 +38,7 @@ int main()
     inicpila(&aux);
     inicpila(&basura);
 
-    printf("\tMenu TP4: Funciones \n");
+    printf("\tMenu TP3: Funciones \n");
 
     do
     {
@@ -53,7 +58,6 @@ int main()
             break;
         case 4:
             vaciarPila(&uno, &basura);
-
             printf(" %d \n", buscarMenor(&uno, &aux, 1));
             printf("\nSu pila ORIGINAL sin el elemento menor: ");
             mostrar(&uno);
@@ -61,7 +65,12 @@ int main()
         case 5:
             vaciarPila(&uno, &basura);
             vaciarPila(&aux, &basura);
-            ordenarPila(&uno, &aux);
+            cargarPila(&uno);
+            ordenarPorSeleccion(&uno, &aux);
+            break;
+        case 6:
+            vaciarPila(&uno, &basura);
+            insertarEnOrdenada(&uno);
             break;
         default:
             printf("Usted no ha ingresado una opcion valida.\n");
@@ -82,10 +91,11 @@ int mostrarMenu()
 {
     int opcion = 0;
     printf("1-Funcion para cargar una pila.\n");
-    printf("2-Funcion para transferir elementos de una pila a otra.\n");
-    printf("3-Funcion para transferir elementos de una pila a otra conservando el orden.\n");
-    printf("4-Funcion para buscar el menor elemento de una pila.\n");
-    printf("5-Funcion para ordenar por seleccion una pila.\n");
+    printf("2-Transferir elementos de una pila a otra.\n");
+    printf("3-Transferir elementos de una pila a otra conservando el orden.\n");
+    printf("4-Buscar el menor elemento de una pila y retornarlo.\n");
+    printf("5-Ordenar por seleccion una pila.\n");
+    printf("6-Insertar en una pila ordenada un elemento, conservando el orden.\n");
     printf("\nIngrese la opcion a elegir (entre 1 y 10): ");
     fflush(stdin);
     scanf("%d", &opcion);
@@ -191,12 +201,11 @@ int buscarMenor(Pila *original, Pila *aux, int cargar)
     return menor;
 }
 
-void ordenarPila(Pila *paraOrdenar, Pila *aux)
+void ordenarPorSeleccion(Pila *paraOrdenar, Pila *aux)
 {
     int menorElemento;
     Pila b;
     inicpila(&b);
-    cargarPila(paraOrdenar);
 
     while (!pilavacia(paraOrdenar))
     {
@@ -209,4 +218,33 @@ void ordenarPila(Pila *paraOrdenar, Pila *aux)
     }
     printf("Su pila ordenada :D");
     mostrar(paraOrdenar);
+}
+
+void insertarEnOrdenada(Pila *ordenada)
+{
+    int user;
+    Pila aux;
+    inicpila(&aux);
+    cargarPila(ordenada);
+    ordenarPorSeleccion(ordenada, &aux);
+    printf("Ingrese un numero para insertar en la pila ordenada: ");
+    fflush(stdin);
+    scanf("%d", &user);
+    while (!pilavacia(ordenada))
+    {
+        if (tope(ordenada) < user)
+        {
+            apilar(&aux, desapilar(ordenada));
+            continue;
+        }
+        apilar(ordenada, user);
+        break;
+    }
+
+    while (!pilavacia(&aux))
+    {
+        apilar(ordenada, desapilar(&aux));
+    }
+    printf("Su pila ordenada, senior :D");
+    mostrar(ordenada);
 }

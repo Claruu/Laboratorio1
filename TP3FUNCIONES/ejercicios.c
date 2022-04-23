@@ -28,9 +28,18 @@ void ordenarPorInsercion(Pila *, int);
 /// 7. Hacer una función que pase los elementos de una pila a otra, de manera que se genere una nueva pila ordenada. Usar la función del ejercicio 6.  (Ordenamiento por inserción)
 void pasarOrdenada(Pila *, Pila *);
 
+// 8. Hacer una función que sume y retorne los dos primeros elementos de una pila (tope y anterior), sin alterar su contenido.
+int sumaYretornoPrimerosElementos(Pila, int *, int *, int *);
+// funcion ayuda para ejercicio 8
+void sumaDosPrimerosElementos(Pila, int *, int *, int *);
+int verificacionPilaConDosElementos(Pila);
+
+// 9. Hacer una función que calcule el promedio de los elementos de una pila, para ello hacer también una función que calcule la suma, otra para la cuenta y otra que divida. En total son cuatro funciones, y la función que calcula el promedio invoca a las otras 3.
+
+void mirarPila();
 int main()
 {
-    int opcion = 0;
+    int opcion = 0, primero = 0, segundo = 0, suma = 0;
     char continuar = 's';
     Pila uno, dos, aux;
     inicpila(&uno);
@@ -93,6 +102,17 @@ int main()
             cargarPila(&dos);
             pasarOrdenada(&uno, &dos);
             break;
+        case 8:
+            printf("\tSumar y retornar los dos primeros elementos de una pila, sin alterar su contenido\n");
+            cargarPila(&uno);
+            verificacionPilaConDosElementos(uno);
+            sumaDosPrimerosElementos(uno, &suma, &primero, &segundo);
+            sumaYretornoPrimerosElementos(uno, &suma, &primero, &segundo);
+            mostrar(&uno);
+            printf("\nSu primer elemento: %d\n", primero);
+            printf("Su segundo elemento: %d\n", segundo);
+            printf("El resultado de la suma de ambos elementos: %d\n", suma);
+            break;
         default:
             printf("\tUsted no ha ingresado una opcion valida.\n");
             break;
@@ -117,6 +137,7 @@ int mostrarMenu()
     printf("5-Ordenar por seleccion una pila.\n");
     printf("6-Insertar en una pila ordenada un elemento, conservando el orden.\n");
     printf("7-Realizar una nueva pila ordenada en base a una ya ordenada.\n");
+    printf("8-Sumar y retornar los dos primeros elementos de una pila, sin alterar su contenido\n");
     printf("\tIngrese la opcion a elegir (entre 1 y 10): ");
     fflush(stdin);
     scanf("%d", &opcion);
@@ -255,8 +276,38 @@ void pasarOrdenada(Pila *ordenada, Pila *nuevosDatos)
 
     while (!pilavacia(nuevosDatos))
     {
+
         ordenarPorInsercion(ordenada, desapilar(nuevosDatos));
     }
 
     mostrar(ordenada);
+}
+
+int verificacionPilaConDosElementos(Pila uno)
+{
+    int validacion = 0, basura = 0;
+    if (!pilavacia(&uno))
+    {
+        basura = desapilar(&uno);
+    }
+    else if (!pilavacia(&uno))
+    {
+        validacion == 1;
+    }
+    return validacion;
+}
+void sumaDosPrimerosElementos(Pila uno, int *suma, int *primero, int *segundo)
+{
+    *primero = desapilar(&uno);
+    *segundo = desapilar(&uno);
+
+    *suma = (*primero) + (*segundo);
+}
+
+int sumaYretornoPrimerosElementos(Pila uno, int *suma, int *primero, int *segundo)
+{
+    if (!verificacionPilaConDosElementos(uno))
+    {
+        sumaDosPrimerosElementos(uno, suma, primero, segundo);
+    }
 }

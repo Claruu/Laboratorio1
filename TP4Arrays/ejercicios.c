@@ -20,15 +20,28 @@ int sumarElementosArray(int[], int *);
 void copiarElemArrayAPila(int[], int *, Pila *);
 
 // 5- Realizar una función que sume los elementos de un arreglo de números reales (float) de dimensión 100. (se recomienda hacer una función para cargar y otra para mostrar para este tipo de dato asociado al arreglo)
-int sumarElementosArrayFloat(float[], int *);
+float sumarElementosArrayFloat(float[], int);
+// funciones carga y muestra de array float
 void cargarArrayFloat(float[], int *);
 void mostrarArrayFloat(float[], int);
+
+// 6- Realizar una función que indique si un elemento dado se encuentra en un arreglo de caracteres.
+void cargaArregloChar(char[], int *);
+void mostrarArregloChar(char[], int);
+int busquedaArrayChar(char[], int, char);
+
+// 7- Realizar una función que inserte un carácter en un arreglo ordenado alfabéticamente, conservando el orden.
+void insertar(char[], int, int);
+void ordenacionPorInsercionChar(char[], int);
 
 int main()
 {
     int arreglo[TAM_MAX];
     float flotante[DIMENSION];
-    int validos = 0, opcion = 0, suma = 0;
+    char charray[TAM_MAX];
+    int validos = 0, opcion = 0, suma = 0, resultado;
+    char charBuscado;
+    float sumaFlotante = 0;
     Pila p;
     inicpila(&p);
     printf("Menu TP ARRAYS: \n");
@@ -69,6 +82,24 @@ int main()
         cargarArrayFloat(flotante, &validos);
 
         mostrarArrayFloat(flotante, validos);
+        sumaFlotante = sumarElementosArrayFloat(flotante, validos);
+        printf("\nLa suma de los elementos de su array es: %f \n", sumaFlotante);
+        break;
+    case 6:
+        cargaArregloChar(charray, &validos);
+        mostrarArregloChar(charray, validos);
+        printf("Por favor ingrese un char a buscar: ");
+        fflush(stdin);
+        scanf("%c", &charBuscado);
+        resultado = busquedaArrayChar(charray, validos, charBuscado);
+        if (resultado >= 0)
+        {
+            printf("El char que me diste se encuentra en la posicion: %d\n", busquedaArrayChar(charray, validos, charBuscado));
+        }
+        else
+        {
+            printf("Su char no se encontro en el array.\n");
+        }
         break;
     default:
         break;
@@ -167,6 +198,72 @@ void mostrarArrayFloat(float array[DIMENSION], int validos)
     }
     printf("|\n");
 }
-int sumarElementosArrayFloat(float[], int *)
+float sumarElementosArrayFloat(float array[], int validos)
+{
+    float suma = 0;
+    for (int i = 0; i < validos; i++)
+    {
+        suma += array[i];
+    }
+    return suma;
+}
+
+void cargaArregloChar(char array[TAM_MAX], int *validos)
+{
+    char continuar = 's';
+    int i = 0;
+    do
+    {
+        printf("Ingrese un caracter al array: ");
+        fflush(stdin);
+        scanf("%c", &array[i]);
+        printf("Desea continuar? s/n: ");
+        fflush(stdin);
+        scanf("%c", &continuar);
+        i++;
+    } while ((continuar == 's' || continuar == 'S') && (i < TAM_MAX));
+    *validos = i;
+}
+
+void mostrarArregloChar(char array[TAM_MAX], int validos)
+{
+    int indice;
+    printf("\nSu arreglo: ");
+    for (indice = 0; indice < validos; indice++)
+    {
+        printf("| %c ", array[indice]);
+    }
+    printf("| \n");
+}
+
+int busquedaArrayChar(char array[TAM_MAX], int validos, char charBuscado)
+{
+    int i = 0, resultado = -1;
+
+    while ((i < validos) && (array[i] != charBuscado))
+    {
+        i++;
+    }
+
+    if (i < validos)
+    {
+        resultado = i;
+    }
+
+    return resultado;
+}
+
+void insertar(char array[TAM_MAX], int ultimaPosicionvalida, int dato)
 {
 }
+
+void ordenacionPorInsercionChar(char array[TAM_MAX], int validos)
+{
+    int i = 0;
+    while (i < validos - 1)
+    {
+        insertar(array, i, array[i + 1]);
+        i++;
+    }
+}
+// 7- Realizar una función que inserte un carácter en un arreglo ordenado alfabéticamente, conservando el orden.

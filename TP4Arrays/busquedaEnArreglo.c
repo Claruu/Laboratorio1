@@ -66,17 +66,17 @@ void muestraArreglo(int arreglo[TAM_MAX], int *validos)
     printf("|\n");
 }
 
-int busquedaArreglo(int arreglo[TAM_MAX], int cantDatosIngresados, int valorAbuscar)
+int busquedaArreglo(int arreglo[TAM_MAX], int validos, int valorAbuscar)
 {
-    int indice = 0, resultado = -1;
-    while ((indice < cantDatosIngresados) && (arreglo[indice] != valorAbuscar))
+    int i = 0, resultado = -1;
+    while ((i < validos) && (arreglo[i] != valorAbuscar))
     { // como ejemplo: hay 5 valores, si cant datos ingresados es 5, pero cuando estas en el 2 encontras el valor deja de cumplirse la segunda regla del while, por lo cual el indice deja de sumarse, queda en la posicion esa, luego verifica en el while el indice contra la cantidad de datos ingresados, si es menor, es igual al indice
-        indice++;
+        i++;
     }
 
-    if (indice < cantDatosIngresados) // si indice es menor a 5 encontaste el numero, y resultado toma el valor del indice
+    if (i < validos) // si indice es menor a 5 encontaste el numero, y resultado toma el valor del indice
     {                                 // si la posicion del array es menor a validos, el resultado es igual a la posicion del array, que era 0
-        resultado = indice;
+        resultado = i;
     }
     // en cambio, si no lo encontró en el array, devuelve -1, que no es un valor valido de una posicion del array, ya que comienzan en 0
     return resultado;

@@ -3,5 +3,6 @@
 *.layout
 *TP0/1 Secuenciales/Ejercicio3/main.exe
 tempCodeRunnerFile.c
-.gitignore
 TP3FUNCIONES/wii.c
+.txt
+.gitignore

@@ -25,3 +25,79 @@ b) Inserción
 12- Dados dos arreglos ordenados alfabéticamente, crear un tercer arreglo con los elementos de los dos primeros intercalados, de manera que quede un arreglo también ordenado alfabéticamente. 
 
 13- Dado el vector {1,5,6,7,8} escribir un programa que genere otro vector con la suma del contenido de todo los elementos anteriores al índice actual: {1,6,12,19,27}.
+
+
+
+
+
+
+
+
+INTRODUCCIÓN:  
+
+Hi, today we are going to talk about the “history of computers”.  
+
+When we first started thinking about the theme for this presentation, we got together and we thought about what did we like, what did we have in common, as students at this university, and we asked ourselves, what do you think that has made the most positive impact on our lives?" and the answer for that, came pretty easy to us:  
+
+Computers. 
+
+So, thinking about that, today with my partners Clara & Tomas, we’re going to be talking about what we think that’s one of the greatest inventions in the last 100 years, as we believe that they’re the key to our modern life. 
+
+ We’re going to be leading you throughout its history, and its evolution. 
+
+ Perhaps you didn’t know, but computers were originally simple calculators, something that seems incredible for today's idea of computers, as they've become so much more than that, and are essential to modern life.
+  Which leads me to wonder: 
+
+ ¿What could have been of our lives without them? 
+
+¿Could you picture a world without computers?  
+
+We think that you might want to stay to listen to this presentation, as we’ll go over the most important examples of computers, throughout history. Now, going into the details of this presentation, we will be talking chronologically, starting from the first computers, which were calculating machines, and finishing with a quick overview of today's computers...    
+
+One defining quality of modern computers that separates them from simple calculators is the fact that they can be programmed. 
+
+  {{ //who can be defined as the set of programs that are specifically made to execute various tasks in which it acts as an intermediary between the user and the computer. //}}  
+
+The beginning: Calculating machines 
+
+The early 20th century saw analog computers develop further as they were put to work to solve complex mathematical problems. The differential analyzer is the most famous example of this and was built at MIT by Vannevar Bush in the 1920s. That fact could explain why we call them calculating machines... 
+
+And, on the topic of calculating machines, the 30s marked the beginning of them.  As an example, the “Z1” was a motor-driven mechanical computer designed by Konrad Kuse. This computer was the first freely programmable computer in the world that used Boolean logic and binary floating-point numbers, which would later on become essential for programming, and computers in general. {{// (1936 to 1937)}}// 
+
+ 
+
+Hasta aca agus 
+
+World War 2 led to a strong leap in computer technology as nations tried to gain the upper hand over their adversaries. Computers were primarily built to calculate firing tables to improve artillery accuracy and to break enemy code to gain valuable intelligence. The most famous example was on the 40s, when the ENIAC was invented, a computer that took up entire rooms. The ENIAC was the first programmable, electronic, general-purpose digital computer. // {{ made in 1945.}} // It was able to solve a “large class of numerical problems” through reprogramming.   // {{ENIAC was designed and primarily used to calculate artillery firing tables for the USA army's ballistic research laboratory, its first program was a study of the feasibility of the thermonuclear weapon.}} // Something really interesting about this machine was that it could do nuclear physics calculations in two hours, calculations that would have taken 100 engineers a year to complete. Could you imagine how life changing that was, for scientists? 
+
+After that, in the 50s, computers were still strictly being used for scientific and engineering research. 
+
+But that would soon change, as in 1954, IBM started to produce the now famous IBM 650 (Magnetic Drum Data-Processing Machine), which was an early digital computer. It’s now famous because it was the first mass-produced computer in the world, however, that doesn’t mean that it was being sold to the average consumer just yet. It became highly popular in universities, as its low cost and ease of programming helped a generation of students to learn programming for the first time in history.  
+
+Everything changed in the 60s when the computers were first sold to the average consumer, a good example would be the Programma 101 (1964). It is now usually called a printing programmable calculator or desktop calculator because its arithmetic instructions correspond to calculator operations, while its instruction set and structure qualify it as a stored-program computer. // {{  It could calculate the four basic arithmetic functions (addition, subtraction, multiplication, and division), plus square root, absolute value, and fractional part. It was equipped with memory registers with features such as clear, transfer, and exchange, plus printing and halt for input.}} //   
+
+ 
+
+ But computers weren’t as we know them today just yet, mostly because of the high cost it implied to consumers, and how difficult it was for people to understand how to use them. They were seen as a new thing, but not as something that would be life changing, some even viewed them with fear. 
+
+Until the 70s came along, when personal computers first became popular. 
+
+The best example of this was the Xerox Alto // (1973) // which helped pave the way for Steve Jobs’s Apple computer, as it was the first personal computer that could print documents and send emails, two things that seem uneventful today, but for that time those functions were unthinkable of, as we saw that people didn’t think much of computers until then. What was most notable about this computer was its design, which included a mouse, keyboard, and screen. 
+
+Hasta aca tomi 
+
+All these advances in the 70s helped popularize the personal computer market, but there was still something else to come. 
+
+Steve Jobs was inspired by the Xerox, and began to develop the original Macintosh, by the 80s.   
+
+When it first came out, Apple's Macintosh was described as a gamer changer for the computer industry. When Steve Jobs introduced the first Macintosh computer in 1984, consumer reports called it a dazzling display of technical wizardry, because it was the first time in the history of computers that such a consumer-friendly pc was made. It was similar to the Xerox, as the Macintosh also had a keyboard, mouse and screen. From then on, Apple would become a trend setter for computers, and later on, technology like phones, tablets and laptops. 
+
+In the early 2000s, laptops became increasingly popular, especially after Apple launched its first MacBook air, and in 2008 Steve, slid the first MacBook from a manila envelope, and shock everyone at apples mac world with how thin the laptop was, measuring only 0.76 inch thick, this exquisitely designed laptop changed the industry forever, some things that we can point out about this device was that Apple got rid of the cd drive and only included an USB port and a headphone jack, for the time, it was considered cheap, as it only costed 1799 dollars. 
+
+  
+
+FINAL:  
+
+ The 1980s and beyond have seen computers find numerous new applications. They appeared in watches, cars, cellphones, airplanes. They became portable and ever-present. Today, computers are everywhere. And yet, the future remains even more promising. Quantum computers could signal a paradigm shift as humanity can tackle complex problems that today s machines cannot solve. A move away from silicon may reignite the pace of transistor development. Computers will be crucial for us in reaching out into space and exploring the stars. They may have humble beginnings but no matter what challenges humanity faces, the descendants of that abacus from Mesopotamia will be always be alongside us. 
+
+I feel like there’s more to come into play in the topic of the evolution of the computers, as we’ve seen in this presentation, the changes were at first slow, as we didn’t possess the technology we do now, but then, they rapidly grew. There’s been a lot of changes in our daily lives because of computers and technology, and I think that it’ll only get better from here. 

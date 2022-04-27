@@ -1,0 +1,6 @@
+Definiciones:
+Ordenamiento por insercion:
+Busca el hueco y corre todos los numeros comparando hasta que encuentra uno mas chico y lo mete ahi
+
+Ordenamiento por seleccion: 
+Va seleccionando un numero, y lo compara con su siguiente, si encuentra que es menor que todos va para atras, si encuentra lo contrario, va para adelante

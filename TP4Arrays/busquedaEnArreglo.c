@@ -8,13 +8,13 @@ void cargaArreglo(int[], int *);
 void muestraArreglo(int[], int *);
 
 // busca en el array un valor que ingresa el usuario
-int busquedaArreglo(int[], int, int *);
+int busquedaArreglo(int[], int, int);
 
 int main()
 {
     int arreglo[TAM_MAX];
     int validos, resultado;
-    int *valor = 0;
+    int valor = 0;
     cargaArreglo(arreglo, &validos);
     muestraArreglo(arreglo, &validos);
     printf("\nPor favor ingrese el valor a buscar: ");
@@ -37,47 +37,48 @@ int main()
 
 void cargaArreglo(int arreglo[TAM_MAX], int *validos)
 {
-    int i = 0;
+    int indice = 0;
     char continuar = 's';
 
     do
     {
         printf("Ingrese un dato al array numerico:");
         fflush(stdin);
-        scanf("%i", &arreglo[i]);
-        printf("El dato #%d de su arreglo es: %i", i, arreglo[i]);
+        scanf("%i", &arreglo[indice]);
+        printf("El dato #%d de su arreglo es: %i", indice, arreglo[indice]);
         printf("\nDesea continuar? s/n: ");
         fflush(stdin);
         scanf("%c", &continuar);
-        i++;
-    } while ((continuar == 's' || continuar == 'S') && (i < TAM_MAX));
-    *validos = i;
+        indice++;
+    } while ((continuar == 's' || continuar == 'S') && (indice < TAM_MAX));
+    *validos = indice;
     printf("\nCantidad de datos que ha ingresado al array: %d\n", *validos);
 }
 void muestraArreglo(int arreglo[TAM_MAX], int *validos)
 {
-    int i;
+    int indice;
+
     printf("Su arreglo: ");
-    for (i = 0; i < *validos; i++)
+    for (indice = 0; indice < *validos; indice++)
     {
-        printf("| %i ", arreglo[i]);
+        printf("| %i ", arreglo[indice]);
     }
     printf("|\n");
 }
 
-int busquedaArreglo(int arreglo[TAM_MAX], int validos, int *valor)
+int busquedaArreglo(int arreglo[TAM_MAX], int cantDatosIngresados, int valorAbuscar)
 {
-    int i = 0, resultado = -1;
-    while ((i < validos) && (arreglo[i] != *valor))
-    {
-        i++;
+    int indice = 0, resultado = -1;
+    while ((indice < cantDatosIngresados) && (arreglo[indice] != valorAbuscar))
+    { // como ejemplo: hay 5 valores, si cant datos ingresados es 5, pero cuando estas en el 2 encontras el valor deja de cumplirse la segunda regla del while, por lo cual el indice deja de sumarse, queda en la posicion esa, luego verifica en el while el indice contra la cantidad de datos ingresados, si es menor, es igual al indice
+        indice++;
     }
 
-    if (i < validos)
-    {
-        resultado = i;
+    if (indice < cantDatosIngresados) // si indice es menor a 5 encontaste el numero, y resultado toma el valor del indice
+    {                                 // si la posicion del array es menor a validos, el resultado es igual a la posicion del array, que era 0
+        resultado = indice;
     }
-
+    // en cambio, si no lo encontró en el array, devuelve -1, que no es un valor valido de una posicion del array, ya que comienzan en 0
     return resultado;
 }
 

@@ -52,8 +52,8 @@ int main()
     {
         opcion = mostrarMenu();
         inicpila(&uno);
-        inicpila(&aux);
         inicpila(&dos);
+        inicpila(&aux);
         switch (opcion)
         {
         case 1:

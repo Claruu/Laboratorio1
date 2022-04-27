@@ -40,7 +40,7 @@ int main()
             apilar(&aux, desapilar(&pilita));
         }
     }
-    printf("Elemento menor:");
+    printf("Elemento menor");
     mostrar(&menor);
     system("pause");
     return 0;

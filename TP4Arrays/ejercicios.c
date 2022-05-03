@@ -34,13 +34,37 @@ int busquedaArrayChar(char[], int, char);
 void ordenarArregloChar(char[], int);
 void ordenar(char[], int);
 
+// 8- Realizar una función que obtenga el máximo carácter de un arreglo dado.
+char maximoChar(char[], int);
+
+// 9- Realizar una función que determine si un arreglo es capicúa.
+int busquedaCapicua(int[], int);
+
+// 10- Realizar una función que invierta los elementos de un arreglo.  (sin utilizar un arreglo auxiliar)
+void invertirArreglo(int[], int);
+
+// 11- Ordenar un arreglo según los siguientes métodos:
+// a) Selección:
+///-> buscaba el menor y lo quitaba
+///-> se agregaba el menor a una nueva pila
+// a partir de la siguiente posicion j = i+1 busco el
+//  menor comparando arreglo[posMenor] con arreglo[j]
+// b) Inserción
+/// -> por cada dato de la pila que desapilaba
+///-> con el dato buscaba el hueco en la nueva de forma ordenada
+int buscarMenor(int[], int, int);                   /// recibo el arreglo, la posicion i, y validos
+void ordenarArrayporSeleccion(int[], int);          /// recibo el arreglo y los validos
+void insercionenArregloOrdenado(int[], int *, int); /// inserta un numero en un arreglo ordenado
+void insercionDesordenado(int[], int *, int);
+
 int main()
 {
     int arreglo[TAM_MAX];
+    int ayuda[TAM_MAX];
     float flotante[DIMENSION];
     char charray[TAM_MAX];
-    int validos = 0, opcion = 0, suma = 0, resultado, indice = 0, valor = 0;
-    char charBuscado;
+    int validos = 0, opcion = 0, suma = 0, resultado, indice = 0, valor = 0, aux = 0, validosAux = 0;
+    char charBuscado, continuar;
     float sumaFlotante = 0;
     Pila p;
     inicpila(&p);
@@ -52,10 +76,17 @@ int main()
     printf("Opcion 5: Carga, muestra y suma los elementos de un array float\n");
     printf("Opcion 6: Busca un valor en los elementos de un array char\n");
     printf("Opcion 7: Inserta un char en los elementos de un array char\n");
+    printf("Opcion 8: Busca el char mayor en un arreglo de char\n");
+    printf("Opcion 9: Busca saber si un numero en un arreglo es capicua\n");
+    printf("Opcion 10: Te invierte un arreglo\n");
+    printf("Opcion 11: Te ordena un arreglo por seleccion\n");
+    printf("Opcion 12: Te carga un numero nuevo en un arreglo ordenado\n");
+    printf("Opcion 13: Te ordena un arreglo por insercion\n");
 
-    printf("Por favor ingrese que opcion desea del 1 al 10: ");
+    printf("Por favor ingrese que opcion desea del 1 al 15: ");
+    // do
+    // {
     scanf("%d", &opcion);
-
     switch (opcion)
     {
     case 1:
@@ -114,9 +145,53 @@ int main()
         ordenar(charray, validos);
         mostrarArregloChar(charray, validos);
         break;
+    case 8:
+        cargaArregloChar(charray, &validos);
+        maximoChar(charray, validos);
+        charBuscado = maximoChar(charray, validos);
+        printf("El mayor es %c", charBuscado);
+        break;
+    case 9:
+        cargaArreglo(arreglo, &validos);
+        resultado = busquedaCapicua(arreglo, validos);
+        printf("%d", resultado);
+        break;
+    case 10:
+        cargaArreglo(arreglo, &validos);
+        invertirArreglo(arreglo, validos);
+        mostrarArreglo(arreglo, validos);
+        break;
+    case 11:
+        cargaArreglo(arreglo, &validos);
+        printf("Su arreglo antes de ser ordenado por seleccion\n");
+        mostrarArreglo(arreglo, validos);
+        buscarMenor(arreglo, validos, aux);
+        ordenarArrayporSeleccion(arreglo, validos);
+        printf("Su arreglo luego de ser ordenado por seleccion\n");
+        mostrarArreglo(arreglo, validos);
+        break;
+    case 12:
+        cargaArreglo(arreglo, &validos);
+        mostrarArreglo(arreglo, validos);
+        printf("Ingrese valor/es al arreglo ordenado: ");
+        // insertarEnArreglo(ayuda, &validosAux);
+        insercionenArregloOrdenado(arreglo, &validos, aux);
+        printf("Su arreglo luego de ser ordenado por seleccion\n");
+        mostrarArreglo(arreglo, validos);
+        break;
+    case 13:
+        cargaArreglo(arreglo, &validos);
+        mostrarArreglo(arreglo, validos);
+        printf("Por favor ingrese un nuevo dato: ");
+        scanf("%d", &aux);
+        insercionDesordenado(arreglo, &validos, aux);
+        mostrarArreglo(arreglo, validos);
+        break;
     default:
+        printf("\n\tError, usted no ha ingresado un numero valido\n");
         break;
     }
+    // } while (opcion > 0 && opcion <= 15);
 
     system("pause");
     return 0;
@@ -300,4 +375,111 @@ void ordenar(char array[TAM_MAX], int validos)
         insertarOrdenado(array, i, letra);
     }
 }
-// 7- Realizar una función que inserte un carácter en un arreglo ordenado alfabéticamente, conservando el orden.n
+// 8- Realizar una función que obtenga el máximo carácter de un arreglo dado.
+char maximoChar(char array[TAM_MAX], int validos)
+{
+    char mayor;
+    fflush(stdin);
+    mayor = array[0];
+    // menor = array[0];
+    for (int i = 1; i < validos; i++)
+    {
+        if (array[i] > mayor)
+        {
+            mayor = array[i];
+        }
+        // if (array[i] < menor)
+        // {
+        //     menor = array[i];
+        // }
+    }
+    return mayor;
+}
+
+int busquedaCapicua(int array[TAM_MAX], int validos)
+{
+    int resultado = 1;
+    int j = validos - 1;
+    for (int i = 0; i < validos; i++)
+    {
+        if (array[i] != array[j])
+        {
+            resultado = 0;
+        }
+        j--;
+    }
+
+    if (resultado == 0)
+    {
+        printf("No es capicua. \n");
+    }
+    else
+    {
+        printf("Si es capicua. \n");
+    }
+
+    return resultado;
+}
+
+// 10- Realizar una función que invierta los elementos de un arreglo.  (sin utilizar un arreglo auxiliar)
+void invertirArreglo(int array[TAM_MAX], int validos)
+{
+    int auxiliar;
+    int j = validos - 1;
+    for (int i = 0; i < (validos / 2); i++)
+    {
+        auxiliar = array[i];
+        array[i] = array[j];
+        array[j] = auxiliar;
+        j--;
+    }
+}
+
+int buscarMenor(int array[], int validos, int pos)
+{
+    int posmenor = pos;
+    int indice = pos + 1;
+    while (indice < validos)
+    {
+        if (array[posmenor] > array[indice])
+        {
+            posmenor = indice;
+        }
+        indice++;
+    }
+    return posmenor;
+}
+void ordenarArrayporSeleccion(int array[], int validos)
+{
+    int i, posmenor, aux;
+    for (i = 0; i < validos; i++)
+    {
+        posmenor = buscarMenor(array, validos, i);
+        aux = array[posmenor];
+        array[posmenor] = array[i];
+        array[i] = aux;
+    }
+}
+
+void insercionenArregloOrdenado(int array[], int *validos, int numero)
+{
+    int j = (*validos) - 1;
+
+    while ((j >= 0) && (numero < array[j]))
+    {
+        array[j + 1] = array[j];
+        j--;
+    }
+
+    array[j + 1] = numero;
+    (*validos)++;
+}
+
+void insercionDesordenado(int array[], int *validos, int nuevoD)
+{
+    if (*validos < TAM_MAX)
+    {
+        array[*validos] = nuevoD;
+        (*validos)++;
+    }
+}

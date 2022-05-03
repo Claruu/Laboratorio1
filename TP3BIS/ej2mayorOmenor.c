@@ -2,7 +2,7 @@
 #include <stdlib.h>
 // Diseñe una función que reciba 3 números enteros y muestre el mayor y el menor.
 void mayorOmenor(int, int, int);
-void buscarMenor(int, int, int);
+void buscarMenorentreTres(int, int, int);
 void buscarMayor(int, int, int);
 
 int main()
@@ -35,7 +35,7 @@ void buscarMayor(int num1, int num2, int num3)
     }
     printf("Tu numero mayor es: %d\n", mayor);
 }
-void buscarMenor(int num1, int num2, int num3)
+void buscarMenorentreTres(int num1, int num2, int num3)
 {
     int menor = 0;
     if (num1 < num2 && num1 < num3)
@@ -55,6 +55,6 @@ void buscarMenor(int num1, int num2, int num3)
 
 void mayorOmenor(int num1, int num2, int num3)
 {
-    buscarMenor(num1, num2, num3);
+    buscarMenorentreTres(num1, num2, num3);
     buscarMayor(num1, num2, num3);
 }

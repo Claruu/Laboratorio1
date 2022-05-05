@@ -8,7 +8,6 @@
 // int dnis[20];
 
 // Funciones utiles y necesarias:
-int cargarRandomAlumno(int[], float[], float[], int);
 void mostrarTodosAlumnos(int[], float[], float[], int);
 void mostrarDatosUnaPersona(int[], float[], float[], int);
 
@@ -22,7 +21,7 @@ void insercionDesordenada(int[], float[], float[], int, int, float, float);
 // 3- Crear una función que busque dentro del arreglo de dnis un dni determinado y retorne la posición ( Si no se encuentra retornar -1). (considerar que si se hizo una inserción ordenada la búsqueda es con consideración ORDENADA, de lo contrario es una búsqueda en un arreglo DESORDENADO)
 void menuYbusquedasEnArreglos(int *, int, int, int[], int, int, float[], float[]);
 
-int busquedaEnArreglodesOrdenado(int[], int, int);
+int busquedaEnArregloDesordenado(int[], int, int);
 int busquedaEnArregloOrdenado(int[], int, int);
 
 // 4- Hacer una función que muestre las notas del primer y segundo parcial, recibiendo como parámetro la posición.
@@ -32,7 +31,9 @@ void mostrarNotasSegunPosicion(float[], float[], int, int);
 void mostrarAprobacion(int[], float[], float[], int);
 
 // 6- Hacer una función que muestre la nota promedio de cada dni.
-int promedioDnis(int[], float[], float[], int);
+float promedioDnis(int[], float[], float[], int);
+// ayuda promediodnis
+float calcularPromedio(float, float);
 
 // 7- Hacer una función que muestre todos los dni que promocionaron la materia. Se promociona con un promedio de 8 y sin exámenes desaprobados.
 void promocionaOno(int[], float[], float[], int);
@@ -40,16 +41,21 @@ void promocionaOno(int[], float[], float[], int);
 // 8- Hacer una función que busque la máxima nota obtenida en el primer parcial y retorne la posición, luego en el main informar el dni que obtuvo esa máxima nota.
 int maximaNotaPrimerParcial(int[], float[], int);
 
-//9- Hacer una función que retorne la posición del mejor promedio (máximo promedio) de los 2 parciales. Luego en el main informar que dni obtuvo ese promedio.
+// 9- Hacer una función que retorne la posición del mejor promedio (máximo promedio) de los 2 parciales. Luego en el main informar que dni obtuvo ese promedio.
+int posicionMejorPromedio(int[], float[], float[], int);
 
+// 10- Hacer una función que muestre la nota promedio total (promedio total de todas las notas)
+float promedioTotal(int[], float[], float[], int, float *);
+
+// 11- Hacer una función que pase cada promedio de cada alumno a otro arreglo paralelo de promedios.
 
 int main()
 {
     float notasParcial1[TAM_MAX];
     float notasParcial2[TAM_MAX];
     int dnis[TAM_MAX];
-    int validos = 0, dniBuscado, indice = -1, respuesta = 0, dni, valor, dniConMaxNotaPar1;
-    float parcial1, parcial2;
+    int validos = 0, dniBuscado, indice = -1, respuesta = 0, dni, valor, dniConMaxNota1, mejorPromedio;
+    float parcial1, parcial2, promediosGen = 0;
     char continuar;
 
     printf("Como deseas cargar a los alumnos?\n 1- Ordenado. \n 2- Desordenado. \nIngrese su respuesta: ");
@@ -60,20 +66,23 @@ int main()
     printf("Ingrese la posicion del alumno para ver sus notas: ");
     scanf("%d", &valor);
     mostrarNotasSegunPosicion(notasParcial1, notasParcial2, validos, valor);
-    // system("pause");
-    // system("cls");
-    // printf("Le mostrare a continuacion informacion sobre las notas:\n");
-    // mostrarAprobacion(dnis, notasParcial1, notasParcial2, validos);
-    // system("pause");
-    // system("cls");
-    // printf("\n\t\tPromedio:");
-    // promedioDnis(dnis, notasParcial1, notasParcial2, validos);
-    // system("pause");
-    // system("cls");
-    // promocionaOno(dnis, notasParcial1, notasParcial2, validos);
-    // dniConMaxNotaPar1 = maximaNotaPrimerParcial(dnis, notasParcial1, validos);
-    // printf("La maxima nota en el primer parcial fue lograda por el alumno con DNI %d.\n", dnis[dniConMaxNotaPar1]);
-
+    system("pause");
+    system("cls");
+    printf("Le mostrare a continuacion informacion sobre las notas:\n");
+    mostrarAprobacion(dnis, notasParcial1, notasParcial2, validos);
+    system("pause");
+    system("cls");
+    printf("\n\t\tPromedio:");
+    promedioDnis(dnis, notasParcial1, notasParcial2, validos);
+    system("pause");
+    system("cls");
+    promocionaOno(dnis, notasParcial1, notasParcial2, validos);
+    dniConMaxNota1 = maximaNotaPrimerParcial(dnis, notasParcial1, validos);
+    printf("La maxima nota en el primer parcial fue lograda por el alumno con DNI %d.\n", dnis[dniConMaxNota1]);
+    mejorPromedio = posicionMejorPromedio(dnis, notasParcial1, notasParcial2, validos);
+    printf("DNI del mejor promedio: %d\n", dnis[mejorPromedio]);
+    promedioTotal(dnis, notasParcial1, notasParcial2, validos, &promediosGen);
+    printf("PROMEDIO TOTAL: %.2f\n", promediosGen);
     system("pause");
     return 0;
 }
@@ -90,9 +99,11 @@ void cargarAlumnosNotas(int dnis[TAM_MAX], float notasParcial1[TAM_MAX], float n
         srand(time(NULL));
         printf("Ingrese el DNI del alumno en la posicion #%d:", i);
         scanf("%d", &dni);
+
         printf("Carga de notas auto.\n\tPresione n cuando desee dejar de cargarlas\n");
         parcial1 = (rand() % 7) + 4;
         parcial2 = (rand() % 7) + 3;
+
         switch (respuesta)
         {
         case 1:
@@ -143,6 +154,13 @@ void insercionDesordenada(int dnis[], float notasP1[], float notasP2[], int vali
     validos++;
 }
 
+void mostrarDatosUnaPersona(int dnis[TAM_MAX], float notasParcial1[TAM_MAX], float notasParcial2[TAM_MAX], int i)
+{
+    printf("\n\t               ------ DNI: %d ------\n", dnis[i]);
+    printf("\t               Nota Parcial 1: %.2f\n", notasParcial1[i]);
+    printf("\t               Nota Parcial 2: %.2f\n", notasParcial2[i]);
+}
+
 void mostrarTodosAlumnos(int dnis[TAM_MAX], float notaParcial1[TAM_MAX], float notaParcial2[TAM_MAX], int validos)
 {
     int i;
@@ -154,38 +172,7 @@ void mostrarTodosAlumnos(int dnis[TAM_MAX], float notaParcial1[TAM_MAX], float n
     printf("\n - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
 }
 
-void mostrarDatosUnaPersona(int dnis[TAM_MAX], float notasParcial1[TAM_MAX], float notasParcial2[TAM_MAX], int i)
-{
-    printf("\n\t               ------ DNI: %d ------\n", dnis[i]);
-    printf("\t               Nota Parcial 1: %.2f\n", notasParcial1[i]);
-    printf("\t               Nota Parcial 2: %.2f\n", notasParcial2[i]);
-}
-
-void menuYbusquedasEnArreglos(int *dniBuscado, int respuesta, int indice, int dnis[], int dni, int validos, float notasParcial1[], float notasParcial2[])
-{
-    printf("\nIngrese DNI a buscar: ");
-    scanf("%d", &dniBuscado);
-    if (respuesta == 1)
-    {
-        indice = busquedaEnArreglodesOrdenado(dnis, validos, *dniBuscado);
-    }
-    else if (respuesta == 2)
-    {
-        indice = busquedaEnArreglodesOrdenado(dnis, validos, *dniBuscado);
-    }
-
-    if (indice != -1)
-    {
-        printf("\n\t             Se encontro a la persona: \n");
-        mostrarDatosUnaPersona(dnis, notasParcial1, notasParcial2, indice);
-    }
-    else
-    {
-        printf("No se ha encontrado a la persona que buscaba.\n");
-    }
-}
-
-int busquedaEnArreglodesOrdenado(int dnis[], int validos, int dni)
+int busquedaEnArregloDesordenado(int dnis[], int validos, int dni)
 {
     int i = 0;
     int indice;
@@ -251,6 +238,30 @@ int busquedaEnArregloOrdenado(int dnis[], int validos, int dni)
     return resultado;
 }
 
+void menuYbusquedasEnArreglos(int *dniBuscado, int respuesta, int indice, int dnis[], int dni, int validos, float notasParcial1[], float notasParcial2[])
+{
+    printf("\nIngrese DNI a buscar: ");
+    scanf("%d", &dniBuscado);
+    if (respuesta == 1)
+    {
+        indice = busquedaEnArregloDesordenado(dnis, validos, *dniBuscado);
+    }
+    else if (respuesta == 2)
+    {
+        indice = busquedaEnArregloDesordenado(dnis, validos, *dniBuscado);
+    }
+
+    if (indice != -1)
+    {
+        printf("\n\t             Se encontro a la persona: \n");
+        mostrarDatosUnaPersona(dnis, notasParcial1, notasParcial2, indice);
+    }
+    else
+    {
+        printf("No se ha encontrado a la persona que buscaba.\n");
+    }
+}
+
 void mostrarNotasSegunPosicion(float parcial1[], float parcial2[], int validos, int posicion)
 {
     int i;
@@ -297,15 +308,21 @@ void mostrarAprobacion(int dnis[], float parcial1[], float parcial2[], int valid
     printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
 }
 
-int promedioDnis(int dnis[], float parcial1[], float parcial2[], int validos)
+float calcularPromedio(float nota1, float nota2)
+{
+    float promedio = (nota1 + nota2) / 2;
+
+    return promedio;
+}
+
+float promedioDnis(int dnis[], float parcial1[], float parcial2[], int validos)
 {
     int i;
     float promedio;
 
     for (i = 0; i < validos; i++)
     {
-        promedio = 0;
-        promedio = (parcial1[i] + parcial2[i]) / 2;
+        promedio = calcularPromedio(parcial1[i], parcial2[i]);
         printf("\n\t    DNI: %d", dnis[i]);
         printf("\n\tPARCIAL 1: %.2f", parcial1[i]);
         printf("\n\tPARCIAL 2: %.2f", parcial2[i]);
@@ -359,4 +376,55 @@ int maximaNotaPrimerParcial(int dnis[], float parcial1[], int validos)
     }
     printf("El DNI con la mejor nota se encuentra en la posicion %d\n", posicion);
     return posicion;
+}
+
+int posicionMejorPromedio(int dnis[], float parcial1[], float parcial2[], int validos)
+{
+    float promedio;
+    int posicion, mejorPromedio;
+    for (int i = 0; i < validos; i++)
+    {
+        promedio = calcularPromedio(parcial1[i], parcial2[i]);
+
+        if (i == 0)
+        {
+            mejorPromedio = promedio;
+        }
+        if (promedio > mejorPromedio)
+        {
+            mejorPromedio = promedio;
+            posicion = i;
+        }
+    }
+
+    printf("El DNI con la mejor nota de AMBOS PARCIALES se encuentra en la posicion %d\n", posicion);
+
+    return posicion;
+}
+
+float promedioTotal(int dnis[], float parcial1[], float parcial2[], int validos, float *promedioTotal)
+{
+    int i = 0, j = 0;
+    float sumaNotas = 0, cantNotas, sumaParcial1, sumaParcial2;
+
+    while (i < validos)
+    {
+        cantNotas = validos;
+        i++;
+    }
+
+    for (i = 0; i < validos; i++)
+    {
+        sumaParcial1 += parcial1[i];
+    }
+    for (j = 0; j < validos; j++)
+    {
+        sumaParcial2 += parcial2[j];
+    }
+
+    sumaNotas = sumaParcial1 + sumaParcial2;
+    cantNotas = i + j;
+    (*promedioTotal) = sumaNotas / cantNotas;
+    printf("", promedioTotal);
+    return (*promedioTotal);
 }

@@ -31,7 +31,7 @@ void mostrarArregloChar(char[], int);
 int busquedaArrayChar(char[], int, char);
 
 // 7- Realizar una función que inserte un carácter en un arreglo ordenado alfabéticamente, conservando el orden.
-void ordenarArregloChar(char[], int);
+void insertarCharEnarreglo(char[], int);
 void ordenar(char[], int);
 
 // 8- Realizar una función que obtenga el máximo carácter de un arreglo dado.
@@ -54,8 +54,15 @@ void invertirArreglo(int[], int);
 ///-> con el dato buscaba el hueco en la nueva de forma ordenada
 int buscarMenor(int[], int, int);                   /// recibo el arreglo, la posicion i, y validos
 void ordenarArrayporSeleccion(int[], int);          /// recibo el arreglo y los validos
-void insercionenArregloOrdenado(int[], int *, int); /// inserta un numero en un arreglo ordenado
+void insercionenArregloOrdenado(int[], int *, int); /// inserta un numero (UNO SOLO) en un arreglo ordenado
 void insercionDesordenado(int[], int *, int);
+void cargarDatoOrdenado(int[], int *); // CARGA VARIOS DATOS EN UN ARREGLO, DE FORMA ORDENADA
+
+// 12- Dados dos arreglos ordenados alfabéticamente, crear un tercer arreglo con los elementos de los dos primeros intercalados, de manera que quede un arreglo también ordenado alfabéticamente.
+void ordenamientoInsercionChar(char[], int *, char);
+void ordenarAlfabeticamenteDosArreglos(char[], int, char[], int);
+
+// 13- Dado el vector {1,5,6,7,8} escribir un programa que genere otro vector con la suma del contenido de todo los elementos anteriores al índice actual: {1,6,12,19,27}.
 
 int main()
 {
@@ -63,6 +70,9 @@ int main()
     int ayuda[TAM_MAX];
     float flotante[DIMENSION];
     char charray[TAM_MAX];
+    char arregloUno[TAM_MAX];
+    char arregloDos[TAM_MAX];
+    char destino[TAM_MAX];
     int validos = 0, opcion = 0, suma = 0, resultado, indice = 0, valor = 0, aux = 0, validosAux = 0;
     char charBuscado, continuar;
     float sumaFlotante = 0;
@@ -113,7 +123,6 @@ int main()
         break;
     case 5:
         cargarArrayFloat(flotante, &validos);
-
         mostrarArrayFloat(flotante, validos);
         sumaFlotante = sumarElementosArrayFloat(flotante, validos);
         printf("\nLa suma de los elementos de su array es: %f \n", sumaFlotante);
@@ -136,7 +145,7 @@ int main()
         break;
     case 7:
         cargaArregloChar(charray, &validos);
-        ordenarArregloChar(charray, validos);
+        insertarCharEnarreglo(charray, validos);
         mostrarArregloChar(charray, validos);
         printf("Por favor ingrese un valor al array ordenado: ");
         fflush(stdin);
@@ -173,19 +182,21 @@ int main()
     case 12:
         cargaArreglo(arreglo, &validos);
         mostrarArreglo(arreglo, validos);
-        printf("Ingrese valor/es al arreglo ordenado: ");
         // insertarEnArreglo(ayuda, &validosAux);
-        insercionenArregloOrdenado(arreglo, &validos, aux);
-        printf("Su arreglo luego de ser ordenado por seleccion\n");
+        cargarDatoOrdenado(arreglo, &validos);
+        printf("Su arreglo, con los datos nuevos:\n");
         mostrarArreglo(arreglo, validos);
         break;
     case 13:
         cargaArreglo(arreglo, &validos);
         mostrarArreglo(arreglo, validos);
-        printf("Por favor ingrese un nuevo dato: ");
-        scanf("%d", &aux);
-        insercionDesordenado(arreglo, &validos, aux);
+        cargarDatoOrdenado(arreglo, &validos);
         mostrarArreglo(arreglo, validos);
+        break;
+    case 14:
+        cargaArregloChar(arregloUno, &validos);
+        cargaArregloChar(arregloDos, &validosAux);
+        ordenarAlfabeticamenteDosArreglos(arregloUno, validos, arregloDos, validosAux);
         break;
     default:
         printf("\n\tError, usted no ha ingresado un numero valido\n");
@@ -286,6 +297,7 @@ void mostrarArrayFloat(float array[DIMENSION], int validos)
     }
     printf("|\n");
 }
+
 float sumarElementosArrayFloat(float array[], int validos)
 {
     float suma = 0;
@@ -315,7 +327,10 @@ void cargaArregloChar(char array[TAM_MAX], int *validos)
 
 void mostrarArregloChar(char array[TAM_MAX], int validos)
 {
-    int indice;
+    for (int i = 0; i < validos; i++)
+    {
+        printf("| %c ", array[i]);
+    }
 }
 
 int busquedaArrayChar(char array[TAM_MAX], int validos, char charBuscado)
@@ -335,7 +350,7 @@ int busquedaArrayChar(char array[TAM_MAX], int validos, char charBuscado)
     return resultado;
 }
 
-void ordenarArregloChar(char arreglo[TAM_MAX], int validos)
+void insertarCharEnarreglo(char arreglo[TAM_MAX], int validos)
 {
     char aux;
     int j = 0;
@@ -463,15 +478,16 @@ void ordenarArrayporSeleccion(int array[], int validos)
 
 void insercionenArregloOrdenado(int array[], int *validos, int numero)
 {
-    int j = (*validos) - 1;
+    int posActual = (*validos) - 1;
 
-    while ((j >= 0) && (numero < array[j]))
+    while ((posActual >= 0) && (numero < array[posActual]))
     {
-        array[j + 1] = array[j];
-        j--;
+        // asume que uno le paso valores ordenados de menor a mayor
+        array[posActual + 1] = array[posActual];
+        posActual--;
     }
 
-    array[j + 1] = numero;
+    array[posActual + 1] = numero;
     (*validos)++;
 }
 
@@ -482,4 +498,46 @@ void insercionDesordenado(int array[], int *validos, int nuevoD)
         array[*validos] = nuevoD;
         (*validos)++;
     }
+}
+
+void cargarDatoOrdenado(int arreglo[], int *validos)
+{
+    int ayudante[TAM_MAX];
+    int i = 0, validosAyudante = 0;
+    cargaArreglo(ayudante, &validosAyudante);
+    for (i = 0; i < validosAyudante; i++)
+    {
+        insercionenArregloOrdenado(arreglo, validos, ayudante[i]);
+    }
+}
+
+void ordenamientoInsercionChar(char array[], int *validos, char letra)
+{
+    int posActual = (*validos) - 1;
+
+    while ((posActual >= 0) && (letra < array[posActual]))
+    {
+        array[posActual + 1] = array[posActual];
+        posActual--;
+    }
+    array[posActual + 1] = letra;
+    (*validos)++; // esto incrementa cuantos validos hay disponibles porque sino cagamos
+}
+
+void ordenarAlfabeticamenteDosArreglos(char array[], int validosArray, char arregloDos[], int validosDos)
+{
+    char arrayGeneral[TAM_MAX];
+    int validosGeneral = 0;
+
+    for (int i = 0; i < validosArray; i++)
+    {
+        arrayGeneral[i] = array[i]; // aca va pasando valores al arraygeneral de array como un apilar(arraygeneral, desapilar array)
+        validosGeneral++;
+    }
+
+    for (int i = 0; i < validosDos; i++)
+    {
+        ordenamientoInsercionChar(arrayGeneral, &validosGeneral, arregloDos[i]);
+    }
+    mostrarArregloChar(arrayGeneral, validosGeneral);
 }

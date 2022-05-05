@@ -1,0 +1,22 @@
+Sean los arreglos paralelos, que simbolizan la entidad “alumno de programación”:
+
+float notasParcial1[20];
+float notasParcial2[20];
+int dnis[20];
+
+
+1- Crear una función que los cargue de manera ordenada(por dni), hasta que el usuario lo decida. 
+2- Crear una función que los cargue de manera desordenada, hasta que el usuario lo decida.
+3- Crear una función que busque dentro del arreglo de dnis un dni determinado y retorne la posición ( Si no se encuentra retornar -1). (considerar que si se hizo una inserción ordenada la búsqueda es con consideración ORDENADA, de lo contrario es una búsqueda en un arreglo DESORDENADO)
+4- Hacer una función que muestre las notas del primer y segundo parcial, recibiendo como parámetro la posición.
+5- Hacer una función que muestre cada dni y un mensaje “DESAPROBADO” para aquellos que desaprobaron solo un parcial (nota menor a 6) y para aquellos que desaprobaron ambos debe mostrar la palabra “RECURSA”.
+6- Hacer una función que muestre la nota promedio de cada dni.
+7- Hacer una función que muestre todos los dni que promocionaron la materia. Se promociona con un promedio de 8 y sin exámenes desaprobados.
+8- Hacer una función que busque la máxima nota obtenida en el primer parcial y retorne la posición, luego en el main informar el dni que obtuvo esa máxima nota.
+9- Hacer una función que retorne la posición del mejor promedio (máximo promedio) de los 2 parciales. Luego en el main informar que dni obtuvo ese promedio.
+10- Hacer una función que muestre la nota promedio total (promedio total de todas las notas)
+11- Hacer una función que pase cada promedio de cada alumno a otro arreglo paralelo de promedios.
+12- Hacer una función que pase a una pila aquellos DNIS que obtuvieron un promedio mayor a 7.
+13- Hacer una función que reciba la pila de DNIS y retorne la cantidad de datos almacenada.
+14- Hacer una función que reciba la pila de DNIS y elimine de ella aquellos DNIS menores a 40000000.
+15- Hacer una función que copie de la pila de DNIS a otra pila aquellos DNIS en posiciones PAR de ella.

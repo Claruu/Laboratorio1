@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include "Librerias\pila.c"
 #define TAM_MAX 20
 // Sean los arreglos paralelos, que simbolizan la entidad “alumno de programación”:
 // float notasParcial1[20];
@@ -45,44 +46,89 @@ int maximaNotaPrimerParcial(int[], float[], int);
 int posicionMejorPromedio(int[], float[], float[], int);
 
 // 10- Hacer una función que muestre la nota promedio total (promedio total de todas las notas)
-float promedioTotal(int[], float[], float[], int, float *);
+float promedioTotal(int[], float[], float[], int);
 
 // 11- Hacer una función que pase cada promedio de cada alumno a otro arreglo paralelo de promedios.
+void pasarPromOtroArray(int[], float[], float[], float[], int);
+
+// 12- Hacer una función que pase a una pila aquellos DNIS que obtuvieron un promedio mayor a 7.
+void pasarPilaDnisConPromMayorA7(int[], float[], float[], Pila, int, float[]);
+
+// 13- Hacer una función que reciba la pila de DNIS y retorne la cantidad de datos almacenada.
+int cantDatosEnPila(int[], Pila, int);
+
+// 14- Hacer una función que reciba la pila de DNIS y elimine de ella aquellos DNIS menores a 40000000.
+void eliminarMenorAxNum(int[], int);
 
 int main()
 {
     float notasParcial1[TAM_MAX];
     float notasParcial2[TAM_MAX];
     int dnis[TAM_MAX];
-    int validos = 0, dniBuscado, indice = -1, respuesta = 0, dni, valor, dniConMaxNota1, mejorPromedio;
-    float parcial1, parcial2, promediosGen = 0;
-    char continuar;
+    float aux[TAM_MAX];
+    int validos = 0, dniBuscado, indice = -1, respuesta = 0, dni, valor, dniConMaxNota1, mejorPromedio, cantDatos;
+    float parcial1, parcial2;
+    float promediosGen = 0;
+    char continuar, resp;
+    Pila pilaDnis;
+    Pila mayorA7;
+    inicpila(&mayorA7);
+    inicpila(&pilaDnis);
 
     printf("Como deseas cargar a los alumnos?\n 1- Ordenado. \n 2- Desordenado. \nIngrese su respuesta: ");
     scanf("%d", &respuesta);
 
     cargarAlumnosNotas(dnis, notasParcial1, notasParcial2, &validos, respuesta);
+    fflush(stdin);
+
     mostrarTodosAlumnos(dnis, notasParcial1, notasParcial2, validos);
+
     printf("Ingrese la posicion del alumno para ver sus notas: ");
     scanf("%d", &valor);
     mostrarNotasSegunPosicion(notasParcial1, notasParcial2, validos, valor);
     system("pause");
     system("cls");
+
     printf("Le mostrare a continuacion informacion sobre las notas:\n");
     mostrarAprobacion(dnis, notasParcial1, notasParcial2, validos);
     system("pause");
     system("cls");
+
     printf("\n\t\tPromedio:");
     promedioDnis(dnis, notasParcial1, notasParcial2, validos);
     system("pause");
     system("cls");
+
     promocionaOno(dnis, notasParcial1, notasParcial2, validos);
     dniConMaxNota1 = maximaNotaPrimerParcial(dnis, notasParcial1, validos);
     printf("La maxima nota en el primer parcial fue lograda por el alumno con DNI %d.\n", dnis[dniConMaxNota1]);
     mejorPromedio = posicionMejorPromedio(dnis, notasParcial1, notasParcial2, validos);
     printf("DNI del mejor promedio: %d\n", dnis[mejorPromedio]);
-    promedioTotal(dnis, notasParcial1, notasParcial2, validos, &promediosGen);
-    printf("PROMEDIO TOTAL: %.2f\n", promediosGen);
+    promediosGen = promedioTotal(dnis, notasParcial1, notasParcial2, validos);
+
+    printf("\nPROMEDIO TOTAL: %.2f\n", promediosGen);
+    system("pause");
+
+    pasarPromOtroArray(dnis, notasParcial1, notasParcial2, aux, validos);
+    printf("Desea visualizar el array aux? s/n: ");
+    fflush(stdin);
+    scanf("%c", &resp);
+
+    if (resp == 's' || resp == 'S')
+    {
+        for (int j = 0; j < validos; j++)
+        {
+            printf("Promedio alumno en pos #%d: | %.2f |\n", j, aux[j]);
+        }
+    }
+
+    system("pause");
+    pasarPilaDnisConPromMayorA7(dnis, notasParcial1, notasParcial2, mayorA7, validos, aux);
+
+    cantDatos = cantDatosEnPila(dnis, pilaDnis, validos);
+    printf("Cantidad de datos en su pila: %d\n", cantDatos);
+    eliminarMenorAxNum(dnis, validos);
+
     system("pause");
     return 0;
 }
@@ -98,6 +144,7 @@ void cargarAlumnosNotas(int dnis[TAM_MAX], float notasParcial1[TAM_MAX], float n
     {
         srand(time(NULL));
         printf("Ingrese el DNI del alumno en la posicion #%d:", i);
+        // hacer una funcion para validar si se ingresan dos dnis iguales.
         scanf("%d", &dni);
 
         printf("Carga de notas auto.\n\tPresione n cuando desee dejar de cargarlas\n");
@@ -402,29 +449,87 @@ int posicionMejorPromedio(int dnis[], float parcial1[], float parcial2[], int va
     return posicion;
 }
 
-float promedioTotal(int dnis[], float parcial1[], float parcial2[], int validos, float *promedioTotal)
+float promedioTotal(int dnis[], float parcial1[], float parcial2[], int validos)
 {
-    int i = 0, j = 0;
-    float sumaNotas = 0, cantNotas, sumaParcial1, sumaParcial2;
+    float promedioTotal = 0.0;
+    float cantNotas = (float)validos * 2;
 
-    while (i < validos)
+    for (int i = 0; i < validos; i++)
     {
-        cantNotas = validos;
-        i++;
+        promedioTotal += (parcial1[i] + parcial2[i]);
     }
+
+    return promedioTotal / cantNotas;
+}
+
+void pasarPromOtroArray(int dnis[], float nota1[], float nota2[], float promedioDnis[], int validos)
+{
+    for (int i = 0; i < validos; i++)
+    {
+        promedioDnis[i] = calcularPromedio(nota1[i], nota2[i]);
+    }
+}
+
+void pasarPilaDnisConPromMayorA7(int dnis[], float parcial1[], float parcial2[], Pila notasMayorA7, int validos, float promedioDnis[])
+{
+    float promedio;
+    int i = 0;
+    inicpila(&notasMayorA7);
+    pasarPromOtroArray(dnis, parcial1, parcial2, promedioDnis, validos);
 
     for (i = 0; i < validos; i++)
     {
-        sumaParcial1 += parcial1[i];
-    }
-    for (j = 0; j < validos; j++)
-    {
-        sumaParcial2 += parcial2[j];
+
+        if (promedioDnis[i] > 7)
+        {
+            apilar(&notasMayorA7, dnis[i]);
+        }
     }
 
-    sumaNotas = sumaParcial1 + sumaParcial2;
-    cantNotas = i + j;
-    (*promedioTotal) = sumaNotas / cantNotas;
-    printf("", promedioTotal);
-    return (*promedioTotal);
+    if (!pilavacia(&notasMayorA7))
+    {
+        printf("\nPila DNIS con promedio mayor a 7:\n");
+        mostrar(&notasMayorA7);
+    }
+}
+
+int cantDatosEnPila(int dnis[], Pila pilaDnis, int validos)
+{
+    int j = 0;
+    for (int i = 0; i < validos; i++)
+    {
+        apilar(&pilaDnis, dnis[i]);
+    }
+    mostrar(&pilaDnis);
+
+    while (!pilavacia(&pilaDnis))
+    {
+        desapilar(&pilaDnis);
+        j++;
+    }
+
+    return j;
+}
+
+void eliminarMenorAxNum(int dnis[], int validos)
+{
+    for (int i = 0; i < validos; i++)
+    {
+        if (dnis[i] == 5)
+        {
+            dnis[i] = dnis[i + 3];
+            validos--;
+        }
+
+        else if (dnis[i] < 5)
+        {
+            dnis[i] = dnis[i + 3];
+            validos--;
+        }
+    }
+
+    for (int j = 0; j < validos; j++)
+    {
+        printf("\n Array sin esos elementos | %d |\n", dnis[j]);
+    }
 }

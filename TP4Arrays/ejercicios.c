@@ -204,7 +204,7 @@ int main()
     }
     // } while (opcion > 0 && opcion <= 15);
 
-    system("pause");
+    // system("pause");
     return 0;
 }
 

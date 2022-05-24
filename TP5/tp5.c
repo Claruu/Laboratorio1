@@ -1,0 +1,97 @@
+// Trabajo Práctico N° 6:
+// Estructuras de Datos. Algoritmos sobre arreglos de estructuras.
+// Sea la estructura:
+// typedef struct {
+//     int matricula;
+//     char nombre[30];
+//     char genero; //m, f, o
+// } stAlumno;
+
+// 1- Hacer una función que cargue un arreglo de alumnos, hasta que el usuario lo decida.
+// 2- Hacer una función que muestre un arreglo de alumnos por pantalla. Modularizar.
+// 3- Hacer una función que muestre por pantalla los datos de un alumno, conociendo su matrícula. Modularizar.
+// 4- Hacer una función que ordene el arreglo de alumnos por medio del método de selección. El criterio de ordenación es el número de matrícula.
+// 5- Hacer una función que muestre por pantalla los datos de los estudiantes de un género determinado (se envía por parámetro). Modularizar.
+// 6- Hacer una función que inserte en un arreglo ordenado por matrícula un nuevo dato, conservando el orden.
+// 7- Hacer una función que ordene el arreglo de alumnos por medio del método de inserción. El criterio de ordenación es el nombre.
+// 8- Hacer una función que cuente y retorne la cantidad de estudiantes de un género determinado (se envía por parámetro) que tiene un arreglo de alumnos.
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct
+{
+    int matricula;
+    char nombre[30];
+    char genero; // m, f, o
+} stAlumno;
+
+void seleccionOpciones(int *);
+void mostrarOpciones();
+
+int main()
+{
+    char continuar;
+    int opcion = 0;
+
+    do
+    { // 0- Hacer una función principal que pruebe el funcionamiento de todos los incisos anteriores, con un menú de opciones para poder ejecutar todas las funciones requeridas. Tengan presente la correcta declaración y el ámbito de variables.
+        mostrarOpciones();
+        seleccionOpciones(&opcion);
+        printf("Desea continuar? s/n: ");
+        fflush(stdin);
+        scanf("%c", &continuar);
+        system("cls");
+    } while (continuar == 's' || continuar == 'S');
+
+    return 0;
+}
+
+void mostrarOpciones()
+{
+    printf("\tMenu TP 5: Estructuras\n");
+    printf("Opcion 1: Carga de arreglo de alumnos.\n");
+    printf("Opcion 2: Muestra de arreglo de alumnos.\n");
+    printf("Opcion 3: Muestra de alumno particular con su matricula.\n");
+    printf("Opcion 4: Ordenacion por seleccion de alumnos en base a su matricula.\n");
+    printf("Opcion 5: Muestra de alumnos en base a su genero.\n");
+    printf("Opcion 6: Insercion de un dato en un arreglo ordenado, conservando el orden.\n");
+    printf("Opcion 7: Ordenacion por insercion de alumnos en base a su nombre.\n");
+    printf("Opcion 8: Contador de cantidad de estudiantes de un genero determinado.\n");
+    printf("\tIngrese la opcion a elegir (entre 1 y 8): ");
+}
+void seleccionOpciones(int *opcion)
+{
+    scanf("%d", opcion);
+    switch (*opcion)
+    {
+    case 1:
+        printf("hola\n");
+        // 1- Hacer una función que cargue un arreglo de alumnos, hasta que el usuario lo decida.
+        break;
+    case 2:
+        // 2- Hacer una función que muestre un arreglo de alumnos por pantalla. Modularizar.
+        break;
+    case 3:
+        // 3- Hacer una función que muestre por pantalla los datos de un alumno, conociendo su matrícula. Modularizar.
+        break;
+    case 4:
+        // 4- Hacer una función que ordene el arreglo de alumnos por medio del método de selección. El criterio de ordenación es el número de matrícula.
+        break;
+    case 5:
+        // 5- Hacer una función que muestre por pantalla los datos de los estudiantes de un género determinado (se envía por parámetro). Modularizar.
+        break;
+    case 6:
+        // 6- Hacer una función que inserte en un arreglo ordenado por matrícula un nuevo dato, conservando el orden.
+        break;
+    case 7:
+        // 7- Hacer una función que ordene el arreglo de alumnos por medio del método de inserción. El criterio de ordenación es el nombre.
+        break;
+    case 8:
+        // 8- Hacer una función que cuente y retorne la cantidad de estudiantes de un género determinado (se envía por parámetro) que tiene un arreglo de alumnos.
+        break;
+    default:
+        printf("Error, no ha ingresado una opcion valida.\n");
+        break;
+    }
+}

@@ -10,7 +10,7 @@
 
 // funciones utiles
 void cargaMatriz(int[][COL], int *, int *);
-int mostrarMenu();
+int mostrarOpciones();
 
 // 1- Hacer una función que reciba como parámetro una matriz de números enteros y permita que el usuario ingrese valores al mismo por teclado. La función debe cargar la matriz por completo.
 void cargaCompletaMatriz(int[][COL]);
@@ -42,9 +42,19 @@ int buscarEnString(char[][COLSTRING], int, char[]);
 
 // 10- Hacer una función que determine si un string se encuentra dentro de un arreglo de strings ordenado alfabéticamente. La función recibe el arreglo, la cantidad de palabras que contiene y el string a buscar.  ///devuelve el índice de la fila en que se encuentra, de lo contrario -1
 int buscarEnStringOrdenado(char[][COLSTRING], int, char[]);
-// funciones ayuda
+// funciones ayuda Ejercicio 10
 void insertarOrdenado(char[][COLSTRING], char[], int);
 void cargarOrdenado(char[][COLSTRING], char[], int *);
+
+// 11- Hacer una función (o varias) que ordene un arreglo de palabras por orden alfabético. (Por selección o inserción, el que más te guste).
+
+// 12- Hacer una función que retorne el determinante de una matriz de 2x2.
+
+// 13- Función que verifique si una matriz de 2x2 tiene inversa.
+
+// 14- Hacer una función que multiplique una matriz de 2x2 por una matriz de 2x5.
+
+// 15- Hacer una función que calcule la matriz inversa de una matriz de 2x2.
 
 int main()
 {
@@ -60,7 +70,7 @@ int main()
 
     do
     {
-        opcion = mostrarMenu();
+        opcion = mostrarOpciones();
 
         switch (opcion)
         {
@@ -91,13 +101,13 @@ int main()
             cargaMatriz(matriz, &validosF, &validosC);
             printf("Ingrese un numero a buscar dentro de la matriz: ");
             scanf("%d", &numero);
+
             buscarEnMatriz(matriz, &numero, validosF, validosC);
 
             if (numero == -1)
             {
                 printf("No se encontro su numero en la matriz\n");
             }
-
             break;
         case 7:
             cargarArrayString(arrayStrings, &validos);
@@ -162,7 +172,7 @@ int main()
     return 0;
 }
 
-int mostrarMenu()
+int mostrarOpciones()
 {
     int opcion = 0;
     printf("\tMenu TP4.1: Matrices \n");
@@ -177,7 +187,7 @@ int mostrarMenu()
     printf("Opcion 9: Busqueda en un array de strings.\n");
     printf("Opcion 10: Busqueda en un array de strings ordenado.\n");
     printf("Opcion 15: Carga de matriz extra.\n");
-    printf("\tIngrese la opcion a elegir (entre 1 y 10): ");
+    printf("\tIngrese la opcion a elegir (entre 1 y 15): ");
     fflush(stdin);
     scanf("%d", &opcion);
     return opcion;
@@ -312,10 +322,6 @@ void buscarEnMatriz(int matrizDondeBuscar[][COL], int *numABuscar, int validosF,
                 *numABuscar = 1;
                 printf("El valor se encuentra en la fila %d y la columna %d.\n", i, j);
             }
-            else
-            {
-                *numABuscar = -1;
-            }
         }
     }
 }
@@ -411,7 +417,7 @@ int buscarEnStringOrdenado(char arrayStrings[][COLSTRING], int validos, char bus
         buscador = medio;
     }
     else if (comparador > 0)
-    { //si es positivo, significa que esta desde el medio hasta validos
+    { // si es positivo, significa que esta desde el medio hasta validos
         for (int i = medio; i >= 0; i--)
         {
             if (strcmpi(arrayStrings[i], buscado) == 0)
@@ -421,8 +427,8 @@ int buscarEnStringOrdenado(char arrayStrings[][COLSTRING], int validos, char bus
         }
     }
     else if (comparador < 0)
-    { //si es negativo, la posición J es más grande que lo que busco
-      // entonces, tengo que buscar desde J a 0 (j--)
+    { // si es negativo, la posición J es más grande que lo que busco
+      //  entonces, tengo que buscar desde J a 0 (j--)
         for (int i = medio; i < validos; i++)
         {
             if (strcmpi(arrayStrings[i], buscado) == 0)

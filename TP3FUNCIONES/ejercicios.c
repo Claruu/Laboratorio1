@@ -5,7 +5,7 @@
 /// Realizar todas las funciones en un mismo proyecto, para ir probando su correcto funcionamiento deberá desarrollar una función main, donde cree las variables y pilas que necesite, e invoque a las funciones como corresponda en cada caso.
 
 /// Funciones utiles:
-int mostrarMenu();
+int mostrarOpciones();
 
 /// 1. Hacer una función que permita ingresar varios elementos a una pila, tanto como quiera el usuario.
 void cargarPila(Pila *);
@@ -50,7 +50,7 @@ int main()
 
     do
     {
-        opcion = mostrarMenu();
+        opcion = mostrarOpciones();
         inicpila(&uno);
         inicpila(&dos);
         inicpila(&aux);
@@ -127,7 +127,7 @@ int main()
     return 0;
 }
 
-int mostrarMenu()
+int mostrarOpciones()
 {
     int opcion = 0;
     printf("\n1-Funcion para cargar una pila.\n");

@@ -1,4 +1,4 @@
-Trabajo Práctico N° 4.1: Matrices
+Trabajo Práctico N° 5: Matrices
 1- Hacer una función que reciba como parámetro una matriz de números enteros y permita que el usuario ingrese valores al mismo por teclado. La función debe cargar la matriz por completo. 
 2- Hacer una función que reciba como parámetro una matriz de números enteros y la muestre por pantalla (en formato matricial). 
 3- Hacer una función que reciba como parámetro una matriz de números enteros y que cargue la misma con números aleatorios (sin intervención del usuario). La función debe cargar la matriz por completo. 

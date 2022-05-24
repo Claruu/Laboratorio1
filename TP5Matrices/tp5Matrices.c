@@ -175,7 +175,7 @@ int main()
 int mostrarOpciones()
 {
     int opcion = 0;
-    printf("\tMenu TP4.1: Matrices \n");
+    printf("\tMenu TP5: Matrices \n");
     printf("Opcion 1: Carga de matriz completa.\n");
     printf("Opcion 2: Carga de matriz preguntando al usuario numero de columnas.\n");
     printf("Opcion 3: Carga de matriz completa de forma aleatoria.\n");

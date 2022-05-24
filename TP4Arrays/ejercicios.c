@@ -83,7 +83,7 @@ int main()
     float sumaFlotante = 0;
     Pila p;
     inicpila(&p);
-    printf("Menu TP ARRAYS: \n");
+    printf("Menu TP4 ARRAYS: \n");
     printf("Opcion 1: Carga un array y te muestra la cantidad de elementos validos\n");
     printf("Opcion 2: Carga un array y te muestra sus elementos\n");
     printf("Opcion 3: Carga un array y realiza la suma de sus elementos\n");

@@ -5,7 +5,7 @@
 #define TAM_MAX 10
 #define DIMENSION 100
 // 1- Hacer una función que reciba como parámetro un arreglo de números enteros y permita que el usuario ingrese valores al mismo por teclado. La función debe retornar la cantidad de elementos cargados en el arreglo (o pueden utilizar como puntero válidos).
-int muestraValidos(int[]);
+int cargaArrayYmuestraValidos(int[]);
 
 // funcion de carga del arreglo, recibe validos
 void cargaArreglo(int[], int *);
@@ -49,14 +49,19 @@ void invertirArreglo(int[], int);
 ///-> se agregaba el menor a una nueva pila
 // a partir de la siguiente posicion j = i+1 busco el
 //  menor comparando arreglo[posMenor] con arreglo[j]
+void ordenarArrayporSeleccion(int[], int); /// recibo el arreglo y los validos
+
 // b) Inserción
 /// -> por cada dato de la pila que desapilaba
 ///-> con el dato buscaba el hueco en la nueva de forma ordenada
-int buscarMenor(int[], int, int);                   /// recibo el arreglo, la posicion i, y validos
-void ordenarArrayporSeleccion(int[], int);          /// recibo el arreglo y los validos
-void insercionenArregloOrdenado(int[], int *, int); /// inserta un numero (UNO SOLO) en un arreglo ordenado
+int buscarMenor(int[], int, int); /// recibo el arreglo, la posicion i, y validos
+
+/// inserta un numero (UNO SOLO) en un arreglo ordenado
+void insercionenArregloOrdenado(int[], int *, int);
 void insercionDesordenado(int[], int *, int);
-void cargarDatoOrdenado(int[], int *); // CARGA VARIOS DATOS EN UN ARREGLO, DE FORMA ORDENADA
+
+// CARGA VARIOS DATOS EN UN ARREGLO, DE FORMA ORDENADA
+void cargarDatoOrdenado(int[], int *);
 
 // 12- Dados dos arreglos ordenados alfabéticamente, crear un tercer arreglo con los elementos de los dos primeros intercalados, de manera que quede un arreglo también ordenado alfabéticamente.
 void ordenamientoInsercionChar(char[], int *, char);
@@ -100,7 +105,7 @@ int main()
     switch (opcion)
     {
     case 1:
-        validos = muestraValidos(arreglo);
+        validos = cargaArrayYmuestraValidos(arreglo);
         printf("\nCantidad de datos que usted ha ingresado al array: %d\n", validos);
         break;
     case 2:
@@ -208,7 +213,7 @@ int main()
     return 0;
 }
 
-int muestraValidos(int arreglo[TAM_MAX])
+int cargaArrayYmuestraValidos(int arreglo[TAM_MAX])
 {
     int indice = 0, validos = 0;
     char continuar = 's';

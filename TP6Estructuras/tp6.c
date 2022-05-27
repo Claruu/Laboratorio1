@@ -2,8 +2,6 @@
 #include <stdlib.h> // Used for atoi() function
 #include <string.h> // Used for strlen() function
 #define TAM_MAX 30
-#define TRUE 1
-#define FALSE 0
 
 typedef struct alumnado
 {
@@ -13,7 +11,7 @@ typedef struct alumnado
 } stAlumno;
 
 // verifica si lo ingresado es un numero o no
-int checkNum(int);
+void cargaNumInt(int *);
 
 // 0 - prototipados menu
 void seleccionOpciones(stAlumno[TAM_MAX], int *, int);
@@ -23,7 +21,7 @@ void mostrarOpciones();
 void cargarStructAlumnos(stAlumno[TAM_MAX], int *);
 
 // 2 - Hacer una función que muestre un arreglo de alumnos por pantalla.Modularizar.void mostrarAlumno(stAlumno[TAM_MAX]);
-void mostrarAlumno(stAlumno[]);
+void mostrarAlumno(stAlumno);
 void mostrarTodosLosAlumnos(stAlumno[], int);
 
 // 3- Hacer una función que muestre por pantalla los datos de un alumno, conociendo su matrícula. Modularizar.
@@ -34,8 +32,7 @@ int buscarMenor(stAlumno[], int, int);
 void ordenarPorSeleccion(stAlumno[], int);
 
 // 5- Hacer una función que muestre por pantalla los datos de los estudiantes de un género determinado (se envía por parámetro). Modularizar.
-void buscarPorGenero(stAlumno[], int, char);
-void mostrarPorGenero(stAlumno[], int, char);
+int buscarPorGenero(stAlumno[], int, char);
 
 // 6- Hacer una función que inserte en un arreglo ordenado por matrícula un nuevo dato, conservando el orden.
 
@@ -46,14 +43,19 @@ void mostrarPorGenero(stAlumno[], int, char);
 int main()
 {
     char continuar;
-    int opcion = 0, validos = 0;
+    int opcion = 0, validos = 0, num;
 
-    stAlumno a;
+    stAlumno p[TAM_MAX];
+
+    cargarStructAlumnos(p, &validos); // carga y muestra general
+    mostrarTodosLosAlumnos(p, validos);
 
     do
     { // 0- Hacer una función principal que pruebe el funcionamiento de todos los incisos anteriores, con un menú de opciones para poder ejecutar todas las funciones requeridas. Tengan presente la correcta declaración y el ámbito de variables.
+
         mostrarOpciones();
-        seleccionOpciones(&a, &opcion, validos);
+        seleccionOpciones(p, &opcion, validos);
+
         printf("Desea continuar? s/n: ");
         fflush(stdin);
         scanf("%c", &continuar);
@@ -74,12 +76,13 @@ void mostrarOpciones()
     printf("Opcion 6: Insercion de un dato en un arreglo ordenado, conservando el orden.\n");
     printf("Opcion 7: Ordenacion por insercion de alumnos en base a su nombre.\n");
     printf("Opcion 8: Contador de cantidad de estudiantes de un genero determinado.\n");
-    printf("\tIngrese la opcion a elegir (entre 1 y 8): ");
 }
 void seleccionOpciones(stAlumno p[], int *opcion, int validos)
 {
-    int matriculaBuscada = -1;
+    int matriculaBuscada = -1, buscador = -1;
     char buscado;
+
+    printf("\tIngrese la opcion a elegir (entre 1 y 8): ");
 
     scanf("%d", opcion);
     switch (*opcion)
@@ -88,23 +91,19 @@ void seleccionOpciones(stAlumno p[], int *opcion, int validos)
         // 1- Hacer una función que cargue un arreglo de alumnos, hasta que el usuario lo decida.
         system("cls");
         printf("\t1- Carga de alumnos: \n");
-        cargarStructAlumnos(p, &validos);
-        mostrarAlumno(p);
-        mostrarTodosLosAlumnos(p, validos);
+        // cargarStructAlumnos(p, &validos);
+        mostrarAlumno(*p);
         break;
     case 2:
         // 2- Hacer una función que muestre un arreglo de alumnos por pantalla. Modularizar.
         system("cls");
         printf("\t2- Muestra de alumnos: \n");
-        cargarStructAlumnos(p, &validos);
         mostrarTodosLosAlumnos(p, validos);
         break;
     case 3:
         // 3- Hacer una función que muestre por pantalla los datos de un alumno, conociendo su matrícula. Modularizar.
         system("cls");
         printf("3- Busqueda de alumno por matricula.\n");
-        cargarStructAlumnos(p, &validos);
-        mostrarTodosLosAlumnos(p, validos);
         printf("Por favor ingrese matricula a buscar: ");
         scanf("%i", &matriculaBuscada);
         buscarPorMatricula(p, validos, &matriculaBuscada);
@@ -113,9 +112,7 @@ void seleccionOpciones(stAlumno p[], int *opcion, int validos)
         // 4- Hacer una función que ordene el arreglo de alumnos por medio del método de selección. El criterio de ordenación es el número de matrícula.
         system("cls");
         printf("4- Ordenar por seleccion la estructura, el criterio de ordenacion siendo la matricula.\n");
-        cargarStructAlumnos(p, &validos);
         printf("Su estructura antes: \n");
-        mostrarTodosLosAlumnos(p, validos);
         ordenarPorSeleccion(p, validos);
         printf("Su estructura despues de ser ordenada: \n");
         mostrarTodosLosAlumnos(p, validos);
@@ -124,8 +121,6 @@ void seleccionOpciones(stAlumno p[], int *opcion, int validos)
         // 5- Hacer una función que muestre por pantalla los datos de los estudiantes de un género determinado (se envía por parámetro). Modularizar.
         system("cls");
         printf("Opcion 5: Muestra de alumnos en base a su genero.\n");
-        cargarStructAlumnos(p, &validos);
-        mostrarTodosLosAlumnos(p, validos);
         printf("Por favor ingrese el genero de los alumnos que desea buscar: ");
         fflush(stdin);
         scanf("%c", &buscado);
@@ -135,7 +130,12 @@ void seleccionOpciones(stAlumno p[], int *opcion, int validos)
             fflush(stdin);
             scanf("%c", &buscado);
         }
-        buscarPorGenero(p, validos, buscado);
+
+        buscador = buscarPorGenero(p, validos, buscado);
+        if (buscador == -1)
+        {
+            printf("No hay alumnos de ese genero matriculados.\n");
+        }
         break;
     case 6:
         // 6- Hacer una función que inserte en un arreglo ordenado por matrícula un nuevo dato, conservando el orden.
@@ -152,6 +152,26 @@ void seleccionOpciones(stAlumno p[], int *opcion, int validos)
     }
 }
 
+//             Funcion para chequear que lo ingresado sea un numero entero
+void cargaNumInt(int *aVerificar)
+{
+    int valido;
+    char str[20];
+
+    do
+    {
+        gets(str);
+        valido = atoi(str);
+        if (valido == 0) // si atoi devuelve 0, se introdujo un string.
+        {
+            printf("Error. Ingrese nuevamente el numero: ");
+        }
+
+    } while (valido == 0);
+
+    *aVerificar = valido;
+}
+
 void cargarStructAlumnos(stAlumno p[TAM_MAX], int *validos)
 {
     char continuar;
@@ -160,7 +180,7 @@ void cargarStructAlumnos(stAlumno p[TAM_MAX], int *validos)
     do
     {
         printf("Ingrese matricula alumno #%i: ", i);
-        (p[i]).matricula = checkNum((p[i]).matricula); // mientras que se va cargando la matricula se chequea que sea un numero, entero.
+        cargaNumInt(&(p[i]).matricula); // mientras que se va cargando la matricula se chequea que sea un numero, entero.
 
         printf("Ingrese nombre alumno #%i: ", i);
         fflush(stdin);
@@ -180,6 +200,7 @@ void cargarStructAlumnos(stAlumno p[TAM_MAX], int *validos)
         fflush(stdin);
         scanf("%c", &continuar);
         i++;
+        fflush(stdin);
     } while ((continuar == 's' || continuar == 'S') && i < TAM_MAX);
 
     (*validos) = i;
@@ -187,12 +208,11 @@ void cargarStructAlumnos(stAlumno p[TAM_MAX], int *validos)
 //    int matricula;
 //   char nombre[30];
 //   char genero; // m, f, o
-void mostrarAlumno(stAlumno p[TAM_MAX])
+void mostrarAlumno(stAlumno p)
 {
-    printf("\n- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
-    printf("                   MATRICULA DEL ESTUDIANTE: %i                     \n", p->matricula);
-    printf("                   NOMBRE DEL ESTUDIANTE: %s                        \n", &p->nombre);
-    printf("                   GENERO DEL ESTUDIANTE: %c                        \n", p->genero);
+    printf("                   MATRICULA DEL ESTUDIANTE: %i                     \n", p.matricula);
+    printf("                   NOMBRE DEL ESTUDIANTE: %s                        \n", p.nombre);
+    printf("                   GENERO DEL ESTUDIANTE: %c                        \n", p.genero);
     printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
 }
 
@@ -201,10 +221,12 @@ void mostrarTodosLosAlumnos(stAlumno p[], int validos)
     printf("\n|||||||||||||||||                          |||||||||||||||||\n");
     printf("\n               Lista de alumnos y su informacion:                 \n");
     printf("\n|||||||||||||||||                          |||||||||||||||||\n");
+
+    printf("\n\n- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n\n");
     for (int i = 0; i < validos; i++)
     {
         printf("\n                  | |   Alumno #%i:   | |              \n", i);
-        mostrarAlumno((&p[i]));
+        mostrarAlumno((p[i]));
     }
 }
 
@@ -215,7 +237,7 @@ void buscarPorMatricula(stAlumno p[TAM_MAX], int validos, int *matriculaBuscada)
         if (p[i].matricula == (*matriculaBuscada))
         {
             printf("Su alumno buscado se ha encontrado. Sus datos:\n");
-            mostrarAlumno((&p[i]));
+            mostrarAlumno((p[i]));
         }
         else
         {
@@ -247,49 +269,32 @@ int buscarMenor(stAlumno p[], int validos, int i)
 
 void ordenarPorSeleccion(stAlumno p[], int validos)
 {
-    int i, posMenor, aux;
+    int i, posMenor;
+    stAlumno aux[validos];
+
     for (int i = 0; i < validos; i++)
     {
         posMenor = buscarMenor(p, validos, i);
-        aux = p[posMenor].matricula;
-        p[posMenor].matricula = p[i].matricula;
-        p[i].matricula = aux;
+        aux[i] = p[posMenor];
+        p[posMenor] = p[i];
+        p[i] = aux[i];
     }
 }
 
-void buscarPorGenero(stAlumno p[], int validos, char generoBuscado)
+int buscarPorGenero(stAlumno p[], int validos, char buscado)
 {
+    int buscador = -1;
+
     for (int i = 0; i < validos; i++)
     {
-        if (p[i].genero == generoBuscado)
+        if (p[i].genero == buscado)
         {
-            mostrarPorGenero(p, validos, generoBuscado);
-        }
-        else
-        {
-            printf("Error. \n");
+            mostrarAlumno(p[i]);
+            buscador++;
         }
     }
-}
 
-void mostrarPorGenero(stAlumno p[], int validos, char generoBuscado)
-{
-    int i = 0, j = 0;
-    printf("GENERO BUSCADO: %c\n", generoBuscado);
-
-    if ((j < validos) && (p[j].genero == generoBuscado))
-    {
-        for (i = 0; i < validos; i++)
-        {
-            printf("| MATRICULA: %i |\n", p[i].matricula);
-            printf("| NOMBRE: %s |\n", p[i].nombre);
-        }
-        j++;
-    }
-    else
-    {
-        printf("No se han encontrado personas de ese genero. \n");
-    }
+    return buscador;
 }
 
 //
@@ -305,44 +310,3 @@ void mostrarPorGenero(stAlumno p[], int validos, char generoBuscado)
 //
 //
 //
-//                    Funcion para chequear que lo ingresado sea un numero entero
-//                    Not my code, don't judge me (?)
-int checkNum(int aVerificar)
-{
-    char n[10]; // Limits characters to the equivalent of the 32 bits integers limit (10 digits)
-
-    do
-    {
-        scanf(" %s", n);
-
-        aVerificar = TRUE; // Sets the default for the integer test variable to TRUE
-
-        int i = 0, l = strlen(n);
-        if (n[0] == '-') // Tests for the negative sign to correctly handle negative integer values
-            i++;
-        while (i < l)
-        {
-            if (n[i] < '0' || n[i] > '9') // Tests the string characters for non-integer values
-            {
-                aVerificar = FALSE; // Changes intTest variable from TRUE to FALSE and breaks the loop early
-                break;
-            }
-            i++;
-        }
-        if (aVerificar == TRUE)
-        {
-            aVerificar = atoi(n);
-        } // Converts the string to an integer and prints the integer value
-        else
-        {
-            printf("Error. Vuelva a ingresar el # matricula: "); // Prints "Retry:" if tested FALSE
-            if (aVerificar == TRUE)
-            {
-                aVerificar = atoi(n);
-            }
-        }
-
-    } while (aVerificar == FALSE); // Continues to ask the user to input a valid integer value
-
-    return aVerificar;
-}

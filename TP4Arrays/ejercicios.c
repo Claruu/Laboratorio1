@@ -32,7 +32,7 @@ int busquedaArrayChar(char[], int, char);
 
 // 7- Realizar una función que inserte un carácter en un arreglo ordenado alfabéticamente, conservando el orden.
 void insertarCharEnarreglo(char[], int);
-void ordenar(char[], int);
+void ordenar(char[], int, char);
 
 // 8- Realizar una función que obtenga el máximo carácter de un arreglo dado.
 char maximoChar(char[], int);
@@ -154,9 +154,9 @@ int main()
         mostrarArregloChar(charray, validos);
         printf("Por favor ingrese un valor al array ordenado: ");
         fflush(stdin);
-        scanf("%c", &charray[validos]);
+        scanf("%c", arregloUno[validos]);
         validos++;
-        ordenar(charray, validos);
+        ordenar(charray, validos, (*arregloUno));
         mostrarArregloChar(charray, validos);
         break;
     case 8:
@@ -386,9 +386,9 @@ void insertarOrdenado(char arreglo[TAM_MAX], int indiceActual, char letra)
     // validos++;
 }
 
-void ordenar(char array[TAM_MAX], int validos)
+void ordenar(char array[TAM_MAX], int validos, char letra)
 {
-    char letra;
+
     for (int i = 1; i < validos; i++)
     {
         letra = array[i];

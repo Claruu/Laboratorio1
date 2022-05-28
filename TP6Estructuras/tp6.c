@@ -11,7 +11,7 @@ typedef struct alumnado
 } stAlumno;
 
 // verifica si lo ingresado es un numero o no
-void cargaNumInt(int *);
+void checkNumYcarga(int *);
 
 // 0 - prototipados menu
 void seleccionOpciones(stAlumno[TAM_MAX], int *, int);
@@ -35,19 +35,39 @@ void ordenarPorSeleccion(stAlumno[], int);
 int buscarPorGenero(stAlumno[], int, char);
 
 // 6- Hacer una función que inserte en un arreglo ordenado por matrícula un nuevo dato, conservando el orden.
+void ordenarArrayStruct(stAlumno[], int);
+void cargaUnaPersona(stAlumno *);
+void insercionOrdenada(stAlumno[], int, stAlumno);
+void cargaListaPersonas(stAlumno[], int *);
 
 // 7- Hacer una función que ordene el arreglo de alumnos por medio del método de inserción. El criterio de ordenación es el nombre.
 
 // 8- Hacer una función que cuente y retorne la cantidad de estudiantes de un género determinado (se envía por parámetro) que tiene un arreglo de alumnos.
+void ordenacionInsercion(stAlumno[], int);
+
+// void defaultValues(stAlumno[], int *);
 
 int main()
 {
     char continuar;
-    int opcion = 0, validos = 0, num;
+    int opcion = 0, validos = 0, num, cargar;
 
     stAlumno p[TAM_MAX];
+    stAlumno alumno;
+    // printf("Carga manual: ");
+    // // scanf("%d", &cargar);
 
-    cargarStructAlumnos(p, &validos); // carga y muestra general
+    // // carga y muestra general
+    // if (cargar == 1)
+    // {
+    //     cargarStructAlumnos(p, &validos);
+    // }
+    // else
+    // {
+    //     // defaultValues(p, &validos);
+    //     fflush(stdin);
+    // }
+    cargaListaPersonas(p, &validos);
     mostrarTodosLosAlumnos(p, validos);
 
     do
@@ -81,6 +101,7 @@ void seleccionOpciones(stAlumno p[], int *opcion, int validos)
 {
     int matriculaBuscada = -1, buscador = -1;
     char buscado;
+    stAlumno alumno;
 
     printf("\tIngrese la opcion a elegir (entre 1 y 8): ");
 
@@ -139,6 +160,14 @@ void seleccionOpciones(stAlumno p[], int *opcion, int validos)
         break;
     case 6:
         // 6- Hacer una función que inserte en un arreglo ordenado por matrícula un nuevo dato, conservando el orden.
+        mostrarTodosLosAlumnos(p, validos);
+        printf("Por favor ingrese un nuevo alumno al struct");
+        cargaUnaPersona(&alumno);
+        mostrarTodosLosAlumnos(p, validos);
+        validos = validos + 1;
+        insercionOrdenada(p, validos, alumno);
+        mostrarTodosLosAlumnos(p, validos);
+        system("pause");
         break;
     case 7:
         // 7- Hacer una función que ordene el arreglo de alumnos por medio del método de inserción. El criterio de ordenación es el nombre.
@@ -152,8 +181,46 @@ void seleccionOpciones(stAlumno p[], int *opcion, int validos)
     }
 }
 
+void cargaUnaPersona(stAlumno *p)
+{
+    fflush(stdin);
+    printf("MATRICULA: ");
+    fflush(stdin);
+    checkNumYcarga(&(p)->matricula);
+    printf("NOMBRE: ");
+    fflush(stdin);
+    gets((*p).nombre);
+    printf("Ingrese genero alumno: ");
+    fflush(stdin);
+    gets(&(*p).genero);
+    while (p->genero != 'm' && p->genero != 'f' && p->genero != 'o')
+    {
+        printf("Error. Ingrese genero alumno: ");
+        fflush(stdin);
+        gets(&(*p).genero);
+    }
+}
+
+void cargaListaPersonas(stAlumno alumnos[], int *validos)
+{
+    char continuar;
+    stAlumno p;
+    int i = *validos; /// empiezo desde la ultima posicion NO cargada
+    do
+    {
+        cargaUnaPersona(&p);
+        insercionOrdenada(alumnos, i, p);
+        printf("Desea agregar otra persona? s/n: ");
+        fflush(stdin);
+        scanf("%c", &continuar);
+        i++;
+    } while (i < TAM_MAX && continuar == 's');
+
+    *validos = i;
+}
+
 //             Funcion para chequear que lo ingresado sea un numero entero
-void cargaNumInt(int *aVerificar)
+void checkNumYcarga(int *aVerificar)
 {
     int valido;
     char str[20];
@@ -180,7 +247,7 @@ void cargarStructAlumnos(stAlumno p[TAM_MAX], int *validos)
     do
     {
         printf("Ingrese matricula alumno #%i: ", i);
-        cargaNumInt(&(p[i]).matricula); // mientras que se va cargando la matricula se chequea que sea un numero, entero.
+        checkNumYcarga(&(p[i]).matricula); // mientras que se va cargando la matricula se chequea que sea un numero, entero.
 
         printf("Ingrese nombre alumno #%i: ", i);
         fflush(stdin);
@@ -296,6 +363,59 @@ int buscarPorGenero(stAlumno p[], int validos, char buscado)
 
     return buscador;
 }
+
+void ordenarArrayStruct(stAlumno p[], int validos)
+{
+    stAlumno aux;
+    int j = 0;
+    for (int i = 0; i < validos; i++)
+    {
+        aux = p[i];
+        j = i;
+        while ((j > 0) && (p[j - 1]).matricula > aux.matricula)
+        {
+            p[j] = p[j - 1];
+            j--;
+        }
+        p[j] = aux;
+    }
+}
+
+void insercionOrdenada(stAlumno alumnos[], int validos, stAlumno p) /// insercion ordenada de una persona por el criterio de nombre alfabeticamente
+{
+    int i = validos - 1;
+    while (i >= 0 && (alumnos[i].matricula > p.matricula))
+    {
+        alumnos[i + 1] = alumnos[i];
+        i--;
+    }
+    validos++;
+    alumnos[i + 1] = p;
+}
+
+// void cargarAlumno(stAlumno *a)
+// {
+//     a->matricula = 2;
+//     strcpy(a->nombre, "Faa");
+//     a->genero = 'f';
+
+//     mostrarAlumno(*a);
+// }
+
+// void defaultValues(stAlumno p[], int *validos)
+// {
+//     p[0].matricula = 123;
+//     strcpy(p[0].nombre, "Foo");
+//     p[0].genero = 'm';
+//     p[1].matricula = 456;
+//     strcpy(p[1].nombre, "Bar");
+//     p[1].genero = 'f';
+//     p[2].matricula = 789;
+//     strcpy(p[2].nombre, "Let");
+//     p[2].genero = 'f';
+
+//     *validos = 4;
+// }
 
 //
 //

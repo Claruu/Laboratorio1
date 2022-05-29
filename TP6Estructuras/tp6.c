@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define TAM_MAX 30
+#define TAM_MAX 7
 
 typedef struct alumnado
 {
@@ -202,22 +202,22 @@ void checkNumYcarga(int *aVerificar)
 }
 
 // carga 1 alumno
-void cargaUnaPersona(stAlumno *p)
+void cargaUnaPersona(stAlumno *alumno)
 {
     fflush(stdin);
     printf("Ingrese numero de Matricula: ");
-    checkNumYcarga(&(p)->matricula);
+    checkNumYcarga(&(alumno)->matricula);
     printf("Ingrese nombre del alumno: ");
     fflush(stdin);
-    gets((*p).nombre);
+    gets((*alumno).nombre);
     printf("Ingrese genero del alumno: ");
     fflush(stdin);
-    gets(&(*p).genero);
-    while (p->genero != 'm' && p->genero != 'f' && p->genero != 'o')
+    gets(&(*alumno).genero);
+    while (alumno->genero != 'm' && alumno->genero != 'f' && alumno->genero != 'o')
     {
         printf("Error. Ingrese genero alumno: ");
         fflush(stdin);
-        gets(&(*p).genero);
+        gets(&(*alumno).genero);
     }
 }
 
@@ -276,15 +276,15 @@ void cargaAlumnadoOrdenado(stAlumno listaAlumnos[], int *validos) // ejercicio 1
     *validos = i;
 }
 
-void mostrarAlumno(stAlumno p) // ejercicio 2(1)
+void mostrarAlumno(stAlumno alumno) // ejercicio 2(1)
 {
-    printf("                   MATRICULA DEL ESTUDIANTE: %i                     \n", p.matricula);
-    printf("                   NOMBRE DEL ESTUDIANTE: %s                        \n", p.nombre);
-    printf("                   GENERO DEL ESTUDIANTE: %c                        \n", p.genero);
+    printf("                   MATRICULA DEL ESTUDIANTE: %i                     \n", alumno.matricula);
+    printf("                   NOMBRE DEL ESTUDIANTE: %s                        \n", alumno.nombre);
+    printf("                   GENERO DEL ESTUDIANTE: %c                        \n", alumno.genero);
     printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
 }
 
-void mostrarTodosLosAlumnos(stAlumno p[], int validos) // ejercicio 2(2)
+void mostrarTodosLosAlumnos(stAlumno listaAlumnos[], int validos) // ejercicio 2(2)
 {
     printf("\n|||||||||||||||||                          |||||||||||||||||\n");
     printf("\n               Lista de alumnos y su informacion:                 \n");
@@ -294,32 +294,32 @@ void mostrarTodosLosAlumnos(stAlumno p[], int validos) // ejercicio 2(2)
     for (int i = 0; i < validos; i++)
     {
         printf("\n                  | |   Alumno #%i:   | |              \n", i);
-        mostrarAlumno((p[i]));
+        mostrarAlumno((listaAlumnos[i]));
     }
 }
 
 // funcion que carga un array de structs default
-void defaultValues(stAlumno p[], int *validos)
+void defaultValues(stAlumno alumno[], int *validos)
 {
-    p[0].matricula = 1;
-    strcpy(p[0].nombre, "Juan Torres");
-    p[0].genero = 'm';
-    p[1].matricula = 5;
-    strcpy(p[1].nombre, "Damiani Eryn");
-    p[1].genero = 'o';
-    p[2].matricula = 2;
-    strcpy(p[2].nombre, "Paola Lopez");
-    p[2].genero = 'f';
+    alumno[0].matricula = 1;
+    strcpy(alumno[0].nombre, "Juan Torres");
+    alumno[0].genero = 'm';
+    alumno[1].matricula = 5;
+    strcpy(alumno[1].nombre, "Damiani Eryn");
+    alumno[1].genero = 'o';
+    alumno[2].matricula = 2;
+    strcpy(alumno[2].nombre, "Paola Lopez");
+    alumno[2].genero = 'f';
     *validos = 3;
 }
 
-int busquedaMatricula(stAlumno p[TAM_MAX], int validos, int matriculaBuscada) // ejercicio 3(1)
+int busquedaMatricula(stAlumno listaAlumnos[TAM_MAX], int validos, int matriculaBuscada) // ejercicio 3(1)
 {
     int posicion = -1;
 
     for (int i = 0; i < validos; i++)
     {
-        if (p[i].matricula == matriculaBuscada)
+        if (listaAlumnos[i].matricula == matriculaBuscada)
         {
             posicion = i;
             break;
@@ -328,13 +328,13 @@ int busquedaMatricula(stAlumno p[TAM_MAX], int validos, int matriculaBuscada) //
     return posicion;
 }
 
-void muestraAlumnoSegunMatricula(stAlumno p[], int validos, int matriculaBuscada) // ejercicio 3(2)
+void muestraAlumnoSegunMatricula(stAlumno listaAlumnos[], int validos, int matriculaBuscada) // ejercicio 3(2)
 {
-    int resultado = busquedaMatricula(p, validos, matriculaBuscada);
+    int resultado = busquedaMatricula(listaAlumnos, validos, matriculaBuscada);
     if (resultado != -1)
     {
         printf("Su alumno se ha encontrado, en la posicion %i", resultado);
-        mostrarAlumno((p[resultado]));
+        mostrarAlumno((listaAlumnos[resultado]));
     }
     else
     {
@@ -342,14 +342,14 @@ void muestraAlumnoSegunMatricula(stAlumno p[], int validos, int matriculaBuscada
     }
 }
 
-int buscarMenor(stAlumno p[], int validos, int i) // ejercicio 4
+int buscarMenor(stAlumno listaAlumnos[], int validos, int i) // ejercicio 4
 {
     int posMenor = i;
     int indice = i + 1;
 
     while (indice < validos)
     {
-        if (p[posMenor].matricula > p[indice].matricula)
+        if (listaAlumnos[posMenor].matricula > listaAlumnos[indice].matricula)
         {
             posMenor = indice;
         }
@@ -358,28 +358,28 @@ int buscarMenor(stAlumno p[], int validos, int i) // ejercicio 4
     return posMenor;
 }
 
-void ordenarPorSeleccion(stAlumno p[], int validos) // ejercicio 4
+void ordenarPorSeleccion(stAlumno listaAlumnos[], int validos) // ejercicio 4
 {
     int i, posMenor;
     stAlumno aux[validos];
 
     for (int i = 0; i < validos; i++)
     {
-        posMenor = buscarMenor(p, validos, i);
-        aux[i] = p[posMenor];
-        p[posMenor] = p[i];
-        p[i] = aux[i];
+        posMenor = buscarMenor(listaAlumnos, validos, i);
+        aux[i] = listaAlumnos[posMenor];
+        listaAlumnos[posMenor] = listaAlumnos[i];
+        listaAlumnos[i] = aux[i];
     }
 }
 
-int buscarPorGenero(stAlumno p[], int validos, char buscado) // ejercicio 5
+int buscarPorGenero(stAlumno listaAlumnos[], int validos, char buscado) // ejercicio 5
 {
     int buscador = -1;
     for (int i = 0; i < validos; i++)
     {
-        if (p[i].genero == buscado)
+        if (listaAlumnos[i].genero == buscado)
         {
-            mostrarAlumno(p[i]);
+            mostrarAlumno(listaAlumnos[i]);
             buscador++;
         }
     }
@@ -392,29 +392,29 @@ int buscarPorGenero(stAlumno p[], int validos, char buscado) // ejercicio 5
     return buscador;
 }
 
-void insercionDesordenada(stAlumno p[], int *validos, stAlumno alumnoNuevo) // ejercicio 6
+void insercionDesordenada(stAlumno listaAlumnos[], int *validos, stAlumno alumnoNuevo) // ejercicio 6
 {
     if (*validos < TAM_MAX)
     {
-        p[*validos] = alumnoNuevo;
+        listaAlumnos[*validos] = alumnoNuevo;
         (*validos)++;
     }
 }
 
-void ordenarArrayStruct(stAlumno alumnos[], int validos) // util para ordenar un array de estructuras por matricula
+void ordenarArrayStruct(stAlumno listaAlumnos[], int validos) // util para ordenar un array de estructuras por matricula
 {
     stAlumno aux;
     int j = 0;
     for (int i = 0; i < validos; i++)
     {
-        aux = alumnos[i];
+        aux = listaAlumnos[i];
         j = i;
-        while ((j > 0) && (alumnos[j - 1]).matricula > aux.matricula)
+        while ((j > 0) && (listaAlumnos[j - 1]).matricula > aux.matricula)
         {
-            alumnos[j] = alumnos[j - 1];
+            listaAlumnos[j] = listaAlumnos[j - 1];
             j--;
         }
-        alumnos[j] = aux;
+        listaAlumnos[j] = aux;
     }
 }
 
@@ -431,12 +431,12 @@ void insercionOrdenadaPorNombre(stAlumno listaAlumnos[], int validos, stAlumno a
     listaAlumnos[i + 1] = alumno;
 }
 
-int contarCantAlumnosGeneroBuscado(stAlumno p[], int validos, char buscado) // ejercicio 8
+int contarCantAlumnosGeneroBuscado(stAlumno listaAlumnos[], int validos, char buscado) // ejercicio 8
 {
     int encontrado = 0;
     for (int i = 0; i < validos; i++)
     {
-        if (p[i].genero == buscado)
+        if (listaAlumnos[i].genero == buscado)
         {
             encontrado++;
         }

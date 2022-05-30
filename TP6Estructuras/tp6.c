@@ -11,12 +11,29 @@ typedef struct alumnado
 } stAlumno;
 
 // funciones utiles
-void defaultValues(stAlumno[], int *);    // carga un array default
-void checkNumYcarga(int *);               // verifica si lo ingresado es un numero o no
-void ordenarArrayStruct(stAlumno[], int); // ordena un array de structs
+// carga un array default
+void defaultValues(stAlumno[], int *);
 
-// 0 - prototipados menu
-void mostrarOpciones();
+// verifica si lo ingresado es un numero o no
+void checkNumYcarga(int *);
+
+// ordena un array de structs
+void ordenarArrayStruct(stAlumno[], int);
+
+// 0- Hacer una función principal que pruebe el funcionamiento de todos los incisos anteriores, con un menú de opciones para poder ejecutar todas las funciones requeridas. Tengan presente la correcta declaración y el ámbito de variables.
+// opciones ejercicios
+void mostrarOpciones()
+{
+    printf("\tMenu TP 6: Estructuras\n");
+    printf("Opcion 1: Carga de arreglo de alumnos.\n");
+    printf("Opcion 2: Muestra de arreglo de alumnos.\n");
+    printf("Opcion 3: Muestra de alumno particular con su matricula.\n");
+    printf("Opcion 4: Ordenacion por seleccion de alumnos en base a su matricula.\n");
+    printf("Opcion 5: Muestra de alumnos en base a su genero.\n");
+    printf("Opcion 6: Insercion de un dato en un arreglo ordenado, conservando el orden.\n");
+    printf("Opcion 7: Ordenacion por insercion de alumnos en base a su nombre.\n");
+    printf("Opcion 8: Contador de cantidad de estudiantes de un genero determinado.\n");
+}
 
 // 1- Hacer una función que cargue un arreglo de alumnos, hasta que el usuario lo decida.
 void cargaUnaPersona(stAlumno *);
@@ -47,6 +64,7 @@ void insercionOrdenadaPorNombre(stAlumno[], int, stAlumno);
 // 8- Hacer una función que cuente y retorne la cantidad de estudiantes de un género determinado (se envía por parámetro) que tiene un arreglo de alumnos.
 int contarCantAlumnosGeneroBuscado(stAlumno[], int, char);
 
+// 0- Hacer una función principal que pruebe el funcionamiento de todos los incisos anteriores, con un menú de opciones para poder ejecutar todas las funciones requeridas. Tengan presente la correcta declaración y el ámbito de variables.
 int main()
 {
     char continuar, generoBuscado;
@@ -54,7 +72,7 @@ int main()
     int matriculaBuscada = -1, buscador = -1;
     stAlumno listaAlumnos[TAM_MAX];
     stAlumno alumno;
-
+    mostrarOpciones();
     printf("\tOpciones de carga:\n\t1- Carga manual.\n\t0-Carga automatica.\n\tIngrese opcion: ");
     scanf("%d", &cargar);
     if (cargar == 1) // carga y muestra general
@@ -70,8 +88,7 @@ int main()
     mostrarTodosLosAlumnos(listaAlumnos, validos);
 
     do
-    { // 0- Hacer una función principal que pruebe el funcionamiento de todos los incisos anteriores, con un menú de opciones para poder ejecutar todas las funciones requeridas. Tengan presente la correcta declaración y el ámbito de variables.
-
+    {
         mostrarOpciones();
 
         printf("\tIngrese la opcion a elegir (entre 1 y 8): ");
@@ -168,19 +185,6 @@ int main()
     } while (continuar == 's' || continuar == 'S');
 
     return 0;
-}
-
-void mostrarOpciones()
-{
-    printf("\tMenu TP 6: Estructuras\n");
-    printf("Opcion 1: Carga de arreglo de alumnos.\n");
-    printf("Opcion 2: Muestra de arreglo de alumnos.\n");
-    printf("Opcion 3: Muestra de alumno particular con su matricula.\n");
-    printf("Opcion 4: Ordenacion por seleccion de alumnos en base a su matricula.\n");
-    printf("Opcion 5: Muestra de alumnos en base a su genero.\n");
-    printf("Opcion 6: Insercion de un dato en un arreglo ordenado, conservando el orden.\n");
-    printf("Opcion 7: Ordenacion por insercion de alumnos en base a su nombre.\n");
-    printf("Opcion 8: Contador de cantidad de estudiantes de un genero determinado.\n");
 }
 
 // funcion no pedida pero util para verificaciones.

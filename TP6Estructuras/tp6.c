@@ -250,7 +250,7 @@ void cargaAlumnadoOrdenado(stAlumno listaAlumnos[], int *validos) // ejercicio 1
             checkNoRep = busquedaMatricula(listaAlumnos, i, alumnoNuevo.matricula);
             while (checkNoRep != -1)
             {
-                printf("ERROR. USTED ESTA INTENTANDO INGRESAR UNA MATRICULA REPETIDA. VUELVA A INGRESAR LA MATRICULA: ");
+                printf("\nERROR. USTED ESTA INGRESANDO UNA MATRICULA REPETIDA.\n\tVUELVA A INGRESAR LA MATRICULA: ");
                 checkNumYcarga(&(alumnoNuevo).matricula);
                 checkNoRep = busquedaMatricula(listaAlumnos, i, alumnoNuevo.matricula);
             }
@@ -262,8 +262,9 @@ void cargaAlumnadoOrdenado(stAlumno listaAlumnos[], int *validos) // ejercicio 1
             checkNoRep = busquedaMatricula(listaAlumnos, i, alumnoNuevo.matricula);
             while (checkNoRep != -1)
             {
-                printf("ERROR. USTED ESTA INTENTANDO INGRESAR UNA MATRICULA REPETIDA. VUELVA A INGRESAR LA MATRICULA: ");
+                printf("\nERROR. USTED ESTA INGRESANDO UNA MATRICULA REPETIDA.\n\tVUELVA A INGRESAR LA MATRICULA: ");
                 checkNumYcarga(&(alumnoNuevo).matricula);
+                checkNoRep = busquedaMatricula(listaAlumnos, i, alumnoNuevo.matricula);
             }
             insercionOrdenadaPorNombre(listaAlumnos, i, alumnoNuevo);
         }

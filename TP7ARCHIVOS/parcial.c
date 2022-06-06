@@ -1,56 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include "..\Librerias\pila.c"
-//
-void eliminarElementosPila(int[], Pila *, int);
-void apilarPares(Pila, Pila, Pila *);
-void cargarPila(Pila *p)
-{
-    char continuar;
-    do
-    {
-        printf("Ingrese datos a la pila\n");
-        leer(p);
-        fflush(stdin);
-        printf("Desea continuar? s/n: ");
-        scanf("%c", &continuar);
-    } while (continuar == 's' || continuar == 'S');
-    mostrar(p);
-}
-
-int main()
-{
-    int arreglo[] = {2, 3, 5, 1, 9};
-    int validos = 5;
-    Pila p;
-    inicpila(&p);
-    Pila p1;
-    inicpila(&p1);
-    Pila p2;
-    inicpila(&p2);
-    Pila p3;
-    inicpila(&p3);
-
-    // cargarPila(&p);
-    // printf("Antes\n\n\n");
-    // eliminarElementosPila(arreglo, &p, validos);
-    // printf("Despues\n\n\n");
-    // mostrar(&p);
-
-    cargarPila(&p1);
-    cargarPila(&p2);
-    printf("Antes\n\n\n");
-    apilarPares(p1, p2, &p3);
-    mostrar(&p1);
-    mostrar(&p2);
-    printf("Despues\n\n\n");
-    mostrar(&p3);
-
-    system("pause");
-    return 0;
-}
-
 void apilarPares(Pila p1, Pila p2, Pila *p3)
+
 {
 
     Pila aux1;
@@ -96,6 +45,7 @@ void eliminarElementosPila(int arreglo[], Pila *p, int validos)
     inicpila(&basura);
 
     for (int i = 0; i < validos; i++)
+
     {
 
         while (!pilavacia(p))
@@ -111,9 +61,6 @@ void eliminarElementosPila(int arreglo[], Pila *p, int validos)
             }
         }
 
-        while (!pilavacia(&aux))
-        {
-            apilar(p, desapilar(&aux));
-        }
+        apilar(p, desapilar(&aux));
     }
 }

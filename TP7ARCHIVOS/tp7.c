@@ -2,7 +2,16 @@
 #include <stdlib.h>
 #include <string.h>
 #define TAM_MAX 30
-#define NOM_ARCH "ejercicio1.bin"
+#define NOM_ARCH "ejercicios.bin"
+
+typedef struct alumnado
+{
+    int legajo;
+    char nombreYapellido[30];
+    int edad;
+    int anio;
+    // año que cursa, recordar que no podemos utilizar la ñ para definir variables
+} stAlumno;
 
 // Trabajo Práctico N° 7: Archivos
 // En cada ejercicio, el archivo debe abrirse y cerrarse dentro de cada función. La variable de tipo FILE * debe ser local a la función. Se puede pasar por parámetro una variable de tipo char [30] con el nombre del archivo, ejemplos: “archivo.bin” o "alumnos.dat", o trabajar con una constante declarada.
@@ -17,7 +26,7 @@ void mostrarOpciones()
     printf("Opcion 3: Muestra la cantidad de registros que contiene un archivo.\n");
     printf("Opcion 4: Carga un archivo de alumnos con 5 datos.\n");
     printf("Opcion 5: Muestra los registros de un archivo de alumnos.\n");
-    printf("Opcion 6: Agrega un elemento al final de un archivo cargado con alumons.\n");
+    printf("Opcion 6: Agrega un elemento al final de un archivo cargado con alumnos.\n");
     // printf("Opcion 7: Pasa a una pila los numeros de legajo de los alumnos mayores de edad.\n");
     // printf("Opcion 8: Cuenta la cantidad de alumnos mayores a la edad que le pidas.\n");
     // printf("Opcion 9: Muestra el nombre de los alumnos en el rango de edad que uno le pida.\n");
@@ -31,34 +40,108 @@ void mostrarOpciones()
 }
 void seleccionOpciones(int *);
 
+void checkNum(int *);
+
 // 1- Hacer una función que agregue un elemento al final de un archivo.
+void cargarElementoYsobreescribir();
 void cargarElementoAlFinal();
+void cargarVariosElementosAlFinal();
+
+// 2- Hacer una función que muestre por pantalla el contenido de un archivo.
+void mostrarArchivoNumeros(int);
+
+// 3- Hacer una función que retorne la cantidad de registros que contiene un archivo.
+int cantidadRegistrosEnArchivo();
+
+// carga Alumno
+void cargarAlumno(stAlumno *);
+void cargarListaAlumnos(stAlumno *, int *);
+void mostrarAlumno(stAlumno);
 
 int main()
 {
     FILE fp;
     char continuar;
-    int opcion = 0;
+    int opcion = 0, eleccionCarga = 0, num, i = 0, validos;
+    stAlumno a;
+
+    do
+    {
+        printf("\tMenu 1 TP Archivos\n");
+
+        while (opcion != 1 && opcion != 2)
+        {
+            printf("Desea cargar: \n1-Numero Entero.\n2-Estructura de alumnos.\nIngrese la opcion que desee a continuacion: ");
+            checkNum(&opcion);
+            system("cls");
+        }
+
+        if (opcion == 1) // se cargan numeros enteros
+        {
+            while (eleccionCarga != 1 && eleccionCarga != 2)
+            {
+                system("cls");
+                printf("Por favor ingrese la opcion que desea.\n1-Cargar y sobreescribir.\n2-Cargar al final.\n");
+                checkNum(&eleccionCarga);
+            }
+
+            if (eleccionCarga == 1)
+            {
+                cargarElementoYsobreescribir();
+            }
+            else if (eleccionCarga == 2)
+            {
+
+                cargarElementoAlFinal();
+            }
+        }
+        else
+        { // se carga struct alumnos
+            system("cls");
+            cargarAlumno(&a);
+            mostrarAlumno(a);
+        }
+
+        printf("Desea ir al segundo menu y a los ejercicios? s/n: ");
+        fflush(stdin);
+        scanf("%c", &continuar);
+    } while (continuar == 'n' || continuar == 'N');
+
+    fflush(stdin);
 
     do
     { // 0- Hacer una función principal que pruebe el funcionamiento de todos los incisos anteriores, con un menú de opciones para poder ejecutar todas las funciones requeridas. Tengan presente la correcta declaración y el ámbito de variables.
         mostrarOpciones();
         printf("Ingrese una opcion: ");
-        scanf("%d", &opcion);
+        checkNum(&opcion);
         switch (opcion)
         {
         case 1:
             // 1- Hacer una función que agregue un elemento al final de un archivo.
-            cargarElementoAlFinal(fp);
-            printf("hola\n");
+            while (eleccionCarga != 1 && eleccionCarga != 2)
+            {
+                printf("Por favor ingrese la opcion que desea.\n1-Cargar y sobreescribir.\n2-Cargar al final.\n");
+                checkNum(&eleccionCarga);
+            }
+
+            if (eleccionCarga == 1)
+            {
+                cargarElementoYsobreescribir();
+            }
+            else if (eleccionCarga == 2)
+            {
+
+                cargarElementoAlFinal();
+            }
             break;
         case 2:
             // 2- Hacer una función que muestre por pantalla el contenido de un archivo.
-
+            mostrarArchivoNumeros(num);
             break;
         case 3:
             // 3- Hacer una función que retorne la cantidad de registros que contiene un archivo.
-
+            i = cantidadRegistrosEnArchivo(num);
+            printf("Cantidad de registros en su archivo: %i\n", i);
             break;
         case 4:
             // 4- Crear una función que cargue un archivo de alumnos. Abrirlo de manera tal de verificar si el archivo ya está creado previamente. Cargar el archivo con 5 datos. Cerrarlo dentro de la función
@@ -111,7 +194,7 @@ int main()
 
             break;
         default:
-            printf("Error, no ha ingresado una opcion valida.\n");
+            printf("\n\tError, no ha ingresado una opcion valida.\n");
             break;
         }
         printf("Desea continuar? s/n: ");
@@ -123,18 +206,34 @@ int main()
     return 0;
 }
 
-void cargarElementoAlFinal()
+void checkNum(int *aChequear)
+{
+    int validacion;
+    char str[20];
+    do
+    {
+        gets(str);
+        validacion = atoi(str);
+        if (validacion == 0)
+        {
+            printf("Error. Ingrese nuevamente el numero: ");
+        }
+
+    } while (validacion == 0);
+    *aChequear = validacion;
+}
+
+void cargarElementoYsobreescribir()
 {
     FILE *fp;
     int num;
-    printf("Por favor ingrese un numero para ingresar en el archivo: ");
-    scanf("%i", &num);
+    printf("Ingrese numero al archivo: ");
+    checkNum(&num);
 
     fp = fopen(NOM_ARCH, "wb");
     if (fp != NULL)
     {
         fwrite(&num, sizeof(int), 1, fp);
-        fread(&num, sizeof(int), 1, fp);
         fclose(fp);
     }
     else
@@ -143,30 +242,100 @@ void cargarElementoAlFinal()
     }
 }
 
-void mostrarArchivo()
+void cargarElementoAlFinal()
 {
     FILE *fp;
-}
-int busquedaBinaria(int arreglo[], int validos, int X)
-{
-    int medio, pri, ult, enc;
-    enc = 0;           /// Asumo que no lo encontré
-    pri = 0;           /// primer índice será el 0
-    ult = validos - 1; /// inicializo con el último índice válido de mi arreglo
-    medio = (pri + ult) / 2;
-    /// Partimos el arreglo a la mitad
-    while ((pri < ult) && (X != arreglo[medio])) /// si todavía índice pri no se cruzó con ult y no encontré X
+    int num;
+    printf("Ingrese numero al archivo: ");
+    checkNum(&num);
+
+    fp = fopen(NOM_ARCH, "ab");
+    if (fp != NULL)
     {
-        if (X < arreglo[medio]) /// el valor buscado es menor
-        {
-            ult = medio - 1; /// descarto la mitad derecha del arreglo
-        }
-        else /// el valor buscado es mayor
-        {
-            pri = medio + 1; /// descarto la mitad izquierda
-        }
-        medio = (pri + ult) / 2; /// vuelvo a partir a la mitad
+        fwrite(&num, sizeof(int), 1, fp);
+        fclose(fp);
     }
-    if (X == arreglo[medio]) /// si lo encontré cambio enc a“verdadero” enc = 1;
-        return enc;
+    else
+    {
+        printf("Fallo la apertura del archivo.\n");
+    }
 }
+void mostrarArchivoNumeros(int num)
+{
+    int i = 0;
+    FILE *fp;
+    fp = fopen(NOM_ARCH, "rb");
+    if (fp != NULL)
+    {
+        while ((fread(&num, sizeof(int), 1, fp)) > 0)
+        {
+            printf("numero #%i: %i\n", i + 1, num);
+            i++;
+        }
+        fclose(fp);
+    }
+}
+
+// 3- Hacer una función que retorne la cantidad de registros que contiene un archivo.
+int cantidadRegistrosEnArchivo()
+{
+    int cantidad = 0, num;
+    FILE *buffer;
+    buffer = fopen(NOM_ARCH, "rb");
+    if (buffer != NULL)
+    {
+        fseek(buffer, 0, SEEK_END);
+        cantidad = ftell(buffer) / sizeof(int);
+        fclose(buffer);
+    }
+    return cantidad;
+}
+
+void cargarAlumno(stAlumno *a)
+{
+    fflush(stdin);
+    printf("Ingrese legajo del alumno: ");
+    checkNum(&(a)->legajo);
+
+    printf("Ingrese nombre y apellido del alumno: ");
+    fflush(stdin);
+    gets(a->nombreYapellido);
+
+    printf("Ingrese edad del alumno: ");
+    checkNum(&(a)->edad);
+
+    printf("Ingrese anio del alumno: ");
+    checkNum(&(a)->anio);
+}
+
+void mostrarAlumno(stAlumno a)
+{
+    printf("\nLegajo del alumno: %i\n", a.legajo);
+    printf("Nombre y apellido del alumno: %s\n", a.nombreYapellido);
+    printf("Edad del alumno: %i\n", a.edad);
+    printf("Anio del alumno: %i\n", a.anio);
+}
+
+// int busquedaBinaria(int arreglo[], int validos, int X)
+// {
+//     int medio, pri, ult, enc;
+//     enc = 0;           /// Asumo que no lo encontré
+//     pri = 0;           /// primer índice será el 0
+//     ult = validos - 1; /// inicializo con el último índice válido de mi arreglo
+//     medio = (pri + ult) / 2;
+//     /// Partimos el arreglo a la mitad
+//     while ((pri < ult) && (X != arreglo[medio])) /// si todavía índice pri no se cruzó con ult y no encontré X
+//     {
+//         if (X < arreglo[medio]) /// el valor buscado es menor
+//         {
+//             ult = medio - 1; /// descarto la mitad derecha del arreglo
+//         }
+//         else /// el valor buscado es mayor
+//         {
+//             pri = medio + 1; /// descarto la mitad izquierda
+//         }
+//         medio = (pri + ult) / 2; /// vuelvo a partir a la mitad
+//     }
+//     if (X == arreglo[medio]) /// si lo encontré cambio enc a“verdadero” enc = 1;
+//         return enc;
+// }

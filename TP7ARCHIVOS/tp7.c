@@ -54,7 +54,8 @@ void mostrarArchivoNumeros();
 // 3- Hacer una función que retorne la cantidad de registros que contiene un archivo.
 int cantRegistrosInt();
 
-// carga Alumno
+//funciones utiles, carga Alumno
+
 void cargarAlumno(stAlumno *);
 void mostrarAlumno(stAlumno);
 void mostrarListaAlumnos();

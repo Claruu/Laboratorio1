@@ -90,8 +90,11 @@ void sumarMayoresAedadBuscada(int);
 void mostrarPorRangoEdad(int, int);
 
 // 10- Dado un archivo de alumnos, mostrar los datos del alumno de mayor edad. Modularizar.
-int buscarAlumnoPorEdad(int);
+int buscarAlumnoPorEdadYmostrar(int);
 void mostrarAluMayorEdad();
+
+// 11- Crear una función que retorne la cantidad de alumnos que cursan un determinado año. El año buscado se pasa por parámetro.
+int mostrarCantAlumnosCursandoXaño(int);
 
 int main()
 {
@@ -198,10 +201,7 @@ int main()
             break;
         case 10:
             // 10- Dado un archivo de alumnos, mostrar los datos del alumno de mayor edad. Modularizar.
-            fflush(stdin);
-            printf("Por favor ingrese edad a buscar: ");
-            checkNum(&num);
-            buscarAlumnoPorEdad(num);
+            mostrarAluMayorEdad();
             break;
         case 11:
             // 11- Crear una función que retorne la cantidad de alumnos que cursan un determinado año. El año buscado se pasa por parámetro.
@@ -569,11 +569,11 @@ void mostrarPorRangoEdad(int num1, int num2)
     }
 }
 
-int buscarAlumnoPorEdad(int edad)
+int buscarAlumnoPorEdadYmostrar(int edad)
 {
     FILE *fp;
     stAlumno al;
-    int encontrado = -1;
+    int encontrado = -1, i = 0;
 
     fp = fopen(NOM_ARCH, "rb");
     if (fp != NULL)
@@ -582,33 +582,49 @@ int buscarAlumnoPorEdad(int edad)
         {
             if (al.edad == edad)
             {
-                encontrado++;
+                encontrado = i;
+                mostrarAlumno(al);
             }
+            i++;
         }
         fclose(fp);
     }
 
-    for (int i = 0; i <= encontrado; i++)
-    {
-        printf("Su alumno: ");
-        mostrarAlumno(al);
-    }
-
     return encontrado;
 }
+
 void mostrarAluMayorEdad()
 {
     FILE *fp;
     stAlumno al;
     fp = fopen(NOM_ARCH, "rb");
+    int i = 0, mayorEdad = 0, pos;
+
+    if (fp != NULL)
+    {
+        while ((fread(&al, sizeof(stAlumno), 1, fp)) > 0)
+        {
+            if (i == 0)
+            {
+                mayorEdad = i;
+            }
+            if (al.edad > mayorEdad)
+            {
+                mayorEdad = al.edad;
+            }
+
+            i++;
+        }
+
+        printf("Alumno con la mayor edad: ");
+        buscarAlumnoPorEdadYmostrar(mayorEdad);
+
+        fclose(fp);
+    }
 }
 
-// if (i == 0)
-//         {
-//             mejorPromedio = promedio;
-//         }
-//         if (promedio > mejorPromedio)
-//         {
-//             mejorPromedio = promedio;
-//             posicion = i;
-//         }
+int mostrarCantAlumnosCursandoXaño(int añoBuscado)
+{
+    FILE *fp;
+    
+}

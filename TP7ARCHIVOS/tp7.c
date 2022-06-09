@@ -94,7 +94,7 @@ int buscarAlumnoPorEdadYmostrar(int);
 void mostrarAluMayorEdad();
 
 // 11- Crear una función que retorne la cantidad de alumnos que cursan un determinado año. El año buscado se pasa por parámetro.
-int mostrarCantAlumnosCursandoXaño(int);
+int mostrarCantAlumnosCursandoXanio(int);
 
 int main()
 {
@@ -205,7 +205,13 @@ int main()
             break;
         case 11:
             // 11- Crear una función que retorne la cantidad de alumnos que cursan un determinado año. El año buscado se pasa por parámetro.
-
+            printf("Ingrese anio a buscar: ");
+            checkNum(&num);
+            num2 = mostrarCantAlumnosCursandoXanio(num);
+            if (num2 > 0)
+            {
+                printf("Cantidad de alumnos cursando ese anio: %i", num2);
+            }
             break;
         case 12:
             // 12- Crear una función que reciba como parámetro un arreglo de tipo alumno y lo copie en el archivo. Asimismo, realice otra función que pase los elementos del archivo a un arreglo de alumnos, filtrando los estudiantes de un año en particular.
@@ -623,8 +629,30 @@ void mostrarAluMayorEdad()
     }
 }
 
-int mostrarCantAlumnosCursandoXaño(int añoBuscado)
+int mostrarCantAlumnosCursandoXanio(int anioBuscado)
 {
     FILE *fp;
-    
+    stAlumno al;
+    int i = 0;
+
+    fp = fopen(NOM_ARCH, "rb ");
+    if (fp != NULL)
+    {
+        while ((fread(&al, sizeof(stAlumno), 1, fp)) > 0)
+        {
+            if (al.anio == anioBuscado)
+            {
+                i++;
+            }
+        }
+        fclose(fp);
+    }
+    if (i > 0)
+    {
+        return i;
+    }
+    else
+    {
+        printf("No se han encontrado alumnos cursando ese anio. \n");
+    }
 }

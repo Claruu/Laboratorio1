@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "Librerias\pila.c"
+
 #define TAM_MAX 30
 #define NOM_ARCH "ejercicios.bin"
 #define ARCH_INT "ejerciciosConInt.bin"
@@ -21,6 +23,8 @@ typedef struct alumnado
 // 0- Hacer una función principal que pruebe el funcionamiento de todos los incisos anteriores, con un menú de opciones para poder ejecutar todas las funciones requeridas. Tengan presente la correcta declaración y el ámbito de variables.
 void mostrarOpciones()
 {
+    char si;
+
     printf("\tMenu TP 7: Archivos\n");
     printf("Opcion 1: Agrega un elemento al final de un archivo.\n");
     printf("Opcion 2: Muestra por pantalla el contenido de un archivo.\n");
@@ -28,16 +32,25 @@ void mostrarOpciones()
     printf("Opcion 4: Carga un archivo de alumnos con 5 datos.\n");
     printf("Opcion 5: Muestra los registros de un archivo de alumnos.\n");
     printf("Opcion 6: Agrega un elemento al final de un archivo cargado con alumnos.\n");
-    // printf("Opcion 7: Pasa a una pila los numeros de legajo de los alumnos mayores de edad.\n");
-    // printf("Opcion 8: Cuenta la cantidad de alumnos mayores a la edad que le pidas.\n");
-    // printf("Opcion 9: Muestra el nombre de los alumnos en el rango de edad que uno le pida.\n");
-    // printf("Opcion 10: Muestra los datos del alumno de mayor edad cargado en un archivo de alumnos.\n");
-    // printf("Opcion 11: Muestra la cantidad de alumnos que cursan el anio que uno le pida.\n");
-    // printf("Opcion 12: Copia el arreglo de tipo alumno que uno le pasa por parametro a un archivo. Tambien pasa los elementos de ese archivo a un arreglo de alumnos, filtrando los estudiantes de cierto anio.\n");
-    // printf("Opcion 13: Muestra la cantidad de registros que tiene un archivo.\n");
-    // printf("Opcion 14: Con un archivo de 10 alumnos, muestra el contenido de un registro.\n");
-    // printf("Opcion 15: Modifica un registro existente en el archivo de alumnos. Puede modificar uno o todos los campos de la estructura, y puede sobreescribir el registro existente en el archivo.\n");
-    // printf("Opcion 16: Invierte los elementos de un archivo de alumnos.\n");
+    printf("Desea ver la siguiente pagina de opciones? s/n: ");
+    fflush(stdin);
+    scanf("%c", &si);
+    if (si == 's' || si == 'S')
+    {
+        system("cls");
+        printf("\t               Pag 2.\n");
+        printf("\t           Menu TP 7: Archivos\n");
+        printf("Opcion 7: Pasa a una pila los numeros de legajo de los alumnos mayores de edad.\n");
+        printf("Opcion 8: Cuenta la cantidad de alumnos mayores a la edad que le pidas.\n");
+        printf("Opcion 9: Muestra el nombre de los alumnos en el rango de edad que uno le pida.\n");
+        printf("Opcion 10: Muestra los datos del alumno de mayor edad cargado en un archivo de alumnos.\n");
+        printf("Opcion 11: Muestra la cantidad de alumnos que cursan el anio que uno le pida.\n");
+        printf("Opcion 12: Copia el arreglo de tipo alumno que uno le pasa por parametro a un archivo. Tambien pasa los elementos de ese archivo a un arreglo de alumnos, filtrando los estudiantes de cierto anio.\n");
+        // printf("Opcion 13: Muestra la cantidad de registros que tiene un archivo.\n");
+        // printf("Opcion 14: Con un archivo de 10 alumnos, muestra el contenido de un registro.\n");
+        // printf("Opcion 15: Modifica un registro existente en el archivo de alumnos. Puede modificar uno o todos los campos de la estructura, y puede sobreescribir el registro existente en el archivo.\n");
+        // printf("Opcion 16: Invierte los elementos de un archivo de alumnos.\n");
+    }
 }
 void seleccionOpciones(int *);
 
@@ -54,69 +67,41 @@ void mostrarArchivoNumeros();
 // 3- Hacer una función que retorne la cantidad de registros que contiene un archivo.
 int cantRegistrosInt();
 
-//funciones utiles, carga Alumno
-
-void cargarAlumno(stAlumno *);
+// 4- Crear una función que cargue un archivo de alumnos. Abrirlo de manera tal de verificar si el archivo ya está creado previamente. Cargar el archivo con 5 datos. Cerrarlo dentro de la función
+void cargarAlumno(stAlumno *); // funciones utiles, carga Alumno
+void cargarListaAlumnos();
 void mostrarAlumno(stAlumno);
 void mostrarListaAlumnos();
-void cargarListaAlumnos();
-void cargaAlumnosNoSobreesc();
 void cargarListaAlumnosYsobreesc();
 
 // 5- Crear una función que muestre por pantalla los registros de un archivo de alumnos. Modularizar.
 int cantRegistrosStructs();
 
+//// 6- Crear una función que permita agregar de a un elemento al final del archivo. O sea, se debe abrir el archivo, se piden los datos (se llena una variable de tipo struct alumno), se escribe en el archivo y se cierra.
+void cargaAlumnosNoSobreesc();
+
+// 7- Crear una función que pase a una pila los números de legajo de los alumnos mayores de edad.
+void pasarAPilaLegajosMayEdad(Pila *);
+
+// 8- Dado un archivo de alumnos, hacer una función que cuente la cantidad de alumnos mayores a edad específica que se envía por parámetro.
+void sumarMayoresAedadBuscada(int);
+
+// 9- Dado un archivo de alumnos, mostrar por pantalla el nombre de todos los alumnos entre un rango de edades específico (por ejemplo, entre 17 y 25 años). Dicho rango debe recibirse por parámetro. Modularizar
+void mostrarPorRangoEdad(int, int);
+
+// 10- Dado un archivo de alumnos, mostrar los datos del alumno de mayor edad. Modularizar.
+int buscarAlumnoPorEdad(int);
+void mostrarAluMayorEdad();
+
 int main()
 {
     FILE fp;
     char continuar;
-    int opcion = 0, eleccionCarga = 0, num, i = 0, validos = 0;
+    int opcion = 0, eleccionCarga = 0, num = 0, i = 0, validos = 0, buscado = 0, num2 = 0;
     stAlumno a;
     stAlumno lista[TAM_MAX];
-
-    // do
-    // {
-    //     printf("\tMenu 1 TP Archivos\n");
-
-    // while (opcion != 1 && opcion != 2)
-    // {
-    //     printf("Desea cargar: \n1-Numero Entero.\n2-Estructura de alumnos.\nIngrese la opcion que desee a continuacion: ");
-    //     checkNum(&opcion);
-    //     system("cls");
-    // }
-
-    // if (opcion == 1) // se cargan numeros enteros
-    // {
-    //     while (eleccionCarga != 1 && eleccionCarga != 2)
-    //     {
-    //         system("cls");
-    //         printf("Por favor ingrese la opcion que desea.\n1-Cargar y sobreescribir.\n2-Cargar al final.\n");
-    //         checkNum(&eleccionCarga);
-    //     }
-
-    //     if (eleccionCarga == 1)
-    //     {
-    //         cargarINTySobreescribir();
-    //     }
-    //     else if (eleccionCarga == 2)
-    //     {
-
-    //         cargarINTalFinal();
-    //     }
-    // }
-    // else
-    // { // se carga struct alumnos
-    //     system("cls");
-    //     cargarListaAlumnos(lista, &validos);
-    //     mostrarListaAlumnos(lista, validos);
-    // }
-
-    //     printf("Desea ir al segundo menu y a los ejercicios? s/n: ");
-    //     fflush(stdin);
-    //     scanf("%c", &continuar);
-    // } while (continuar == 'n' || continuar == 'N');
-
-    fflush(stdin);
+    Pila p;
+    inicpila(&p);
 
     do
     { // 0- Hacer una función principal que pruebe el funcionamiento de todos los incisos anteriores, con un menú de opciones para poder ejecutar todas las funciones requeridas. Tengan presente la correcta declaración y el ámbito de variables.
@@ -182,21 +167,41 @@ int main()
             break;
         case 6:
             // 6- Crear una función que permita agregar de a un elemento al final del archivo. O sea, se debe abrir el archivo, se piden los datos (se llena una variable de tipo struct alumno), se escribe en el archivo y se cierra.
-
+            mostrarListaAlumnos();
+            cargaAlumnosNoSobreesc();
             break;
         case 7:
             // 7- Crear una función que pase a una pila los números de legajo de los alumnos mayores de edad.
-
+            mostrarListaAlumnos();
+            pasarAPilaLegajosMayEdad(&p);
             break;
         case 8:
             // 8- Dado un archivo de alumnos, hacer una función que cuente la cantidad de alumnos mayores a edad específica que se envía por parámetro.
+            mostrarListaAlumnos();
+            printf("Ingrese una edad a buscar: ");
+            checkNum(&buscado);
+            sumarMayoresAedadBuscada(buscado);
         case 9:
             // 9- Dado un archivo de alumnos, mostrar por pantalla el nombre de todos los alumnos entre un rango de edades específico (por ejemplo, entre 17 y 25 años). Dicho rango debe recibirse por parámetro. Modularizar
+            while (num <= 0)
+            {
+                printf("Por favor ingrese num 1: ");
+                checkNum(&num);
+            }
 
+            while (num2 < num)
+            {
+                printf("Por favor ingrese num 2 (mayor al primero): ");
+                checkNum(&num2);
+            }
+            mostrarPorRangoEdad(num, num2);
             break;
         case 10:
             // 10- Dado un archivo de alumnos, mostrar los datos del alumno de mayor edad. Modularizar.
-
+            fflush(stdin);
+            printf("Por favor ingrese edad a buscar: ");
+            checkNum(&num);
+            buscarAlumnoPorEdad(num);
             break;
         case 11:
             // 11- Crear una función que retorne la cantidad de alumnos que cursan un determinado año. El año buscado se pasa por parámetro.
@@ -486,3 +491,124 @@ int cantRegistrosStructs()
     }
     return cantidad;
 }
+
+void pasarAPilaLegajosMayEdad(Pila *p)
+{
+    FILE *fp;
+    fp = fopen(NOM_ARCH, "rb");
+    stAlumno al;
+    if (fp != NULL)
+    {
+        while ((fread(&al, sizeof(stAlumno), 1, fp)) > 0)
+        {
+            if (al.edad >= 18)
+            {
+                apilar(p, al.legajo);
+            }
+        }
+
+        if (!pilavacia(p))
+        {
+            mostrar(p);
+        }
+
+        fclose(fp);
+    }
+    else
+    {
+        printf("Fallo la apertura del archivo.\n");
+    }
+}
+
+void sumarMayoresAedadBuscada(int buscado)
+{
+    int suma = 0;
+    FILE *fp;
+    fp = fopen(NOM_ARCH, "rb");
+    stAlumno al;
+
+    if (fp != NULL)
+    {
+        while (((fread(&al, sizeof(stAlumno), 1, fp)) > 0))
+        {
+            if (al.edad > buscado)
+            {
+                suma++;
+            }
+        }
+
+        printf("Suma: %i", suma);
+        fclose(fp);
+    }
+}
+
+void mostrarPorRangoEdad(int num1, int num2)
+{
+    FILE *fp;
+    fp = fopen(NOM_ARCH, "rb");
+    stAlumno al;
+    int i = 0;
+
+    if (fp != NULL)
+    {
+        while (((fread(&al, sizeof(stAlumno), 1, fp)) > 0))
+        {
+            if ((al.edad >= num1) && (al.edad <= num2))
+            {
+                printf("\n\n- - - - - - - - - - - - Alumno #%i- - - - - - - - - - - - - -\n ", i + 1);
+                printf("\tNombre del alumno: %s", al.nombreYapellido);
+                i++;
+                printf("\n");
+            }
+        }
+        fclose(fp);
+    }
+    else
+    {
+        printf("Fallo la apertura del archivo.\n");
+    }
+}
+
+int buscarAlumnoPorEdad(int edad)
+{
+    FILE *fp;
+    stAlumno al;
+    int encontrado = -1;
+
+    fp = fopen(NOM_ARCH, "rb");
+    if (fp != NULL)
+    {
+        while ((fread(&al, sizeof(stAlumno), 1, fp)) > 0)
+        {
+            if (al.edad == edad)
+            {
+                encontrado++;
+            }
+        }
+        fclose(fp);
+    }
+
+    for (int i = 0; i <= encontrado; i++)
+    {
+        printf("Su alumno: ");
+        mostrarAlumno(al);
+    }
+
+    return encontrado;
+}
+void mostrarAluMayorEdad()
+{
+    FILE *fp;
+    stAlumno al;
+    fp = fopen(NOM_ARCH, "rb");
+}
+
+// if (i == 0)
+//         {
+//             mejorPromedio = promedio;
+//         }
+//         if (promedio > mejorPromedio)
+//         {
+//             mejorPromedio = promedio;
+//             posicion = i;
+//         }

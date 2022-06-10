@@ -107,7 +107,7 @@ int main()
     FILE fp;
     char continuar;
     char archInt[TAM_MAX] = {"ejerciciosConInt.bin"};
-    char archAlum[TAM_MAX] = {"ejercicios.bin"};
+    char archStruct[TAM_MAX] = {"ejercicios.bin"};
     int opcion = 0, eleccionCarga = 0, num = 0, i = 0, validos = 0, buscado = 0, num2 = 0;
     stAlumno a;
     stAlumno lista[TAM_MAX];
@@ -132,7 +132,7 @@ int main()
 
             if (eleccionCarga == 1)
             {
-                cargarINTySobreescribir(archAlum);
+                cargarINTySobreescribir(archStruct);
             }
             else if (eleccionCarga == 2)
             {
@@ -141,7 +141,7 @@ int main()
             break;
         case 2:
             // 2- Hacer una función que muestre por pantalla el contenido de un archivo.
-            mostrarArchivoNumeros(archAlum);
+            mostrarArchivoNumeros(archStruct);
             break;
         case 3:
             // 3- Hacer una función que retorne la cantidad de registros que contiene un archivo.
@@ -159,38 +159,38 @@ int main()
             }
             if (eleccionCarga == 1)
             {
-                cargarListaAlumnosYsobreesc(archAlum);
+                cargarListaAlumnosYsobreesc(archStruct);
             }
             else
             {
-                mostrarListaAlumnos(archAlum);
-                cargaAlumnosNoSobreesc(archAlum);
+                mostrarListaAlumnos(archStruct);
+                cargaAlumnosNoSobreesc(archStruct);
             }
 
-            mostrarListaAlumnos(archAlum);
+            mostrarListaAlumnos(archStruct);
             break;
         case 5:
             // 5- Crear una función que muestre por pantalla los registros de un archivo de alumnos. Modularizar.
-            mostrarListaAlumnos(archAlum);
-            i = cantRegistrosStructs(archAlum);
+            mostrarListaAlumnos(archStruct);
+            i = cantRegistrosStructs(archStruct);
             printf("Cantidad de alumnos en su archivo: %i\n", i);
             break;
         case 6:
             // 6- Crear una función que permita agregar de a un elemento al final del archivo. O sea, se debe abrir el archivo, se piden los datos (se llena una variable de tipo struct alumno), se escribe en el archivo y se cierra.
-            mostrarListaAlumnos(archAlum);
-            cargaAlumnosNoSobreesc(archAlum);
+            mostrarListaAlumnos(archStruct);
+            cargaAlumnosNoSobreesc(archStruct);
             break;
         case 7:
             // 7- Crear una función que pase a una pila los números de legajo de los alumnos mayores de edad.
-            mostrarListaAlumnos(archAlum);
-            pasarAPilaLegajosMayEdad(archAlum, &p);
+            mostrarListaAlumnos(archStruct);
+            pasarAPilaLegajosMayEdad(archStruct, &p);
             break;
         case 8:
             // 8- Dado un archivo de alumnos, hacer una función que cuente la cantidad de alumnos mayores a edad específica que se envía por parámetro.
-            mostrarListaAlumnos(archAlum);
+            mostrarListaAlumnos(archStruct);
             printf("Ingrese una edad a buscar: ");
             checkNum(&buscado);
-            sumarMayoresAedadBuscada(archAlum, buscado);
+            sumarMayoresAedadBuscada(archStruct, buscado);
         case 9:
             // 9- Dado un archivo de alumnos, mostrar por pantalla el nombre de todos los alumnos entre un rango de edades específico (por ejemplo, entre 17 y 25 años). Dicho rango debe recibirse por parámetro. Modularizar
             while (num <= 0)
@@ -204,17 +204,17 @@ int main()
                 printf("Por favor ingrese num 2 (mayor al primero): ");
                 checkNum(&num2);
             }
-            mostrarPorRangoEdad(archAlum, num, num2);
+            mostrarPorRangoEdad(archStruct, num, num2);
             break;
         case 10:
             // 10- Dado un archivo de alumnos, mostrar los datos del alumno de mayor edad. Modularizar.
-            mostrarAluMayorEdad(archAlum);
+            mostrarAluMayorEdad(archStruct);
             break;
         case 11:
             // 11- Crear una función que retorne la cantidad de alumnos que cursan un determinado año. El año buscado se pasa por parámetro.
             printf("Ingrese anio a buscar: ");
             checkNum(&num);
-            num2 = mostrarCantAlumnosCursandoXanio(archAlum, num);
+            num2 = mostrarCantAlumnosCursandoXanio(archStruct, num);
             if (num2 > 0)
             {
                 printf("Cantidad de alumnos cursando ese anio: %i", num2);
@@ -228,7 +228,8 @@ int main()
             break;
         case 13:
             // 13-Crear una función que retorne la cantidad de registros que tiene el archivo. Usar fseek y ftell. Puede pensar la función para uso genérico, que sirva para averiguar la cantidad de registros de cualquier archivo.
-            num = cantRegGenerico(archAlum, sizeof(stAlumno));
+           
+            num = cantRegGenerico(archStruct, sizeof(stAlumno));
             printf("%i", num);
             break;
         case 14:
@@ -316,12 +317,12 @@ void cargarINTalFinal(char nomArch[])
 }
 
 // muestra un archivo de numeros
-void mostrarArchivoNumeros(char archAlum[TAM_MAX])
+void mostrarArchivoNumeros(char archStruct[TAM_MAX])
 {
     int num;
     int i = 0;
     FILE *fp;
-    fp = fopen(archAlum, "rb");
+    fp = fopen(archStruct, "rb");
     if (fp != NULL)
     {
         while ((fread(&num, sizeof(int), 1, fp)) > 0)
@@ -388,13 +389,13 @@ void cargarAlumno(stAlumno *a)
 }
 
 // carga una lista de alumnos y sobreescribe
-void cargarListaAlumnosYsobreesc(char archAlum[TAM_MAX])
+void cargarListaAlumnosYsobreesc(char archStruct[TAM_MAX])
 {
     FILE *fp;
     char continuar;
     int validos = 0;
     stAlumno alumnoNuevo;
-    fp = fopen(archAlum, "wb");
+    fp = fopen(archStruct, "wb");
     if (fp != NULL)
     {
 
@@ -419,13 +420,13 @@ void cargarListaAlumnosYsobreesc(char archAlum[TAM_MAX])
 }
 
 // carga una lista de alumnos sin sobreescribir
-void cargarListaAlumnos(char archAlum[TAM_MAX])
+void cargarListaAlumnos(char archStruct[TAM_MAX])
 {
     FILE *fp;
     char continuar;
     int validos = 0;
     stAlumno alumnoNuevo;
-    fp = fopen(archAlum, "ab");
+    fp = fopen(archStruct, "ab");
 
     if (fp != NULL)
     {
@@ -455,12 +456,12 @@ void mostrarAlumno(stAlumno a)
 }
 
 // muestra la lista de alumnos
-void mostrarListaAlumnos(char archAlum[TAM_MAX])
+void mostrarListaAlumnos(char archStruct[TAM_MAX])
 {
     FILE *fp;
     stAlumno al;
 
-    fp = fopen(archAlum, "rb");
+    fp = fopen(archStruct, "rb");
     if (fp != NULL)
     {
         while ((fread(&al, sizeof(stAlumno), 1, fp)) > 0)
@@ -473,11 +474,11 @@ void mostrarListaAlumnos(char archAlum[TAM_MAX])
 }
 
 // carga alumnos a un archivo sin sobreescribir
-void cargaAlumnosNoSobreesc(char archAlum[TAM_MAX])
+void cargaAlumnosNoSobreesc(char archStruct[TAM_MAX])
 {
     FILE *fp;
     stAlumno al;
-    fp = fopen(archAlum, "ab");
+    fp = fopen(archStruct, "ab");
     if (fp != NULL)
     {
         cargarAlumno(&al);
@@ -491,11 +492,11 @@ void cargaAlumnosNoSobreesc(char archAlum[TAM_MAX])
 }
 
 // devuelve la cantidad de structs dentro de un archivo
-int cantRegistrosStructs(char archAlum[TAM_MAX])
+int cantRegistrosStructs(char archStruct[TAM_MAX])
 {
     int cantidad = 0;
     FILE *buffer;
-    buffer = fopen(archAlum, "rb");
+    buffer = fopen(archStruct, "rb");
     if (buffer != NULL)
     {
         fseek(buffer, 0, SEEK_END);
@@ -509,10 +510,10 @@ int cantRegistrosStructs(char archAlum[TAM_MAX])
     return cantidad;
 }
 
-void pasarAPilaLegajosMayEdad(char archAlum[TAM_MAX], Pila *p)
+void pasarAPilaLegajosMayEdad(char archStruct[TAM_MAX], Pila *p)
 {
     FILE *fp;
-    fp = fopen(archAlum, "rb");
+    fp = fopen(archStruct, "rb");
     stAlumno al;
     if (fp != NULL)
     {
@@ -537,11 +538,11 @@ void pasarAPilaLegajosMayEdad(char archAlum[TAM_MAX], Pila *p)
     }
 }
 
-void sumarMayoresAedadBuscada(char archAlum[], int buscado)
+void sumarMayoresAedadBuscada(char archStruct[], int buscado)
 {
     int suma = 0;
     FILE *fp;
-    fp = fopen(archAlum, "rb");
+    fp = fopen(archStruct, "rb");
     stAlumno al;
 
     if (fp != NULL)
@@ -559,10 +560,10 @@ void sumarMayoresAedadBuscada(char archAlum[], int buscado)
     }
 }
 
-void mostrarPorRangoEdad(char archAlum[TAM_MAX], int num1, int num2)
+void mostrarPorRangoEdad(char archStruct[TAM_MAX], int num1, int num2)
 {
     FILE *fp;
-    fp = fopen(archAlum, "rb");
+    fp = fopen(archStruct, "rb");
     stAlumno al;
     int i = 0;
 
@@ -586,13 +587,13 @@ void mostrarPorRangoEdad(char archAlum[TAM_MAX], int num1, int num2)
     }
 }
 
-int buscarAlumnoPorEdadYmostrar(char archAlum[TAM_MAX], int edad)
+int buscarAlumnoPorEdadYmostrar(char archStruct[TAM_MAX], int edad)
 {
     FILE *fp;
     stAlumno al;
     int encontrado = -1, i = 0;
 
-    fp = fopen(archAlum, "rb");
+    fp = fopen(archStruct, "rb");
     if (fp != NULL)
     {
         while ((fread(&al, sizeof(stAlumno), 1, fp)) > 0)
@@ -610,11 +611,11 @@ int buscarAlumnoPorEdadYmostrar(char archAlum[TAM_MAX], int edad)
     return encontrado;
 }
 
-void mostrarAluMayorEdad(char archAlum[TAM_MAX])
+void mostrarAluMayorEdad(char archStruct[TAM_MAX])
 {
     FILE *fp;
     stAlumno al;
-    fp = fopen(archAlum, "rb");
+    fp = fopen(archStruct, "rb");
     int i = 0, mayorEdad = 0;
 
     if (fp != NULL)
@@ -634,19 +635,19 @@ void mostrarAluMayorEdad(char archAlum[TAM_MAX])
         }
 
         printf("Alumno con la mayor edad: ");
-        buscarAlumnoPorEdadYmostrar(archAlum, mayorEdad);
+        buscarAlumnoPorEdadYmostrar(archStruct, mayorEdad);
 
         fclose(fp);
     }
 }
 
-int mostrarCantAlumnosCursandoXanio(char archAlum[TAM_MAX], int anioBuscado)
+int mostrarCantAlumnosCursandoXanio(char archStruct[TAM_MAX], int anioBuscado)
 {
     FILE *fp;
     stAlumno al;
     int i = 0;
 
-    fp = fopen(archAlum, "rb ");
+    fp = fopen(archStruct, "rb ");
     if (fp != NULL)
     {
         while ((fread(&al, sizeof(stAlumno), 1, fp)) > 0)

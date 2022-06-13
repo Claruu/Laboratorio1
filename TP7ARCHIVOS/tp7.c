@@ -100,6 +100,7 @@ int mostrarCantAlumnosCursandoXanio(char[], int);
 
 // Asimismo, realice otra función que pase los elementos del archivo a un arreglo de alumnos, filtrando los estudiantes de un año en particular.
 
+// 13-Crear una función que retorne la cantidad de registros que tiene el archivo. Usar fseek y ftell. Puede pensar la función para uso genérico, que sirva para averiguar la cantidad de registros de cualquier archivo.
 int cantRegGenerico(char[], int);
 
 int main()
@@ -228,8 +229,17 @@ int main()
             break;
         case 13:
             // 13-Crear una función que retorne la cantidad de registros que tiene el archivo. Usar fseek y ftell. Puede pensar la función para uso genérico, que sirva para averiguar la cantidad de registros de cualquier archivo.
-           
-            num = cantRegGenerico(archStruct, sizeof(stAlumno));
+            printf("Queres saber la cantidad de reg de un archivo de enteros o de struct?\n1-Archivos.\n2-Int\nIngrese la opcion: ");
+            fflush(stdin);
+            scanf("%d", &opcion);
+            if (opcion == 1)
+            {
+                num = cantRegGenerico(archStruct, sizeof(stAlumno));
+            }
+            else
+            {
+                num = cantRegGenerico(archInt, sizeof(int));
+            }
             printf("%i", num);
             break;
         case 14:
@@ -455,7 +465,7 @@ void mostrarAlumno(stAlumno a)
     printf("Anio del alumno: %i\n", a.anio);
 }
 
-// muestra la lista de alumnos
+// muestra la lista de alumnosS
 void mostrarListaAlumnos(char archStruct[TAM_MAX])
 {
     FILE *fp;

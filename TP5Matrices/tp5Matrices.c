@@ -3,8 +3,9 @@
 #include <time.h>
 #include <string.h>
 
-#define FIL 6
-#define COL 4
+#define FIL 2
+#define COL2 2
+#define COL 5
 #define FILSTRING 5
 #define COLSTRING 400
 
@@ -42,26 +43,32 @@ int buscarEnString(char[][COLSTRING], int, char[]);
 
 // 10- Hacer una función que determine si un string se encuentra dentro de un arreglo de strings ordenado alfabéticamente. La función recibe el arreglo, la cantidad de palabras que contiene y el string a buscar.  ///devuelve el índice de la fila en que se encuentra, de lo contrario -1
 int buscarEnStringOrdenado(char[][COLSTRING], int, char[]);
-// funciones ayuda Ejercicio 10
-void insertarOrdenado(char[][COLSTRING], char[], int);
-void cargarOrdenado(char[][COLSTRING], char[], int *);
 
 // 11- Hacer una función (o varias) que ordene un arreglo de palabras por orden alfabético. (Por selección o inserción, el que más te guste).
+void insertarOrdenado(char[][COLSTRING], char[], int);
+void cargarOrdenado(char[][COLSTRING], int *);
 
 // 12- Hacer una función que retorne el determinante de una matriz de 2x2.
+int determinante(int[FIL][COL]);
 
 // 13- Función que verifique si una matriz de 2x2 tiene inversa.
+void inversa(int[][COL]);
 
 // 14- Hacer una función que multiplique una matriz de 2x2 por una matriz de 2x5.
+void multiplicar(int[][2], int[][COL], int[][COL]);
 
 // 15- Hacer una función que calcule la matriz inversa de una matriz de 2x2.
 
 int main()
 {
     int matriz[FIL][COL];
+    int matriz1[2][2];
+    int matriz2[FIL][COL];
+    int matrizResultado[FIL][COL];
+
     int validosC;
     int validosF;
-    int opcion = 0, suma = 0, numero = -1, validos;
+    int opcion = 0, suma = 0, numero = -1, validos, resultado;
     char continuar;
     char arrayStrings[FILSTRING][COLSTRING];
     char buscado[COLSTRING];
@@ -136,7 +143,7 @@ int main()
             }
             break;
         case 10:
-            cargarOrdenado(arrayStrings, elemento, &validos);
+            cargarOrdenado(arrayStrings, &validos);
             mostrarStrings(arrayStrings, validos);
             printf("Por favor ingrese un string a buscar en el array: ");
             fflush(stdin);
@@ -153,6 +160,27 @@ int main()
                 printf("Su string buscado era: %s\n", arrayStrings[numero]);
             }
             break;
+        case 11:
+            cargarOrdenado(arrayStrings, &validos);
+            mostrarStrings(arrayStrings, validos);
+
+            break;
+        case 12:
+            cargaMatriz(matriz, &validosF, &validosC);
+            resultado = determinante(matriz);
+            printf("Determinante: %i\n", resultado);
+            break;
+        case 13:
+            cargaMatrizConRan(matriz);
+            inversa(matriz);
+            break;
+        case 14:
+
+            cargaCompletaMatriz(matriz2);
+
+            multiplicar(matriz1, matriz2, matrizResultado);
+            muestraMatriz(matrizResultado, 2, 5);
+            break;
         case 15:
             printf("Carga y muestra de matriz comunmente.\n");
             cargaMatriz(matriz, &validosF, &validosC);
@@ -168,7 +196,6 @@ int main()
         scanf("%c", &continuar);
         system("cls");
     } while (continuar == 's' || continuar == 'S');
-
     return 0;
 }
 
@@ -186,6 +213,8 @@ int mostrarOpciones()
     printf("Opcion 8: Muestra de strings.\n");
     printf("Opcion 9: Busqueda en un array de strings.\n");
     printf("Opcion 10: Busqueda en un array de strings ordenado.\n");
+    printf("Opcion 11: Ordenacion de un array de char.\n");
+    printf("Opcion 11: Determinante de una matriz.\n");
     printf("Opcion 15: Carga de matriz extra.\n");
     printf("\tIngrese la opcion a elegir (entre 1 y 15): ");
     fflush(stdin);
@@ -383,8 +412,9 @@ void insertarOrdenado(char arrayStrings[][COLSTRING], char elemento[], int valid
     strcpy(arrayStrings[i + 1], elemento);
 }
 
-void cargarOrdenado(char arrayStrings[][COLSTRING], char elemento[], int *validos)
+void cargarOrdenado(char arrayStrings[][COLSTRING], int *validos)
 {
+    char elemento[COLSTRING];
     char continuar;
     int i = 0;
     do
@@ -439,4 +469,70 @@ int buscarEnStringOrdenado(char arrayStrings[][COLSTRING], int validos, char bus
     }
 
     return buscador;
+}
+
+int determinante(int matriz[FIL][COL])
+{
+    int diagPrinc = 1, diagSecu = 1, resultadoFinal;
+
+    for (int i = 0; i < FIL; i++)
+    {
+        for (int j = 0; j < COL; j++)
+        {
+            if (i == j)
+            {
+                diagPrinc *= matriz[i][j];
+            }
+            else
+                diagSecu *= matriz[i][j];
+        }
+    }
+
+    return resultadoFinal = diagPrinc - diagSecu;
+}
+void inversa(int matriz[][COL])
+{
+    if (determinante(matriz) == 0)
+    {
+        printf("Su matriz no tiene inversa.\n");
+    }
+    else
+        printf("Su matriz tiene inversa. \n");
+}
+
+void multiplicar(int matriz1[][2], int matriz2[][COL], int matrizResultado[][COL])
+{
+    int i = 0, j = 0;
+    int almacenamiento = 0;
+
+    for (i = 0; i < 2; i++)
+    {
+        for (j = 0; j < 2; j++)
+        {
+            printf("matriz[%i][%i]: ", i, j);
+            scanf("%i", &matriz1[i][j]);
+        }
+    }
+
+    for (int b = 0; b < 2; b++)
+    {
+        for (int c = 0; c < 2; c++)
+        {
+            printf("[%i]", matriz1[b][c]);
+        }
+        printf("\n");
+    }
+
+    muestraMatrizCompleta(matriz2);
+
+    for (i = 0; i < FIL; i++)
+    {
+        for (j = 0; j < 2; j++)
+        {
+            almacenamiento += matriz1[i][j] * matriz2[j][i];
+        }
+
+        matrizResultado[i][j] = almacenamiento;
+    }
+    muestraMatrizCompleta(matrizResultado);
 }

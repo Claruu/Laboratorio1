@@ -1,3 +1,35 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include ".\Librerias\pila.c"
+//
+void apilarPares(Pila, Pila, Pila *);
+
+int main()
+{
+    Pila p1;
+    Pila p2;
+    Pila p3;
+    inicpila(&p1);
+    inicpila(&p2);
+    inicpila(&p3);
+    //     p1 base 3 4 6 tope
+
+    // p2 base 1 4 4 4 tope
+    apilar(&p1, 3);
+    apilar(&p1, 4);
+    apilar(&p1, 6);
+    apilar(&p2, 1);
+    apilar(&p2, 4);
+    apilar(&p2, 4);
+    apilar(&p2, 4);
+
+    apilarPares(p1, p2, &p3);
+
+    mostrar(&p3);
+    system("pause");
+    return 0;
+}
+
 void apilarPares(Pila p1, Pila p2, Pila *p3)
 
 {
@@ -22,7 +54,7 @@ void apilarPares(Pila p1, Pila p2, Pila *p3)
         apilar(&aux2, desapilar(&p2));
     }
 
-    if ((pilavacia(&p1)) * (pilavacia(&p2))) // si uno está vacío pero el otro no, quedan elementos en uno.
+    if ((pilavacia(&p1)) ^ (pilavacia(&p2))) // si uno está vacío pero el otro no, quedan elementos en uno.
     {
         while (!pilavacia(&p1))
         {

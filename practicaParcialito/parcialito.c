@@ -19,7 +19,7 @@ int main()
     FILE fp;
     char nombArch[TAM_MAX] = {"datos.bin"};
     int rango;
-    int validos = 0, respuesta = 0, respuesta2 = 0, respuesta3 = 0;
+    int validos = 0, respuesta = -1, respuesta2 = -1, respuesta3 = -1;
 
     int puntaje[TAM_MAX][TAM_MAX];
     char jugadores[TAM_MAX][TAM_MAX];
@@ -27,26 +27,30 @@ int main()
     lecturaArchivoYmuestraMatrices(jugadores, puntaje, &rango, nombArch);
 
     respuesta = contarLetrasJugadores(jugadores, rango);
-    if (respuesta == 1)
-    {
-        printf("El jugador A es el mas predominante.\n");
-    }
-    else
-    {
-        printf("El jugador B es el mas predominante.\n");
-    }
 
-    respuesta2 = contarPuntosJugadores(jugadores, puntaje, rango);
-    if (respuesta2 == 1)
+    if (respuesta != -1 || respuesta2 != -1 || respuesta3 != -1)
     {
-        printf("\nEl jugador A es el con mas puntos.\n");
+        if (respuesta == 1)
+        {
+            printf("El jugador A es el mas predominante.\n");
+        }
+        else
+        {
+            printf("El jugador B es el mas predominante.\n");
+        }
+
+        respuesta2 = contarPuntosJugadores(jugadores, puntaje, rango);
+        if (respuesta2 == 1)
+        {
+            printf("\nEl jugador A es el con mas puntos.\n");
+        }
+        else
+        {
+            printf("\nEl jugador B es el con mas puntos.\n");
+        }
+        respuesta3 = cantColumnasUnSoloJugador(jugadores, puntaje, rango);
+        printf("\nLa cantidad de columnas iguales es %i\n", respuesta3);
     }
-    else
-    {
-        printf("\nEl jugador B es el con mas puntos.\n");
-    }
-    respuesta3 = cantColumnasUnSoloJugador(jugadores, puntaje, rango);
-    printf("\nLa cantidad de columnas iguales es %i\n", respuesta3);
 
     system("pause");
     return 0;
@@ -81,8 +85,10 @@ void lecturaArchivoYmuestraMatrices(char jugadores[][TAM_MAX], int puntaje[][TAM
             }
             printf("\n");
         }
+        fclose(fp);
     }
-    fclose(fp);
+    else
+        printf("Error. No se ha podido abrir el archivo.");
 }
 
 // Jugador más predominante en el juego, es decir, el que aparece en la mayoría de las casillas.

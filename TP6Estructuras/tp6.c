@@ -132,7 +132,7 @@ int main()
             printf("Ingrese el genero de los alumnos que desea ver: ");
             fflush(stdin);
             scanf("%c", &generoBuscado);
-            if (generoBuscado != 'f' && generoBuscado != 'm' && generoBuscado != 'o')
+            while (generoBuscado != 'f' && generoBuscado != 'm' && generoBuscado != 'o')
             {
                 printf("Por favor vuelva a ingresar el genero a buscar: ");
                 fflush(stdin);
@@ -210,7 +210,7 @@ void cargaUnaPersona(stAlumno *alumno)
 {
     fflush(stdin);
     printf("Ingrese numero de Matricula: ");
-    checkNumYcarga(&(alumno)->matricula);
+    scanf("%i", &alumno->matricula);
     printf("Ingrese nombre del alumno: ");
     fflush(stdin);
     gets((*alumno).nombre);

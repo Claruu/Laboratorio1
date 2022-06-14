@@ -352,7 +352,7 @@ void mostrarArchivoNumeros(char archStruct[TAM_MAX])
 int cantRegistrosInt(char archInt[TAM_MAX])
 {
 
-    int cantidad = 0, num;
+    int cantidad = 0;
     FILE *buffer;
     buffer = fopen(archInt, "rb");
     if (buffer != NULL)

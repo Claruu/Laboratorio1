@@ -1,0 +1,33 @@
+# depslib dependency file v1.0
+1654926087 source:c:\users\clara\onedrive\1\laboratorio1\tp7archivos\hola.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1651506109 source:c:\users\clara\onedrive\1\laboratorio1\tp7archivos\librerias\pila.c
+	"pila.h"
+
+1651506111 c:\users\clara\onedrive\1\laboratorio1\tp7archivos\librerias\pila.h
+	<stdio.h>
+	<malloc.h>
+
+1655054759 source:c:\users\clara\onedrive\1\laboratorio1\tp7archivos\parcial.c
+	<stdio.h>
+	<stdlib.h>
+	".\Librerias\pila.c"
+
+1651506109 c:\users\clara\onedrive\1\laboratorio1\tp7archivos\librerias\pila.c
+	"pila.h"
+
+1654884181 source:c:\users\clara\onedrive\1\laboratorio1\tp7archivos\tempcoderunnerfile.c
+
+1655834789 source:c:\users\clara\onedrive\1\laboratorio1\tp7archivos\tp7.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"Librerias\pila.c"
+
+1655870315 source:c:\users\clara\onedrive\1\laboratorio1\tp7archivos\tppp\main.c
+	<stdio.h>
+	<stdlib.h>
+

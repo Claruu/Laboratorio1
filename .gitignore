@@ -1,8 +1,10 @@
 *.exe
 *.cbp
 *.layout
-tempCodeRunnerFile.c
-.txt
-.o
-\CodigoClases
+*tempCodeRunnerFile.c
+*.txt
+*.o
+*\CodigoClases
+*.pdf
+
 .gitignore

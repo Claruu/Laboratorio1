@@ -154,7 +154,7 @@ int main()
         mostrarArregloChar(charray, validos);
         printf("Por favor ingrese un valor al array ordenado: ");
         fflush(stdin);
-        scanf("%c", arregloUno[validos]);
+        scanf("%c", &arregloUno[validos]);
         validos++;
         ordenar(charray, validos, (*arregloUno));
         mostrarArregloChar(charray, validos);
@@ -209,7 +209,7 @@ int main()
     }
     // } while (opcion > 0 && opcion <= 15);
 
-    // system("pause");
+    system("pause");
     return 0;
 }
 
@@ -244,7 +244,7 @@ void cargaArreglo(int array[], int *validos)
         scanf("%c", &continuar);
         indice++;
     } while ((continuar == 's' || continuar == 'S') && (indice < TAM_MAX));
-    *validos = indice;
+    (*validos) = indice;
 }
 
 void mostrarArreglo(int array[TAM_MAX], int validos)

@@ -1,0 +1,16 @@
+# depslib dependency file v1.0
+1661956967 source:c:\users\clara\onedrive\1\laboratorio1\tp4arrays\ejercicios.c
+	<stdio.h>
+	<stdlib.h>
+	"Librerias\pila.h"
+
+1647879692 c:\users\clara\onedrive\1\laboratorio1\tp4arrays\librerias\pila.c
+	"pila.h"
+
+1490112217 c:\users\clara\onedrive\1\laboratorio1\tp4arrays\librerias\pila.h
+	<stdio.h>
+	<malloc.h>
+
+1647879692 source:c:\users\clara\onedrive\1\laboratorio1\tp4arrays\librerias\pila.c
+	"pila.h"
+
